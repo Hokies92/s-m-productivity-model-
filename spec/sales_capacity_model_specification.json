@@ -1,0 +1,759 @@
+{
+  "model_metadata": {
+    "name": "Sales Capacity Model",
+    "version": "2.0",
+    "original_creation_date": "2000",
+    "audit_date": "2003",
+    "auditor": "Ernst & Young",
+    "documentation_date": "2026",
+    "subtitle": "A Cognitive-Temporal Throughput Model for Sales Effectiveness"
+  },
+  "foundational_premise": {
+    "core_assertion": "Sales capacity is not labor hours. It is cognitive bandwidth constrained by time.",
+    "conventional_assumption": {
+      "description": "Capacity equals labor",
+      "implication": "Linear scaling - double the reps, double the output",
+      "validity": "Empirically false"
+    },
+    "failure_reason": "The constraint on sales output is not hours available. It is attention deployable.",
+    "two_ceilings": {
+      "ceiling_1": {
+        "name": "Cognitive Load Limit",
+        "description": "A human can only hold so many complex situations in active memory simultaneously",
+        "nature": "Fixed by cognitive architecture, not by effort or motivation",
+        "implication": "Working harder does not expand this ceiling"
+      },
+      "ceiling_2": {
+        "name": "Resolution Time",
+        "description": "Deals take elapsed time to close",
+        "nature": "Primarily the customer's decision process duration, not the seller's time",
+        "implication": "The seller cannot unilaterally accelerate this without degrading conversion quality"
+      }
+    },
+    "fundamental_equation": {
+      "formula": "Capacity = Cognitive Load Limit × Time Velocity",
+      "components": {
+        "cognitive_load_limit": "Maximum opportunities a rep can simultaneously track, understand, and advance",
+        "time_velocity": "Number of times per year that cognitive inventory turns over (12 ÷ sales cycle months)"
+      }
+    }
+  },
+  "ontology": {
+    "key_distinction": "This model uses familiar sales terminology with non-standard definitions",
+    "territory_headcount_separation": {
+      "conventional_model": "Territory = Headcount = Capacity",
+      "this_model": "Territory ≠ Headcount ≠ Capacity"
+    },
+    "terms": {
+      "capacity": {
+        "conventional_meaning": "Headcount or quota coverage",
+        "model_meaning": "Cognitive bandwidth × time availability"
+      },
+      "territory": {
+        "conventional_meaning": "Geographic or account assignment",
+        "model_meaning": "A workload container independent of the person assigned"
+      },
+      "rep": {
+        "conventional_meaning": "Labor cost unit",
+        "model_meaning": "A processing system with cognitive constraints"
+      },
+      "time": {
+        "conventional_meaning": "Calendar duration (weeks to close)",
+        "model_meaning": "A finite resource that bounds throughput"
+      },
+      "quota": {
+        "conventional_meaning": "Revenue target to hit",
+        "model_meaning": "Output expectation (may or may not align with capacity physics)"
+      },
+      "leads": {
+        "conventional_meaning": "Inputs to the sales process",
+        "model_meaning": "Not in this model - constraint is processing capacity, not input volume"
+      }
+    },
+    "leads_exclusion_rationale": {
+      "reason": "Output is constrained by processing capacity, not input volume",
+      "example": "If a rep can hold 30 opportunities and cycle is 6 months, max is 60/year regardless of lead volume",
+      "excess_leads_outcomes": [
+        "Get ignored (waste)",
+        "Get worked poorly, degrading close rate",
+        "Create cognitive overload, extending cycle time"
+      ],
+      "conclusion": "More leads hit a ceiling that is already in this model"
+    }
+  },
+  "mathematical_framework": {
+    "throughput_chain": {
+      "step_1": {
+        "name": "Maximum Opportunities Per Year",
+        "formula": "Max_Opportunities = Manageable_Opportunities × (12 ÷ Sales_Cycle_Months)",
+        "example": {
+          "calculation": "30 × (12 ÷ 6) = 60",
+          "result": "60 opportunities/year"
+        },
+        "logic": "Cognitive capacity multiplied by inventory turns per year"
+      },
+      "step_2": {
+        "name": "Deals Closed Per Year",
+        "formula": "Deals_Closed = Max_Opportunities × Close_Rate",
+        "example": {
+          "calculation": "60 × 0.25 = 15",
+          "result": "15 deals/year per rep"
+        },
+        "logic": "Throughput capacity filtered by conversion quality"
+      },
+      "step_3": {
+        "name": "Revenue Per Rep",
+        "formula": "Revenue_Per_Rep = Deals_Closed × Avg_Deal_Size",
+        "example": {
+          "calculation": "15 × $75,000 = $1,125,000",
+          "result": "$1,125,000/year"
+        },
+        "logic": "Deals converted to revenue at average transaction value"
+      },
+      "step_4": {
+        "name": "Total Revenue",
+        "formula": "Total_Revenue = Revenue_Per_Rep × Number_of_Territories",
+        "example": {
+          "calculation": "$1,125,000 × 100 = $112,500,000",
+          "result": "$112,500,000"
+        },
+        "logic": "Per-rep output scaled by number of parallel processors (territories)"
+      },
+      "step_5": {
+        "name": "Total Cost Per Rep",
+        "formula": "Cost_Per_Rep = Fully_Loaded_Salary + Travel_Costs + (Revenue_Per_Rep × Commission_Rate)",
+        "example": {
+          "calculation": "$87,750 + $47,500 + ($1,125,000 × 0.08) = $225,250",
+          "result": "$225,250"
+        },
+        "logic": "Fixed costs plus variable (commission tied to revenue produced)"
+      }
+    },
+    "four_levers": {
+      "lever_1": {
+        "name": "Decrease Cycle Time",
+        "what_it_changes": "Time velocity (12 ÷ months)",
+        "mathematical_effect": "Increases opportunities per year",
+        "constraint_type": "Removes temporal bottleneck",
+        "cost_behavior": "Does not proportionally increase cost"
+      },
+      "lever_2": {
+        "name": "Increase Close Rate",
+        "what_it_changes": "Conversion yield",
+        "mathematical_effect": "More deals from same opportunities",
+        "constraint_type": "Improves throughput quality",
+        "cost_behavior": "Does not proportionally increase cost"
+      },
+      "lever_3": {
+        "name": "Increase Deal Size",
+        "what_it_changes": "Revenue per conversion",
+        "mathematical_effect": "More value per closed deal",
+        "constraint_type": "Increases value density",
+        "cost_behavior": "Does not proportionally increase cost"
+      },
+      "lever_4": {
+        "name": "Add Territories",
+        "what_it_changes": "Parallel processors",
+        "mathematical_effect": "Linear scale",
+        "constraint_type": "Adds parallel capacity",
+        "cost_behavior": "Costs scale linearly with output"
+      }
+    },
+    "critical_observation": "The first three levers improve output without proportionally increasing cost. The fourth lever increases both output and cost linearly. Quality-based levers outperform quantity-based levers on margin."
+  },
+  "worksheets": {
+    "worksheet_1_data_entry": {
+      "purpose": "Captures the baseline state of the sales organization. All values entered here flow through to subsequent worksheets as inputs for calculations.",
+      "input_categories": {
+        "individual_sales_rep_data": {
+          "number_of_territories": {
+            "description": "Count of open territories (not headcount)",
+            "default_value": 100,
+            "cell_reference": "E8",
+            "unit": "count"
+          },
+          "average_revenue_per_transaction": {
+            "description": "Mean deal size",
+            "default_value": 75000,
+            "cell_reference": "E10",
+            "unit": "dollars"
+          },
+          "average_fully_loaded_salary": {
+            "description": "Base salary × (1 + corporate load rate)",
+            "default_value": 116850,
+            "cell_reference": "E14",
+            "unit": "dollars/year",
+            "sub_inputs": {
+              "base_salary": {
+                "default_value": 95000,
+                "cell_reference": "E15"
+              },
+              "corporate_load_rate": {
+                "default_value": 0.23,
+                "cell_reference": "E16"
+              }
+            },
+            "formula": "Base_Salary × (1 + Load_Rate)",
+            "example_calculation": "$95,000 × (1 + 0.23) = $116,850"
+          },
+          "average_travel_costs_per_rep": {
+            "description": "Annual travel expense per rep",
+            "default_value": 47500,
+            "cell_reference": "E18",
+            "unit": "dollars/year",
+            "formula": "(Airfare + Ground_Transport + (Meals × Days) + (Lodging × Days) + Entertainment) × Trips_Per_Year",
+            "sub_inputs": {
+              "airfare": {"default_value": 750},
+              "ground_transport": {"default_value": 200},
+              "meals_per_day": {"default_value": 100},
+              "lodging_per_night": {"default_value": 250},
+              "days_per_trip": {"default_value": 2},
+              "entertainment_per_trip": {"default_value": 250},
+              "trips_per_year": {"default_value": 25}
+            },
+            "example_calculation": "($750 + $200 + ($100 × 2) + ($250 × 2) + $250) × 25 = $47,500"
+          },
+          "commission_rate": {
+            "description": "Percentage of revenue paid as commission",
+            "default_value": 0.08,
+            "cell_reference": "E27",
+            "unit": "percentage"
+          }
+        },
+        "sales_mechanics": {
+          "manageable_opportunities": {
+            "description": "Cognitive load limit - number of opportunities a rep can effectively manage simultaneously",
+            "default_value": 30,
+            "cell_reference": "E30",
+            "unit": "count"
+          },
+          "sales_cycle_length": {
+            "description": "Average time from first meeting to close",
+            "default_value": 6,
+            "cell_reference": "E32",
+            "unit": "months"
+          },
+          "sales_ramp_up_time": {
+            "description": "Time for new rep to reach full productivity",
+            "default_value": 12,
+            "cell_reference": "E34",
+            "unit": "months",
+            "note": "Present in model but not currently integrated into throughput calculation"
+          },
+          "close_rate": {
+            "description": "Percentage of worked opportunities that convert",
+            "default_value": 0.25,
+            "cell_reference": "E36",
+            "unit": "percentage"
+          }
+        },
+        "overhead_and_marketing": {
+          "sales_overhead_costs": {
+            "description": "Sum of non-variable sales expenses",
+            "default_value": 10800000,
+            "cell_reference": "E40",
+            "unit": "dollars",
+            "sub_components": {
+              "non_quota_manager_salaries": {"default_value": 2750000},
+              "sales_engineers": {"default_value": 6000000},
+              "sales_admin": {"default_value": 800000},
+              "training_costs": {"default_value": 500000},
+              "incentive_costs": {"default_value": 750000}
+            }
+          },
+          "marketing_costs": {
+            "description": "Sum of all marketing investments",
+            "default_value": 3700000,
+            "cell_reference": "E47",
+            "unit": "dollars",
+            "sub_components": {
+              "marketing_personnel": {"default_value": 1000000},
+              "website": {"default_value": 250000},
+              "events": {"default_value": 500000},
+              "advertising": {"default_value": 500000},
+              "direct_mail": {"default_value": 250000},
+              "telemarketing": {"default_value": 250000},
+              "branding_pr": {"default_value": 200000},
+              "collateral": {"default_value": 750000}
+            }
+          },
+          "total_sales_and_marketing_costs": {
+            "description": "Overhead + Marketing",
+            "default_value": 14500000,
+            "cell_reference": "E38",
+            "unit": "dollars",
+            "formula": "Sales_Overhead_Costs + Marketing_Costs"
+          }
+        }
+      }
+    },
+    "worksheet_2_performance_breakdown": {
+      "purpose": "The analytical engine of the model. Computes throughput, applies scenario variations, and projects outcomes. This is where the cognitive-temporal capacity logic is executed.",
+      "structure": {
+        "column_B": {
+          "name": "Baseline",
+          "description": "Current state values from Data Entry"
+        },
+        "columns_D_G": {
+          "name": "Individual Scenarios",
+          "description": "Each lever tested independently at 10% improvement"
+        },
+        "columns_I_J": {
+          "name": "Combined Scenarios",
+          "description": "Multiple levers applied simultaneously"
+        }
+      },
+      "scenario_inputs": {
+        "row": 6,
+        "scenarios": {
+          "column_D": {
+            "name": "Hire more sales people",
+            "default_adjustment": 0.10,
+            "adjustment_direction": "increase"
+          },
+          "column_E": {
+            "name": "Increase close rate",
+            "default_adjustment": 0.10,
+            "adjustment_direction": "increase"
+          },
+          "column_F": {
+            "name": "Decrease sales cycle time",
+            "default_adjustment": 0.10,
+            "adjustment_direction": "decrease"
+          },
+          "column_G": {
+            "name": "Increase average revenue/transaction",
+            "default_adjustment": 0.10,
+            "adjustment_direction": "increase"
+          },
+          "column_I": {
+            "name": "Combined: Close + Deal Size + Cycle",
+            "default_adjustment": "per individual scenario"
+          },
+          "column_J": {
+            "name": "Improve all scenarios",
+            "default_adjustment": "all at 10%"
+          }
+        }
+      },
+      "core_calculations": {
+        "max_opportunities_per_year": {
+          "row": 20,
+          "formula": "Manageable_Opportunities × (12 / Sales_Cycle_Months)",
+          "baseline_result": 60,
+          "cycle_scenario_result": 66.67,
+          "significance": "Critical constraint equation. 10% cycle reduction (6 → 5.4 months) increases opportunities by 11.1%"
+        },
+        "deals_closed_per_year": {
+          "row": 21,
+          "formula": "Max_Opportunities × Close_Rate",
+          "baseline_result": 15,
+          "close_rate_scenario_result": 16.5
+        },
+        "revenue_per_rep": {
+          "row": 22,
+          "formula": "Deals_Closed × Avg_Deal_Size",
+          "baseline_result": 1125000,
+          "deal_size_scenario_result": 1237500
+        },
+        "commission": {
+          "row": 12,
+          "formula": "Revenue_Per_Rep × Commission_Rate",
+          "baseline_result": 90000,
+          "note": "Variable cost - higher revenue scenarios automatically increase commission costs"
+        },
+        "total_cost_per_rep": {
+          "row": 13,
+          "formula": "Fully_Loaded_Salary + Travel_Costs + Commission",
+          "baseline_result": 225250
+        },
+        "total_revenue": {
+          "row": 24,
+          "formula": "Revenue_Per_Rep × Number_of_Territories",
+          "baseline_result": 112500000
+        },
+        "total_sales_rep_costs": {
+          "row": 25,
+          "formula": "Cost_Per_Rep × Number_of_Territories",
+          "baseline_result": 22525000
+        }
+      }
+    },
+    "worksheet_3_impact_analysis": {
+      "purpose": "Translates throughput changes into income statement impact. Connects operational physics to financial outcomes.",
+      "sections": {
+        "revenue": {
+          "total_revenues": {
+            "row": 7,
+            "source": "Worksheet 2, Row 24",
+            "baseline": 112500000
+          },
+          "increase_from_base": {
+            "row": 8,
+            "formula": "Scenario_Revenue - Baseline_Revenue",
+            "example": {
+              "scenario": "Close Rate",
+              "calculation": "$123,750,000 - $112,500,000 = $11,250,000"
+            }
+          }
+        },
+        "costs": {
+          "increase_in_sales_costs": {
+            "row": 11,
+            "formula": "Scenario_Sales_Rep_Costs - Baseline_Sales_Rep_Costs",
+            "note": "Quality-lever scenarios show smaller cost increases than quantity-lever scenarios"
+          },
+          "total_sales_costs": {
+            "row": 12,
+            "formula": "Sales_Rep_Costs + Sales_Overhead_Costs",
+            "baseline": 33325000
+          },
+          "total_marketing_costs": {
+            "row": 13,
+            "baseline": 3700000
+          },
+          "total_sales_and_marketing_costs": {
+            "row": 14,
+            "formula": "Total_Sales_Costs + Marketing_Costs",
+            "baseline": 37025000
+          }
+        },
+        "operating_expenses": {
+          "cost_of_revenue": {
+            "row": 17,
+            "percentage_of_revenue": 0.1322,
+            "baseline": 14872500,
+            "source": "Industry average"
+          },
+          "research_and_development": {
+            "row": 18,
+            "percentage_of_revenue": 0.1019,
+            "baseline": 11463750,
+            "source": "Industry average"
+          },
+          "sales_and_marketing": {
+            "row": 19,
+            "calculation": "calculated from model",
+            "baseline": 37025000
+          },
+          "general_and_administrative": {
+            "row": 20,
+            "percentage_of_revenue": 0.154,
+            "baseline": 17325000,
+            "source": "Industry average"
+          },
+          "total_operating_expenses": {
+            "row": 21,
+            "formula": "Cost_of_Revenue + R&D + S&M + G&A",
+            "baseline": 80686250
+          },
+          "operating_income": {
+            "row": 22,
+            "formula": "Total_Revenue - Total_Operating_Expenses",
+            "baseline": 31813750
+          }
+        },
+        "metrics": {
+          "percentage_net_gain": {
+            "row": 25,
+            "formula": "(Scenario_Operating_Income - Baseline_Operating_Income) / Baseline_Operating_Income",
+            "significance": "Key comparison metric - shows which lever produces greatest margin improvement"
+          },
+          "sales_and_marketing_roi": {
+            "row": 26,
+            "formula": "Total_Revenue / Total_S&M_Costs",
+            "baseline": 3.04,
+            "interpretation": "Revenue dollars per S&M dollar spent"
+          }
+        }
+      }
+    },
+    "worksheet_4_scenario_diagnostics": {
+      "purpose": "Translates mathematical results into operational guidance. Identifies common obstacles that prevent organizations from achieving improvements in each lever.",
+      "key_insight": "Knowing which lever to pull is different from being able to pull it",
+      "structure_note": "Hire more sales people deliberately excluded - model demonstrates it's the least effective lever",
+      "diagnostics": {
+        "increase_close_rate": {
+          "obstacles": [
+            {
+              "number": 1,
+              "obstacle": "Sales people unable to have relevant dialog with key stakeholders",
+              "root_cause": "Lack of business context training; product-centric not outcome-centric"
+            },
+            {
+              "number": 2,
+              "obstacle": "Client does not understand proposed value",
+              "root_cause": "Feature-focused selling; failure to translate to client's context"
+            },
+            {
+              "number": 3,
+              "obstacle": "Product does not meet market needs",
+              "root_cause": "Solution built for one context applied to different contexts"
+            },
+            {
+              "number": 4,
+              "obstacle": "Out-positioned by competitor",
+              "root_cause": "Failure to influence requirements definition early in cycle"
+            },
+            {
+              "number": 5,
+              "obstacle": "No defensible business case",
+              "root_cause": "Economic justification not established; competing against other internal projects"
+            }
+          ]
+        },
+        "decrease_cycle_time": {
+          "obstacles": [
+            {
+              "number": 1,
+              "obstacle": "Lack of understanding for customer's problem-solving lifecycle",
+              "root_cause": "Seller's process misaligned with buyer's process"
+            },
+            {
+              "number": 2,
+              "obstacle": "Solution complexity is overwhelming",
+              "root_cause": "Client cannot see clear path from current state to future state"
+            },
+            {
+              "number": 3,
+              "obstacle": "Sponsor has difficulty selling internally",
+              "root_cause": "Champion not equipped with internal selling tools"
+            },
+            {
+              "number": 4,
+              "obstacle": "Client confusion about technology/approach/value",
+              "root_cause": "Jargon-driven selling; lack of clarity"
+            },
+            {
+              "number": 5,
+              "obstacle": "Client lacks urgency",
+              "root_cause": "No compelling event; unclear cost of inaction"
+            }
+          ]
+        },
+        "increase_revenue_per_transaction": {
+          "obstacles": [
+            {
+              "number": 1,
+              "obstacle": "Poor negotiation",
+              "root_cause": "Desperation at end of quarter; professional buyers exploit this"
+            },
+            {
+              "number": 2,
+              "obstacle": "Product features don't match perceived value",
+              "root_cause": "Features optimized for competitive checklist, not customer value"
+            },
+            {
+              "number": 3,
+              "obstacle": "Management desperation to close quarterly revenue",
+              "root_cause": "Inadequate pipeline management; late visibility into shortfalls"
+            },
+            {
+              "number": 4,
+              "obstacle": "Economic ROI not established",
+              "root_cause": "Failure to defend price with quantified value"
+            },
+            {
+              "number": 5,
+              "obstacle": "Pricing doesn't align to customer's value received",
+              "root_cause": "Pricing model disconnected from how customer realizes benefits"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "model_interconnections": {
+    "data_flow": {
+      "stage_1": {
+        "worksheet": "Data Entry",
+        "outputs": ["Territories", "Salary", "Travel", "Commission", "Mechanics", "Overhead", "Marketing"]
+      },
+      "stage_2": {
+        "worksheet": "Performance Breakdown",
+        "inputs_from": "Data Entry",
+        "process": "Applies capacity logic → Computes throughput → Projects by scenario",
+        "outputs": ["Revenue by scenario", "Costs by scenario"]
+      },
+      "stage_3": {
+        "worksheet": "Impact Analysis",
+        "inputs_from": "Performance Breakdown",
+        "process": "Translates to income statement → Computes operating income → Calculates ROI",
+        "outputs": ["Operating Income", "Net Gain %", "S&M ROI"]
+      },
+      "stage_4": {
+        "worksheet": "Scenario Diagnostics",
+        "inputs_from": "Impact Analysis results",
+        "process": "Interprets results → Identifies obstacles → Guides implementation",
+        "outputs": ["Operational guidance"]
+      }
+    },
+    "cell_references": {
+      "worksheet_1_to_2": [
+        {"source": "E8", "target": "B8", "description": "Number of territories baseline"},
+        {"source": "E10", "target": "B9", "description": "Average revenue per transaction"},
+        {"source": "E14", "target": "B10", "description": "Fully loaded salary"},
+        {"source": "E18", "target": "B11", "description": "Travel costs per rep"},
+        {"source": "E27", "target": "B12 calc", "description": "Commission rate"},
+        {"source": "E30", "target": "B15", "description": "Cognitive load limit"},
+        {"source": "E32", "target": "B16", "description": "Sales cycle months"},
+        {"source": "E36", "target": "B18", "description": "Conversion rate"}
+      ],
+      "worksheet_2_to_3": [
+        {"source": "Row 24", "target": "Row 7", "description": "Revenue by scenario"},
+        {"source": "Row 25", "target": "Row 12 calc", "description": "Sales rep costs by scenario"},
+        {"source": "Row 8", "target": "cost scaling", "description": "Territory count by scenario"}
+      ]
+    },
+    "calculation_dependencies": {
+      "order": [
+        {"step": 1, "calculation": "Fully loaded salary", "requires": ["base salary", "load rate"]},
+        {"step": 2, "calculation": "Travel costs", "requires": ["component costs", "trips/year"]},
+        {"step": 3, "calculation": "Max opportunities", "requires": ["manageable opps", "cycle length"]},
+        {"step": 4, "calculation": "Deals closed", "requires": ["max opps", "close rate"]},
+        {"step": 5, "calculation": "Revenue per rep", "requires": ["deals", "deal size"]},
+        {"step": 6, "calculation": "Commission", "requires": ["revenue per rep", "commission rate"]},
+        {"step": 7, "calculation": "Cost per rep", "requires": ["salary", "travel", "commission"]},
+        {"step": 8, "calculation": "Total revenue", "requires": ["revenue per rep", "territories"]},
+        {"step": 9, "calculation": "Total costs", "requires": ["cost per rep", "territories", "overhead"]},
+        {"step": 10, "calculation": "Operating income", "requires": ["revenue", "all costs"]}
+      ]
+    }
+  },
+  "formula_reference": {
+    "input_variables": [
+      {"variable": "Number of territories", "symbol": "T", "default": 100, "unit": "count"},
+      {"variable": "Average deal size", "symbol": "D", "default": 75000, "unit": "dollars"},
+      {"variable": "Base salary", "symbol": "S_base", "default": 95000, "unit": "dollars/year"},
+      {"variable": "Corporate load rate", "symbol": "L", "default": 0.23, "unit": "percentage"},
+      {"variable": "Travel cost per rep", "symbol": "V", "default": 47500, "unit": "dollars/year"},
+      {"variable": "Commission rate", "symbol": "C", "default": 0.08, "unit": "percentage"},
+      {"variable": "Manageable opportunities", "symbol": "M", "default": 30, "unit": "count"},
+      {"variable": "Sales cycle length", "symbol": "Y", "default": 6, "unit": "months"},
+      {"variable": "Close rate", "symbol": "R", "default": 0.25, "unit": "percentage"},
+      {"variable": "Sales overhead", "symbol": "O_s", "default": 10800000, "unit": "dollars"},
+      {"variable": "Marketing costs", "symbol": "O_m", "default": 3700000, "unit": "dollars"}
+    ],
+    "derived_variables": [
+      {"variable": "Fully loaded salary", "formula": "S = S_base × (1 + L)", "baseline_result": 116850},
+      {"variable": "Max opportunities/year", "formula": "MAX = M × (12 / Y)", "baseline_result": 60},
+      {"variable": "Deals closed/year", "formula": "DEALS = MAX × R", "baseline_result": 15},
+      {"variable": "Revenue per rep", "formula": "REV_rep = DEALS × D", "baseline_result": 1125000},
+      {"variable": "Commission per rep", "formula": "COMM = REV_rep × C", "baseline_result": 90000},
+      {"variable": "Cost per rep", "formula": "COST_rep = S + V + COMM", "baseline_result": 225250},
+      {"variable": "Total revenue", "formula": "REV_total = REV_rep × T", "baseline_result": 112500000},
+      {"variable": "Total rep costs", "formula": "COST_reps = COST_rep × T", "baseline_result": 22525000},
+      {"variable": "Total sales costs", "formula": "COST_sales = COST_reps + O_s", "baseline_result": 33325000},
+      {"variable": "Total S&M costs", "formula": "COST_sm = COST_sales + O_m", "baseline_result": 37025000}
+    ],
+    "scenario_formulas": [
+      {"scenario": "Add territories", "adjusted_variable": "T_new = T × (1 + adj)", "example": "100 × 1.10 = 110"},
+      {"scenario": "Increase close rate", "adjusted_variable": "R_new = R × (1 + adj)", "example": "0.25 × 1.10 = 0.275"},
+      {"scenario": "Decrease cycle time", "adjusted_variable": "Y_new = Y × (1 - adj)", "example": "6 × 0.90 = 5.4"},
+      {"scenario": "Increase deal size", "adjusted_variable": "D_new = D × (1 + adj)", "example": "$75,000 × 1.10 = $82,500"}
+    ],
+    "financial_metrics": [
+      {"metric": "Operating Income", "formula": "REV_total - (COGS + R&D + S&M + G&A)", "interpretation": "Profit from operations"},
+      {"metric": "% Net Gain", "formula": "(OI_scenario - OI_baseline) / OI_baseline", "interpretation": "Margin improvement vs. base"},
+      {"metric": "S&M ROI", "formula": "REV_total / COST_sm", "interpretation": "Revenue dollars per S&M dollar spent"}
+    ],
+    "industry_assumption_rates": [
+      {"expense": "Cost of Revenue", "percentage": 0.1322, "source": "Industry average"},
+      {"expense": "R&D", "percentage": 0.1019, "source": "Industry average"},
+      {"expense": "G&A", "percentage": 0.154, "source": "Industry average"}
+    ]
+  },
+  "key_findings": {
+    "primary_finding": "Quality-based improvements (close rate, cycle time, deal size) consistently outperform quantity-based improvements (headcount, lead volume) in terms of margin impact per dollar invested",
+    "lever_comparison": {
+      "quality_levers": {
+        "levers": ["close rate", "cycle time", "deal size"],
+        "characteristic": "Improve output without proportionally increasing cost"
+      },
+      "quantity_levers": {
+        "levers": ["headcount", "territories"],
+        "characteristic": "Increase both output and cost linearly"
+      }
+    },
+    "scenario_results_baseline": {
+      "add_territories_10pct": {
+        "revenue_change": 11250000,
+        "cost_change": 2252500,
+        "operating_income_change": -2252500,
+        "percentage_net_gain": -0.071
+      },
+      "increase_close_rate_10pct": {
+        "revenue_change": 11250000,
+        "cost_change": 900000,
+        "operating_income_change": 5983875,
+        "percentage_net_gain": 0.188
+      },
+      "decrease_cycle_10pct": {
+        "revenue_change": 12500000,
+        "cost_change": 1000000,
+        "operating_income_change": 6648750,
+        "percentage_net_gain": 0.209
+      },
+      "increase_deal_size_10pct": {
+        "revenue_change": 11250000,
+        "cost_change": 900000,
+        "operating_income_change": 5983875,
+        "percentage_net_gain": 0.188
+      }
+    }
+  },
+  "model_classification": {
+    "type": "Cognitive-Temporal Throughput Model",
+    "alternative_names": [
+      "Quality-Over-Quantity Conversion Model",
+      "Sales Physics Model",
+      "Constraint-Based Sales Capacity Model"
+    ],
+    "analytical_traditions": [
+      {
+        "tradition": "Queueing Theory",
+        "application": "Manageable opportunities as queue depth constraint; rep as processing node with finite concurrent capacity"
+      },
+      {
+        "tradition": "Little's Law (Operations Research)",
+        "application": "Throughput = Work-in-Progress ÷ Cycle Time; deals closed = opportunities held ÷ time each takes"
+      },
+      {
+        "tradition": "Contribution Margin Analysis",
+        "application": "Unit economics to income statement, but varying operational drivers not just financial inputs"
+      },
+      {
+        "tradition": "Sensitivity Analysis on Non-Financial Variables",
+        "application": "Testing operational changes against financial outcomes"
+      }
+    ],
+    "what_makes_it_distinctive": [
+      "Treats cognitive load as a hard constraint, not a soft preference",
+      "Makes cycle time a divisor that bounds throughput, not just a metric to track",
+      "Separates territory from headcount, allowing independent variation",
+      "Connects operational physics to income statement outcomes"
+    ]
+  },
+  "gaps_and_limitations": {
+    "identified_gaps": [
+      {
+        "gap": "Lead constraint interaction",
+        "description": "Model assumes sufficient leads; doesn't show what happens when lead flow is below or above processing capacity"
+      },
+      {
+        "gap": "Cognitive capacity drivers",
+        "description": "The '30 manageable opportunities' is an input, not an output; model doesn't show what makes it 30 vs 20 vs 40"
+      },
+      {
+        "gap": "Quality mechanics",
+        "description": "Close rate and deal size are outcomes; model doesn't capture how to improve them"
+      },
+      {
+        "gap": "Ramp time integration",
+        "description": "Sales ramp up time (12 months) present as input but doesn't feed throughput calculation"
+      }
+    ],
+    "what_model_captures": "What to optimize",
+    "what_model_does_not_capture": "How to optimize it"
+  }
+}
