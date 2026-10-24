@@ -160,7 +160,55 @@ The others take inputs and calculate outcomes. This model questions its inputs, 
 
 Sources: [Fullcast](https://support.fullcast.com/docs/get-started-with-scenario-and-capacity-planning) · [HubSpot](https://www.hubspot.com/roi-calculator/sales) · [Pigment](https://www.pigment.com/hall-of-frames/sales-capacity-simulator) · [Anaplan](https://anaplan.com/solutions/go-to-market-capacity-planning) · [Varicent](https://www.varicent.com/products/territory-planning-software) · [Xactly](https://assets.xactlycorp.com/m/45651c4f8f4a3ac4/original/Plan-Product-Overview.pdf) · [APQC](https://www.apqc.org/resource-library/resource-listing/interactive-sales-tune-diagnostic) · [Pipedrive (velocity)](https://pipedrive.com/en/blog/sales-velocity)
 
-## 9. Corrections to earlier analyses
+## 9. Language and lineage
+
+### Why "yeah, yeah, I know" happens
+
+People hear these words through a model where **sales capacity is labor**: heads × quota × attainment. This model uses the same words for a **production system made of design choices, constraints and delays**. The words match; the ideas underneath do not.
+
+| Word | What people usually hear | What this model means | Why the difference matters |
+|---|---|---|---|
+| Territory | A patch of accounts given to a person | A design choice: a funded slot that carries an expected yield, whether or not anyone fills it | An open territory is not "a rep short"; it is lost contribution, priced every month |
+| Rep / quota-carrying | Headcount with a number attached | An agent with a cognitive ceiling, measured as part of a system | The search is for system interventions, not individual performance problems |
+| Capacity | Heads × quota × attainment | Opportunities a salesperson can hold and advance well × 12 ÷ cycle months | Capacity has a ceiling set by attention and time; more leads or calls do not raise it |
+| Headcount | The number of salespeople | One input among several: territories, filled seats and productive (ramped) salespeople are different numbers | Treating them as one hides vacancies and ramp |
+| Time | Calendar: weeks to close, months to ramp | A resource and a set of delays (cycle, ramp, approvals) that cap throughput and cost money | Delay is a lever with a price, e.g. about $38.6K per open territory per month in the as-is sample |
+| Productivity | Revenue per rep | What the system produces once design, staffing, capacity and delays are accounted for | Low productivity can be a territory or process problem, not a person problem |
+| Data / inputs | Facts to type in | Falsifiable assumptions with a declared basis, tested against the P&L | The model's answers are only as believable as its tested assumptions |
+
+**The articulation rule is the model's own discipline: lead with definitions.** Before any discussion, state them, for example: "When I say territory, I mean a funded design choice with an expected yield, separate from who fills it." Definitions are assumptions too; writing them down turns "yeah, I know" into "that is not what I meant."
+
+### Analysis traditions it combines
+
+The model was built without these labels. It combines them, which is why it reads as unusual.
+
+| Tradition | What it says | Where it appears in the model |
+|---|---|---|
+| Queueing theory and Little's Law (operations research) | Throughput = work in process ÷ time in system | Salesperson capacity = opportunities held ÷ cycle |
+| Theory of Constraints (Goldratt) | Output is set by the binding constraint; improving anything else is waste | More leads do not help when capacity binds; better selling does not help when territory design or vacancies bind |
+| Overall Equipment Effectiveness (manufacturing) | Output = availability × performance × quality | Availability = territories filled and ramped; performance = load vs capacity and cycle; quality = win rate; deal size as value |
+| System dynamics (Jay Forrester, Donella Meadows) | Stocks, flows, delays and feedback drive behavior; leverage points rank where to intervene | Territories, salespeople and pipeline as stocks; hires, departures and opportunities as flows; ramp and approvals as delays; scenarios up to the market definition |
+| Agent-based modeling (complexity science) | System behavior emerges from agents with limits | Salespeople as agents, measured as distributions |
+| DuPont analysis and driver-based planning (finance) | A financial result broken into multiplied operational drivers | Revenue = territories × capacity × win rate × deal size, carried to operating income |
+| Variance analysis (management accounting) | Plan vs actual explained by cause | The yield bridge: designed yield → vacancy, ramp, coverage, agent gaps → actual revenue |
+| Time-driven activity-based costing (Kaplan and Anderson) | Cost capacity at its practical level; unused capacity is a visible cost | Idle salesperson capacity and open territories as priced, hidden commercial costs |
+| Discovery-driven planning (McGrath and MacMillan) | Start from the income statement, list the assumptions it requires, test them at milestones | The assumption ledger tested against the P&L, with a running accuracy record |
+| Assumption-based planning (RAND) | Identify load-bearing assumptions and watch for signs they are failing | Falsification tests and guardrails on high-sensitivity assumptions |
+
+**Closest single description:** discovery-driven planning applied to a sales system modeled with operations research and system dynamics. Most sales planning sits in one tradition only, usually labor-based quota math.
+
+### The tab-to-tab logic
+
+1. **Data entry = the theory of the present:** what the company believes about itself.
+2. **Performance breakdown = the theory of structure:** how those beliefs combine into capacity, deals, revenue and cost per territory.
+3. **Impact analysis = the test instrument:** the beliefs forced into an income statement, which Finance can check against the real one; every what-if carries its cost to operating income.
+4. **Scenario diagnostic = causal hypotheses:** why a lever is stuck and what would have to change.
+
+Driver-based finance tools and Fullcast's planner also reach a P&L. What is uncommon is the combination: capacity derived from how selling works rather than quota × attainment; territory design kept separate from staffing; and the income statement used to **test** the assumptions, not only to display results.
+
+**The point of view in one sentence:** *Sales capacity is a system that leadership designs, not a headcount it buys, so model the design, test it against the P&L, and change it where the constraint actually binds.*
+
+## 10. Corrections to earlier analyses
 
 Earlier documents in this repo are preserved as written. These readings in them are superseded:
 
