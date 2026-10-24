@@ -33,7 +33,7 @@ Underneath the model sits a view of buying decisions: a decision moves when it i
 |------|-----------|
 | 2000 | Model created |
 | 2003 | Audited for accuracy by Ernst & Young |
-| 2011 | Published as the Forrester Sales and Marketing Efficiency Model |
+| 2011 | Updated as the Sales and Marketing Efficiency Model |
 | 2026 | Documented, formula-audited, and rebuilt as this Python package |
 
 ## What makes it different
@@ -53,5 +53,7 @@ The model is the first proof of a broader idea: conventional management conflate
 - The 2026 formula audit found three defects in the workbook (a hard-coded salary, and two inconsistent treatments of new-rep ramp) and errors in the first draft of the specification. All are in [`AUDIT_FINDINGS.md`](AUDIT_FINDINGS.md).
 - The open decisions are exposed as options, not settled silently. Under every combination of options, the conclusion holds: each quality lever beats adding territories.
 - The model measures the outcome of selling quality. It does not yet model how to produce it.
+
+© 2000–2026 Growth Enablement. All rights reserved. The model and its logic are owned by Growth Enablement.
 
 Author: Scott Santucci · scott.santucci@growthenablement.com

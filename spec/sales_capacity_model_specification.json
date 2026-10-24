@@ -8,7 +8,9 @@
     "documentation_date": "2026",
     "subtitle": "A Cognitive-Temporal Throughput Model for Sales Effectiveness",
     "spec_revision_note": "v2.1 reconciles the spec to the workbook formulas (source/workbook_cells.csv). See AUDIT_FINDINGS.md.",
-    "workbook_label": "Sales and Marketing Efficiency Model, (c)2011 Forrester Research (Scott Santucci); originated 2000"
+    "workbook_label": "Sales and Marketing Efficiency Model (2011 edition); originated 2000 by Scott Santucci",
+    "owner": "Growth Enablement",
+    "copyright": "Copyright (c) 2000-2026 Growth Enablement. All rights reserved."
   },
   "foundational_premise": {
     "core_assertion": "Sales capacity is not labor hours. It is cognitive bandwidth constrained by time.",

@@ -9,6 +9,7 @@ Max opportunities / year = Manageable opportunities × (12 ÷ Sales cycle months
 Revenue = Max opportunities × Close rate × Deal size × Territories
 ```
 
+- [Governing Reassessment](docs/Commercial_Effectiveness_Reassessment.md): the adopted product and architecture direction
 - [About](ABOUT.md): what the project is, why it exists, where it came from
 - [Product Overview](PRODUCT_OVERVIEW.md): who it's for, inputs, outputs, how to use it
 - [Audit Findings](AUDIT_FINDINGS.md): workbook defects and open decisions
@@ -44,4 +45,6 @@ results = run_scenarios(ModelInputs(close_rate=0.3))
 2. Defaults reproduce the original workbook. Changes to logic go behind an option, and `scm verify` must still pass with defaults.
 3. Every change gets a `CHANGELOG.md` entry.
 
-Originated 2000 · E&Y audit 2003 · Forrester edition 2011 · Python rebuild 2026. Author: Scott Santucci.
+Originated 2000 · E&Y audit 2003 · updated edition 2011 · Python rebuild 2026.
+
+© 2000–2026 Growth Enablement. All rights reserved. The model and its logic are owned by Growth Enablement. Author: Scott Santucci.

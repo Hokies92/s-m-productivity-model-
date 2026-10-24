@@ -5,6 +5,7 @@ __version__ = "2.1.0"
 __author__ = "Scott Santucci"
 __email__ = "scott.santucci@growthenablement.com"
 __license__ = "Proprietary"
+__copyright__ = "Copyright (c) 2000-2026 Growth Enablement. All rights reserved."
 __summary__ = (
     "A cognitive-temporal throughput model of sales capacity, "
     "connected to the income statement."
@@ -44,9 +45,8 @@ ORIGIN
   It grew out of his own experience: following the prescribed playbook
   nearly got him fired, so he rebuilt the math himself, drawing on how a
   competitive swimmer thinks about efficiency over effort. Audited for
-  accuracy by Ernst & Young (2003). Published as the Forrester Sales and
-  Marketing Efficiency Model (2011). Documented, audited and rebuilt in
-  Python (2026).
+  accuracy by Ernst & Young (2003). Updated as the Sales and Marketing
+  Efficiency Model (2011). Documented, audited and rebuilt in Python (2026).
 
 WHAT MAKES IT DIFFERENT
   - Separates territory, headcount and capacity, which most models treat as one.
@@ -62,6 +62,7 @@ STATUS
   exactly (`scm verify`). Three defects found in the workbook and three open
   decisions are documented in AUDIT_FINDINGS.md and exposed as options.
 
+Owner:   Growth Enablement. The model and its logic are proprietary.
 Author:  {__author__} <{__email__}>
 Source:  {__url__}
 """

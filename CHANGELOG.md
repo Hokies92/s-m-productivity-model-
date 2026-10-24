@@ -20,4 +20,4 @@
 - Technical specification (`.docx`) and JSON spec drafted from the workbook's values and structure.
 
 ## v1 — 2000 / 2003 / 2011
-- Model created (2000), E&Y accuracy audit (2003), Forrester edition (2011).
+- Model created (2000), E&Y accuracy audit (2003), updated edition (2011).
