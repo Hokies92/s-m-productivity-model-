@@ -1,0 +1,416 @@
+sheet,cell,formula_or_input,value,is_formula
+Orientation,B1,Sales and Marketing Efficiency Modeling Tool,Sales and Marketing Efficiency Modeling Tool,False
+Orientation,B5,"Overview:  This worksheet is intended to provide you with visibility into your sales and marketing activities.  This model helps you examine four business scenarios that can help you improve your business performance: increase the size of your sales force, increase your sales organization’s close rate, decrease your sales cycle time, or increase your average order size. By entering historical and assumptive data, you will be able to determine the impact of each of these investment decisions on your top line revenue and bottom line performance.  For example, a 10% decrease in your sales force, coupled with a 10% improvement in your average order size could increase your top line revenue by 7%, but increase your operating margin by almost 800%.  Finally, this tool will help you identify the challenges you must overcome to achieve success in each of the business scenarios and provide you with a better framework to assess current and future sales and marketing investments.   ","Overview:  This worksheet is intended to provide you with visibility into your sales and marketing activities.  This model helps you examine four business scenarios that can help you improve your business performance: increase the size of your sales force, increase your sales organization’s close rate, decrease your sales cycle time, or increase your average order size. By entering historical and assumptive data, you will be able to determine the impact of each of these investment decisions on your top line revenue and bottom line performance.  For example, a 10% decrease in your sales force, coupled with a 10% improvement in your average order size could increase your top line revenue by 7%, but increase your operating margin by almost 800%.  Finally, this tool will help you identify the challenges you must overcome to achieve success in each of the business scenarios and provide you with a better framework to assess current and future sales and marketing investments.   ",False
+Orientation,B6,It is broken down into the following sections:  1)  Data entry - enter historical data and metrics assumptions about your sales and marketing performance.  2) Performance breakdown - a what-if tool that allows you to determine the impact of incremental improvements in your sales and marketing activities.  3) Impact Analysis - highlights the potential impact on your Income Statement by making incremental improvements.  4) Scenario Diagnostic - Lists common are obstacles that stand in the way of achieving your intended results for each scenario.,It is broken down into the following sections:  1)  Data entry - enter historical data and metrics assumptions about your sales and marketing performance.  2) Performance breakdown - a what-if tool that allows you to determine the impact of incremental improvements in your sales and marketing activities.  3) Impact Analysis - highlights the potential impact on your Income Statement by making incremental improvements.  4) Scenario Diagnostic - Lists common are obstacles that stand in the way of achieving your intended results for each scenario.,False
+Orientation,B8,"A Few Points:  This is a generic tool intended to give you insight into your sales and marketing mechanics.  For a more complete analysis, we recommend that you perform this assessment for each of your sales channels and product lines.  Also, there are attributes about your business that are different from others.  This model can be tailored to your company.  Finally, ""increase leads"" is not listed as a business scenario because we consider lead generation to be a more leveraged way to conduct sales prospecting.  The number of leads, how to acquire them, and how much you can invest to acquire those leads are all handled in the tactical ""drill down"" spreadsheets that accompany this model.","A Few Points:  This is a generic tool intended to give you insight into your sales and marketing mechanics.  For a more complete analysis, we recommend that you perform this assessment for each of your sales channels and product lines.  Also, there are attributes about your business that are different from others.  This model can be tailored to your company.  Finally, ""increase leads"" is not listed as a business scenario because we consider lead generation to be a more leveraged way to conduct sales prospecting.  The number of leads, how to acquire them, and how much you can invest to acquire those leads are all handled in the tactical ""drill down"" spreadsheets that accompany this model.",False
+Orientation,B10,©2011. Forrester Research.  All rights reserved.  ssantucci@forrester.com,©2011. Forrester Research.  All rights reserved.  ssantucci@forrester.com,False
+1) Data entry,B2,Sales and Marketing Efficiency Model,Sales and Marketing Efficiency Model,False
+1) Data entry,B3,©2011. Forrester Research  All rights reserved.  ssantucci@forrester.com ,©2011. Forrester Research  All rights reserved.  ssantucci@forrester.com ,False
+1) Data entry,B4,Directions.  Use this spreadsheet to enter your historical data or assumptions to help you determine your sales and marketing performance.  Cells that are yellow and areas where you should input your own data.  The data currently populated in each cell is based on industry averages for this fictitious company. ,Directions.  Use this spreadsheet to enter your historical data or assumptions to help you determine your sales and marketing performance.  Cells that are yellow and areas where you should input your own data.  The data currently populated in each cell is based on industry averages for this fictitious company. ,False
+1) Data entry,B7,Data Element,Data Element,False
+1) Data entry,C7,Description,Description,False
+1) Data entry,E7,Entry,Entry,False
+1) Data entry,F7,Metric,Metric,False
+1) Data entry,B8,Individual Sales Representative Data ,Individual Sales Representative Data ,False
+1) Data entry,B9,Number of sales territories,Number of sales territories,False
+1) Data entry,C9,"Enter the number of open sales territories you had last year.  This is not based on individual people, so if someone has left the company, but the territory is still open, count that as a sales territory. ","Enter the number of open sales territories you had last year.  This is not based on individual people, so if someone has left the company, but the territory is still open, count that as a sales territory. ",False
+1) Data entry,F9,100,100,False
+1) Data entry,B11,Average revenue per sales transaction,Average revenue per sales transaction,False
+1) Data entry,C11,"This is the average deal size for your company.  For this simple analysis, you can get this figure by dividing your revenue by total number of contracts.  For more detailed analysis, we recommend that you break things down into product lines, services offerings, and sales channels.  You should also separate new client revenue from upselling your installed base.  For professional services, credit the total esimated hours for a project towards one sales transaction.  ","This is the average deal size for your company.  For this simple analysis, you can get this figure by dividing your revenue by total number of contracts.  For more detailed analysis, we recommend that you break things down into product lines, services offerings, and sales channels.  You should also separate new client revenue from upselling your installed base.  For professional services, credit the total esimated hours for a project towards one sales transaction.  ",False
+1) Data entry,F11,75000,75000,False
+1) Data entry,C12,Number of contracts last year,Number of contracts last year,False
+1) Data entry,E12,755,755,False
+1) Data entry,C13,Revenue from those contract,Revenue from those contract,False
+1) Data entry,E13,25000000,25000000,False
+1) Data entry,B15,Average fully loaded salary,Average fully loaded salary,False
+1) Data entry,C15,"To help develop the most effective market development effort, we must better understand our cost of sales and what drives them.  Right now we are focusing on the salaries of the sales team only.  Do not count salaries of non-quota carrying managers, sales engineers, or other executives.  Your CFO should know what your benefits load rate is.  This metric assumes a fully loaded resource (insurance, 401K, FICA, allocation of overhead, etc). ","To help develop the most effective market development effort, we must better understand our cost of sales and what drives them.  Right now we are focusing on the salaries of the sales team only.  Do not count salaries of non-quota carrying managers, sales engineers, or other executives.  Your CFO should know what your benefits load rate is.  This metric assumes a fully loaded resource (insurance, 401K, FICA, allocation of overhead, etc). ",False
+1) Data entry,F15,=E16+(E16*E17),116850,True
+1) Data entry,C16,Average salary per sales rep,Average salary per sales rep,False
+1) Data entry,E16,95000,95000,False
+1) Data entry,C17,Corporate load rate,Corporate load rate,False
+1) Data entry,E17,0.23,0.23,False
+1) Data entry,B19,Average travel costs per rep,Average travel costs per rep,False
+1) Data entry,C19,"Most CFO's track overall travel expenses and try to reduce costs by limiting per diems, hotel expenses, etc.  However, the real driver is a sales call.  Sales people only incur these travel costs on the road.  The best way to reduce travel costs is to get a better return out of each sales trip.  Oftentimes, sales people will go on multiple client site visits to gain information easily gathered over the phone, or to have meetings with buyers who lack the right marketing materials to decide to buy your solution.  Below are the elements of a sales trip.  Estimate the costs assumed for each sales trip.  Again, only assume the cost of a single sales person.  Sales engineers and other costs are too complex for simple analysis.","Most CFO's track overall travel expenses and try to reduce costs by limiting per diems, hotel expenses, etc.  However, the real driver is a sales call.  Sales people only incur these travel costs on the road.  The best way to reduce travel costs is to get a better return out of each sales trip.  Oftentimes, sales people will go on multiple client site visits to gain information easily gathered over the phone, or to have meetings with buyers who lack the right marketing materials to decide to buy your solution.  Below are the elements of a sales trip.  Estimate the costs assumed for each sales trip.  Again, only assume the cost of a single sales person.  Sales engineers and other costs are too complex for simple analysis.",False
+1) Data entry,F19,=(($E$20+$E$21+$E$25)+($E$24*($E$22+$E$23)))*$E$26,47500,True
+1) Data entry,C20,"Travel (air fare, train, mileage round trip) ","Travel (air fare, train, mileage round trip) ",False
+1) Data entry,E20,750,750,False
+1) Data entry,C21,"Cabs, tolls, car rentals (etc)","Cabs, tolls, car rentals (etc)",False
+1) Data entry,E21,200,200,False
+1) Data entry,C22,"Meals (breakfast, lunch, dinner) per day","Meals (breakfast, lunch, dinner) per day",False
+1) Data entry,E22,100,100,False
+1) Data entry,C23,Lodging (per night average room expense),Lodging (per night average room expense),False
+1) Data entry,E23,250,250,False
+1) Data entry,C24,Days gone per trip,Days gone per trip,False
+1) Data entry,E24,2,2,False
+1) Data entry,C25,"Entertainment (client dinners, lunch, movies, etc.) per each trip","Entertainment (client dinners, lunch, movies, etc.) per each trip",False
+1) Data entry,E25,250,250,False
+1) Data entry,C26,Trips per year,Trips per year,False
+1) Data entry,E26,25,25,False
+1) Data entry,B28,Commission,Commission,False
+1) Data entry,C28,"Commissions are the most logical and well understood driver of variable sales costs.  Simply enter your sales forces average commission.  Again, for simple analysis - just use an average.  This model can be modified to accommodate your whole compensation plan.","Commissions are the most logical and well understood driver of variable sales costs.  Simply enter your sales forces average commission.  Again, for simple analysis - just use an average.  This model can be modified to accommodate your whole compensation plan.",False
+1) Data entry,F28,0.08,0.08,False
+1) Data entry,B30,Sales Mechanics,Sales Mechanics,False
+1) Data entry,B31,Number of pipeline opportunities manageable at one time,Number of pipeline opportunities manageable at one time,False
+1) Data entry,C31,"One driver of sales force inefficiency is the amount of NON-selling time spent by sales people.  Some companies estimate as much at 50% of their time is invested in ""non-selling"" activities.  Our studies reveal that a larger portion of that time in spend in activitity that isn't value-added to customers.  The best way to financially measure that impact is by monitoring the number of accounts any given sales person can effectively manage at the same time.  The greater amount of time you allow your sales people to sell - the more opportunities they can work in a given year.","One driver of sales force inefficiency is the amount of NON-selling time spent by sales people.  Some companies estimate as much at 50% of their time is invested in ""non-selling"" activities.  Our studies reveal that a larger portion of that time in spend in activitity that isn't value-added to customers.  The best way to financially measure that impact is by monitoring the number of accounts any given sales person can effectively manage at the same time.  The greater amount of time you allow your sales people to sell - the more opportunities they can work in a given year.",False
+1) Data entry,F31,30,30,False
+1) Data entry,B33,Length of sales cycle (in months),Length of sales cycle (in months),False
+1) Data entry,C33,"Tracks how long from when a qualified opportunity enters the pipeline to when it closes as a sale.  Your sales process may have many steps, so for simplicity track the time it takes from first meeting to the date the agreement is received by accounting.  Most organizations do not track this information, so if you do not have the data - make an estimate.  The single greatest impact you can have on your business is to shorten your sales cycle times.","Tracks how long from when a qualified opportunity enters the pipeline to when it closes as a sale.  Your sales process may have many steps, so for simplicity track the time it takes from first meeting to the date the agreement is received by accounting.  Most organizations do not track this information, so if you do not have the data - make an estimate.  The single greatest impact you can have on your business is to shorten your sales cycle times.",False
+1) Data entry,F33,6,6,False
+1) Data entry,B35,Sales ramp up time (in months),Sales ramp up time (in months),False
+1) Data entry,C35,"How long does it take to get a new sales person up to speed to where they are operating at maximum efficiency?  Most high tech companies do a good job of training sales people on what their products are, but do very little to help them understand WHY the product is important or how to sell it.  This leads to lengthy ""ramp up"" times.  We recommend getting this figure from a sales manager.","How long does it take to get a new sales person up to speed to where they are operating at maximum efficiency?  Most high tech companies do a good job of training sales people on what their products are, but do very little to help them understand WHY the product is important or how to sell it.  This leads to lengthy ""ramp up"" times.  We recommend getting this figure from a sales manager.",False
+1) Data entry,F35,12,12,False
+1) Data entry,B37,close rate,close rate,False
+1) Data entry,C37,This certainly can mean a lot of things to different people.  Here we want to understand the effectiveness of how well your organization manages the sales process from first sales meeting to eventual close.  Please estimate the percentage of all of the pipeline opportunities that your organization has worked that have resulted in an executed agreement. ,This certainly can mean a lot of things to different people.  Here we want to understand the effectiveness of how well your organization manages the sales process from first sales meeting to eventual close.  Please estimate the percentage of all of the pipeline opportunities that your organization has worked that have resulted in an executed agreement. ,False
+1) Data entry,F37,0.25,0.25,False
+1) Data entry,B38,"Overhead, Management, and Marketing Costs","Overhead, Management, and Marketing Costs",False
+1) Data entry,B39,Total Sales Overhead and Marketing Costs,Total Sales Overhead and Marketing Costs,False
+1) Data entry,C39,"Our goal with this exercise is to assess how well your company is is utilizing its sales and marketing assets.  To do this, we have to examine all of the associated costs that are related to sales and marketing performance.  This will help you put these investments in the right context and determine the effectiveness of these investments.  ","Our goal with this exercise is to assess how well your company is is utilizing its sales and marketing assets.  To do this, we have to examine all of the associated costs that are related to sales and marketing performance.  This will help you put these investments in the right context and determine the effectiveness of these investments.  ",False
+1) Data entry,F39,=F41+F48,14500000,True
+1) Data entry,B41,Sales Overhead Costs,Sales Overhead Costs,False
+1) Data entry,C41,"This tracks all of the non-variable costs associated with running a sales organization, and includes executive salaries, sales support, training, and performance plans.","This tracks all of the non-variable costs associated with running a sales organization, and includes executive salaries, sales support, training, and performance plans.",False
+1) Data entry,F41,=E42+E43+E44+E45+E46,10800000,True
+1) Data entry,C42,Total Non-quota carrying sales manager salaries,Total Non-quota carrying sales manager salaries,False
+1) Data entry,E42,2750000,2750000,False
+1) Data entry,C43,Sales engineers or other non-quota sales support personnel,Sales engineers or other non-quota sales support personnel,False
+1) Data entry,E43,6000000,6000000,False
+1) Data entry,C44,"Sales administrative personnel (Sales operations, sales Admins)","Sales administrative personnel (Sales operations, sales Admins)",False
+1) Data entry,E44,800000,800000,False
+1) Data entry,C45,"Training costs (total expenses related to training, travel for training, and all headcount associated)","Training costs (total expenses related to training, travel for training, and all headcount associated)",False
+1) Data entry,E45,500000,500000,False
+1) Data entry,C46,"Incentive costs (non-quota related commissions, President's Club costs, etc)","Incentive costs (non-quota related commissions, President's Club costs, etc)",False
+1) Data entry,E46,750000,750000,False
+1) Data entry,B48,Marketing Costs,Marketing Costs,False
+1) Data entry,C48,This tracks all of the overall investments the company makes to help drive revenue.  Marketing resources are extremely important to consider because in most organizations the sales and marketing departments are not coordinated and this results in tremendous waste.,This tracks all of the overall investments the company makes to help drive revenue.  Marketing resources are extremely important to consider because in most organizations the sales and marketing departments are not coordinated and this results in tremendous waste.,False
+1) Data entry,F48,=E49+E50+E51+E54+E55+E56+E52+E53,3700000,True
+1) Data entry,C49,All marketing personnel,All marketing personnel,False
+1) Data entry,E49,1000000,1000000,False
+1) Data entry,C50,Web site investments and maintenance,Web site investments and maintenance,False
+1) Data entry,E50,250000,250000,False
+1) Data entry,C51,Events - online and roadshows,Events - online and roadshows,False
+1) Data entry,E51,500000,500000,False
+1) Data entry,C52,Advertising ,Advertising ,False
+1) Data entry,E52,500000,500000,False
+1) Data entry,C53,Direct mail (print and online) ,Direct mail (print and online) ,False
+1) Data entry,E53,250000,250000,False
+1) Data entry,C54,Telemarketing and other lead generation programs,Telemarketing and other lead generation programs,False
+1) Data entry,E54,250000,250000,False
+1) Data entry,C55,"Investments in branding and Public Relations (logo design, consulting, identity, etc)","Investments in branding and Public Relations (logo design, consulting, identity, etc)",False
+1) Data entry,E55,200000,200000,False
+1) Data entry,C56,"Collateral (sales tools, white papers, brochures, printing)","Collateral (sales tools, white papers, brochures, printing)",False
+1) Data entry,E56,750000,750000,False
+2) Performance breakdown,B2,"""What If"" Performance Breakdown","""What If"" Performance Breakdown",False
+2) Performance breakdown,B4,©2011. Forrester Research.  All rights reserved. ssantucci@forrester.com,©2011. Forrester Research.  All rights reserved. ssantucci@forrester.com,False
+2) Performance breakdown,B5,"""What If"" Performance Breakdown","""What If"" Performance Breakdown",False
+2) Performance breakdown,E5,Individual Scenarios,Individual Scenarios,False
+2) Performance breakdown,J5,Combined,Combined,False
+2) Performance breakdown,E6,Hire more sales people,Hire more sales people,False
+2) Performance breakdown,F6,Increase Close Rate,Increase Close Rate,False
+2) Performance breakdown,G6,Decrease Sales Cycle Time,Decrease Sales Cycle Time,False
+2) Performance breakdown,H6,Increase Average Revenue/ Transaction,Increase Average Revenue/ Transaction,False
+2) Performance breakdown,J6,Increase close and deal size; decrease cycle,Increase close and deal size; decrease cycle,False
+2) Performance breakdown,K6,Improve all scenarios,Improve all scenarios,False
+2) Performance breakdown,E7,0.1,0.1,False
+2) Performance breakdown,F7,0.1,0.1,False
+2) Performance breakdown,G7,0.1,0.1,False
+2) Performance breakdown,H7,0.1,0.1,False
+2) Performance breakdown,I7,0,0,False
+2) Performance breakdown,B8,Individual Sales Representative Data ,Individual Sales Representative Data ,False
+2) Performance breakdown,B9,='1) Data entry '!B9,Number of sales territories,True
+2) Performance breakdown,C9,='1) Data entry '!F9,100,True
+2) Performance breakdown,E9,=(C9*E7)+C9,110,True
+2) Performance breakdown,F9,=C9,100,True
+2) Performance breakdown,G9,=C9,100,True
+2) Performance breakdown,H9,=C9,100,True
+2) Performance breakdown,J9,=C9,100,True
+2) Performance breakdown,K9,=E9,110,True
+2) Performance breakdown,B10,='1) Data entry '!B11,Average revenue per sales transaction,True
+2) Performance breakdown,C10,='1) Data entry '!F11,75000,True
+2) Performance breakdown,E10,=C10,75000,True
+2) Performance breakdown,F10,=C10,75000,True
+2) Performance breakdown,G10,=C10,75000,True
+2) Performance breakdown,H10,=G10+(G10*H7),82500,True
+2) Performance breakdown,J10,=H10,82500,True
+2) Performance breakdown,K10,=J10,82500,True
+2) Performance breakdown,B11,='1) Data entry '!B15,Average fully loaded salary,True
+2) Performance breakdown,C11,87750,87750,False
+2) Performance breakdown,E11,=C11,87750,True
+2) Performance breakdown,F11,87750,87750,False
+2) Performance breakdown,G11,87750,87750,False
+2) Performance breakdown,H11,87750,87750,False
+2) Performance breakdown,J11,87750,87750,False
+2) Performance breakdown,K11,=J11,87750,True
+2) Performance breakdown,B12,='1) Data entry '!B19,Average travel costs per rep,True
+2) Performance breakdown,C12,='1) Data entry '!F19,47500,True
+2) Performance breakdown,E12,=C12,47500,True
+2) Performance breakdown,F12,=C12,47500,True
+2) Performance breakdown,G12,=C12,47500,True
+2) Performance breakdown,H12,=C12,47500,True
+2) Performance breakdown,J12,=C12,47500,True
+2) Performance breakdown,K12,=J12,47500,True
+2) Performance breakdown,B13,='1) Data entry '!B28,Commission,True
+2) Performance breakdown,C13,=C23*'1) Data entry '!$F$28,90000,True
+2) Performance breakdown,E13,=E23*'1) Data entry '!$F$28,90000,True
+2) Performance breakdown,F13,=F23*'1) Data entry '!$F$28,99000,True
+2) Performance breakdown,G13,=G23*'1) Data entry '!$F$28,100000,True
+2) Performance breakdown,H13,=H23*'1) Data entry '!$F$28,99000,True
+2) Performance breakdown,J13,=J23*'1) Data entry '!$F$28,121000,True
+2) Performance breakdown,K13,=K23*'1) Data entry '!$F$28,121000,True
+2) Performance breakdown,B14,Total cost per sales rep,Total cost per sales rep,False
+2) Performance breakdown,C14,=SUM(C11:C13),225250,True
+2) Performance breakdown,E14,=SUM(E11:E13),225250,True
+2) Performance breakdown,F14,=SUM(F11:F13),234250,True
+2) Performance breakdown,G14,=SUM(G11:G13),235250,True
+2) Performance breakdown,H14,=SUM(H11:H13),234250,True
+2) Performance breakdown,J14,=SUM(J11:J13),256250,True
+2) Performance breakdown,K14,=J14,256250,True
+2) Performance breakdown,B15,Sales Mechanics,Sales Mechanics,False
+2) Performance breakdown,B16,Number of pipeline opportunities manageable at one time,Number of pipeline opportunities manageable at one time,False
+2) Performance breakdown,C16,='1) Data entry '!F31,30,True
+2) Performance breakdown,E16,=C16,30,True
+2) Performance breakdown,F16,=C16,30,True
+2) Performance breakdown,G16,=C16,30,True
+2) Performance breakdown,H16,=C16,30,True
+2) Performance breakdown,J16,=C16,30,True
+2) Performance breakdown,K16,=J16,30,True
+2) Performance breakdown,B17,Length of sales cycle (in months),Length of sales cycle (in months),False
+2) Performance breakdown,C17,='1) Data entry '!F33,6,True
+2) Performance breakdown,E17,=C17,6,True
+2) Performance breakdown,F17,=C17,6,True
+2) Performance breakdown,G17,=C17-(C17*G7),5.4,True
+2) Performance breakdown,H17,=C17,6,True
+2) Performance breakdown,J17,=G17,5.4,True
+2) Performance breakdown,K17,=J17,5.4,True
+2) Performance breakdown,B18,Sales ramp up time (in months),Sales ramp up time (in months),False
+2) Performance breakdown,C18,='1) Data entry '!F35,12,True
+2) Performance breakdown,E18,=C18,12,True
+2) Performance breakdown,F18,=C18,12,True
+2) Performance breakdown,G18,=C18,12,True
+2) Performance breakdown,H18,=C18,12,True
+2) Performance breakdown,J18,=C18,12,True
+2) Performance breakdown,K18,=C18,12,True
+2) Performance breakdown,B19,close rate,close rate,False
+2) Performance breakdown,C19,='1) Data entry '!F37,0.25,True
+2) Performance breakdown,E19,=C19,0.25,True
+2) Performance breakdown,F19,=(C19*F7)+C19,0.275,True
+2) Performance breakdown,G19,=C19,0.25,True
+2) Performance breakdown,H19,=C19,0.25,True
+2) Performance breakdown,J19,=F19,0.275,True
+2) Performance breakdown,K19,=J19,0.275,True
+2) Performance breakdown,B20,Individual Impact,Individual Impact,False
+2) Performance breakdown,B21,Maximum number of opportunities to pursue / year,Maximum number of opportunities to pursue / year,False
+2) Performance breakdown,C21,=(12/C17)*C16,60,True
+2) Performance breakdown,E21,=(12/E17)*E16,60,True
+2) Performance breakdown,F21,=(12/F17)*F16,60,True
+2) Performance breakdown,G21,=(12/G17)*G16,66.6666666666667,True
+2) Performance breakdown,H21,=(12/H17)*H16,60,True
+2) Performance breakdown,J21,=(12/J17)*J16,66.6666666666667,True
+2) Performance breakdown,K21,=J21,66.6666666666667,True
+2) Performance breakdown,B22,Number of annual sales transactions per year / rep,Number of annual sales transactions per year / rep,False
+2) Performance breakdown,C22,=C21*C19,15,True
+2) Performance breakdown,E22,=C22,15,True
+2) Performance breakdown,F22,=F21*F19,16.5,True
+2) Performance breakdown,G22,=G21*G19,16.6666666666667,True
+2) Performance breakdown,H22,=H21*H19,15,True
+2) Performance breakdown,J22,=J21*J19,18.3333333333333,True
+2) Performance breakdown,K22,=J22,18.3333333333333,True
+2) Performance breakdown,B23,Average annual revenue per rep,Average annual revenue per rep,False
+2) Performance breakdown,C23,=C22*C10,1125000,True
+2) Performance breakdown,E23,=E22*E10,1125000,True
+2) Performance breakdown,F23,=F22*F10,1237500,True
+2) Performance breakdown,G23,=G22*G10,1250000,True
+2) Performance breakdown,H23,=H22*H10,1237500,True
+2) Performance breakdown,J23,=J22*J10,1512500,True
+2) Performance breakdown,K23,=J23,1512500,True
+2) Performance breakdown,B24,Outcomes,Outcomes,False
+2) Performance breakdown,B25,Total revenues ,Total revenues ,False
+2) Performance breakdown,C25,=C23*C9,112500000,True
+2) Performance breakdown,E25,=((((12-E18)/12)*E23)*(E9-C9))+C25,112500000,True
+2) Performance breakdown,F25,=F23*F9,123750000,True
+2) Performance breakdown,G25,=G23*G9,125000000,True
+2) Performance breakdown,H25,=H23*H9,123750000,True
+2) Performance breakdown,J25,=(J23*J9),151250000,True
+2) Performance breakdown,K25,=(K23*K9)-((((12-E18)/12)*E23)*(E9-C9)),166375000,True
+2) Performance breakdown,B26,Total Sales Rep. Costs,Total Sales Rep. Costs,False
+2) Performance breakdown,C26,=C14*C9,22525000,True
+2) Performance breakdown,E26,=E14*E9,24777500,True
+2) Performance breakdown,F26,=F14*F9,23425000,True
+2) Performance breakdown,G26,=G14*G9,23525000,True
+2) Performance breakdown,H26,=H14*H9,23425000,True
+2) Performance breakdown,J26,=J14*J9,25625000,True
+2) Performance breakdown,K26,=K14*K9,28187500,True
+2) Performance breakdown,B28,This spreadsheet is designed to help you determine the impact of making incremental performance gains across the four business improvement scenarios.  Changes in the yellow cells will drive results throughout the entire workbook.  ,This spreadsheet is designed to help you determine the impact of making incremental performance gains across the four business improvement scenarios.  Changes in the yellow cells will drive results throughout the entire workbook.  ,False
+3) Impact Analysis,B2,Financial Impact,Financial Impact,False
+3) Impact Analysis,B4,©2011. Forrester Research.  All rights reserved. ssantucci@forrester.com,©2011. Forrester Research.  All rights reserved. ssantucci@forrester.com,False
+3) Impact Analysis,E5,Scenario,Scenario,False
+3) Impact Analysis,J5,Combined,Combined,False
+3) Impact Analysis,C6,Baseline,Baseline,False
+3) Impact Analysis,E6,Hire more sales people,Hire more sales people,False
+3) Impact Analysis,F6,Increase Close Rate,Increase Close Rate,False
+3) Impact Analysis,G6,Decrease Sales Cycle Time,Decrease Sales Cycle Time,False
+3) Impact Analysis,H6,Increase Average Revenue/ Transaction,Increase Average Revenue/ Transaction,False
+3) Impact Analysis,J6,Increase close and deal size; decrease cycle,Increase close and deal size; decrease cycle,False
+3) Impact Analysis,K6,Improve all scenarios,Improve all scenarios,False
+3) Impact Analysis,B7,Revenue,Revenue,False
+3) Impact Analysis,B8,Total revenues ,Total revenues ,False
+3) Impact Analysis,C8,='2) Performance breakdown'!C25,112500000,True
+3) Impact Analysis,E8,='2) Performance breakdown'!E25,112500000,True
+3) Impact Analysis,F8,='2) Performance breakdown'!F25,123750000,True
+3) Impact Analysis,G8,='2) Performance breakdown'!G25,125000000,True
+3) Impact Analysis,H8,='2) Performance breakdown'!H25,123750000,True
+3) Impact Analysis,J8,='2) Performance breakdown'!J25,151250000,True
+3) Impact Analysis,K8,='2) Performance breakdown'!K25,166375000,True
+3) Impact Analysis,B9,Increase in revenue from base ,Increase in revenue from base ,False
+3) Impact Analysis,E9,=E8-'2) Performance breakdown'!$C$25,0,True
+3) Impact Analysis,F9,=F8-'2) Performance breakdown'!$C$25,11250000,True
+3) Impact Analysis,G9,=G8-'2) Performance breakdown'!$C$25,12500000,True
+3) Impact Analysis,H9,=H8-'2) Performance breakdown'!$C$25,11250000,True
+3) Impact Analysis,I9,=I8-'2) Performance breakdown'!$C$25,-112500000,True
+3) Impact Analysis,J9,=J8-'2) Performance breakdown'!$C$25,38750000,True
+3) Impact Analysis,K9,=K8-'2) Performance breakdown'!$C$25,53875000,True
+3) Impact Analysis,B11,Costs,Costs,False
+3) Impact Analysis,B12,Increase in sales costs ,Increase in sales costs ,False
+3) Impact Analysis,E12,='2) Performance breakdown'!E26-'2) Performance breakdown'!$C$26,2252500,True
+3) Impact Analysis,F12,='2) Performance breakdown'!F26-'2) Performance breakdown'!$C$26,900000,True
+3) Impact Analysis,G12,='2) Performance breakdown'!G26-'2) Performance breakdown'!$C$26,1000000,True
+3) Impact Analysis,H12,='2) Performance breakdown'!H26-'2) Performance breakdown'!$C$26,900000,True
+3) Impact Analysis,J12,='2) Performance breakdown'!J26-'2) Performance breakdown'!$C$26,3100000,True
+3) Impact Analysis,K12,='2) Performance breakdown'!K26-'2) Performance breakdown'!$C$26,5662500,True
+3) Impact Analysis,B13,Total sales costs,Total sales costs,False
+3) Impact Analysis,C13,='1) Data entry '!F41+'2) Performance breakdown'!C26,33325000,True
+3) Impact Analysis,E13,='2) Performance breakdown'!E26+'1) Data entry '!$F$41,35577500,True
+3) Impact Analysis,F13,='2) Performance breakdown'!F26+'1) Data entry '!$F$41,34225000,True
+3) Impact Analysis,G13,='2) Performance breakdown'!G26+'1) Data entry '!$F$41,34325000,True
+3) Impact Analysis,H13,='2) Performance breakdown'!H26+'1) Data entry '!$F$41,34225000,True
+3) Impact Analysis,J13,='2) Performance breakdown'!J26+'1) Data entry '!$F$41,36425000,True
+3) Impact Analysis,K13,='2) Performance breakdown'!K26+'1) Data entry '!$F$41,38987500,True
+3) Impact Analysis,B14,Total marketing costs,Total marketing costs,False
+3) Impact Analysis,C14,='1) Data entry '!F48,3700000,True
+3) Impact Analysis,E14,='1) Data entry '!$F$48,3700000,True
+3) Impact Analysis,F14,='1) Data entry '!$F$48,3700000,True
+3) Impact Analysis,G14,='1) Data entry '!$F$48,3700000,True
+3) Impact Analysis,H14,='1) Data entry '!$F$48,3700000,True
+3) Impact Analysis,J14,='1) Data entry '!$F$48,3700000,True
+3) Impact Analysis,K14,='1) Data entry '!$F$48,3700000,True
+3) Impact Analysis,B15,Total sales and marketing costs,Total sales and marketing costs,False
+3) Impact Analysis,C15,=SUM(C13:C14),37025000,True
+3) Impact Analysis,E15,=E14+E13,39277500,True
+3) Impact Analysis,F15,=F14+F13,37925000,True
+3) Impact Analysis,G15,=G14+G13,38025000,True
+3) Impact Analysis,H15,=H14+H13,37925000,True
+3) Impact Analysis,J15,=J14+J13,40125000,True
+3) Impact Analysis,K15,=K14+K13,42687500,True
+3) Impact Analysis,B17,Operating Expenses,Operating Expenses,False
+3) Impact Analysis,B18,Cost of revenue,Cost of revenue,False
+3) Impact Analysis,C18,=C8*$C$30,14872500,True
+3) Impact Analysis,E18,=E8*$C$30,14872500,True
+3) Impact Analysis,F18,=F8*$C$30,16359750,True
+3) Impact Analysis,G18,=G8*$C$30,16525000,True
+3) Impact Analysis,H18,=H8*$C$30,16359750,True
+3) Impact Analysis,J18,=J8*$C$30,19995250,True
+3) Impact Analysis,K18,=K8*$C$30,21994775,True
+3) Impact Analysis,B19,Research and development,Research and development,False
+3) Impact Analysis,C19,=C8*$C$31,11463750,True
+3) Impact Analysis,E19,=E8*$C$31,11463750,True
+3) Impact Analysis,F19,=F8*$C$31,12610125,True
+3) Impact Analysis,G19,=G8*$C$31,12737500,True
+3) Impact Analysis,H19,=H8*$C$31,12610125,True
+3) Impact Analysis,J19,=J8*$C$31,15412375,True
+3) Impact Analysis,K19,=K8*$C$31,16953612.5,True
+3) Impact Analysis,B20,Sales and marketing,Sales and marketing,False
+3) Impact Analysis,C20,=C13+C14,37025000,True
+3) Impact Analysis,E20,=E13+E14,39277500,True
+3) Impact Analysis,F20,=F13+F14,37925000,True
+3) Impact Analysis,G20,=G13+G14,38025000,True
+3) Impact Analysis,H20,=H13+H14,37925000,True
+3) Impact Analysis,J20,=J13+J14,40125000,True
+3) Impact Analysis,K20,=K13+K14,42687500,True
+3) Impact Analysis,B21,General and administrative,General and administrative,False
+3) Impact Analysis,C21,=C8*$C$32,17325000,True
+3) Impact Analysis,E21,=E8*$C$32,17325000,True
+3) Impact Analysis,F21,=F8*$C$32,19057500,True
+3) Impact Analysis,G21,=G8*$C$32,19250000,True
+3) Impact Analysis,H21,=H8*$C$32,19057500,True
+3) Impact Analysis,J21,=J8*$C$32,23292500,True
+3) Impact Analysis,K21,=K8*$C$32,25621750,True
+3) Impact Analysis,B22,Total operating expenses,Total operating expenses,False
+3) Impact Analysis,C22,=SUM(C18:C21),80686250,True
+3) Impact Analysis,E22,=SUM(E18:E21),82938750,True
+3) Impact Analysis,F22,=SUM(F18:F21),85952375,True
+3) Impact Analysis,G22,=SUM(G18:G21),86537500,True
+3) Impact Analysis,H22,=SUM(H18:H21),85952375,True
+3) Impact Analysis,J22,=SUM(J18:J21),98825125,True
+3) Impact Analysis,K22,=SUM(K18:K21),107257637.5,True
+3) Impact Analysis,B23,Operating Income,Operating Income,False
+3) Impact Analysis,C23,=C8-C22,31813750,True
+3) Impact Analysis,E23,=E8-E22,29561250,True
+3) Impact Analysis,F23,=F8-F22,37797625,True
+3) Impact Analysis,G23,=G8-G22,38462500,True
+3) Impact Analysis,H23,=H8-H22,37797625,True
+3) Impact Analysis,J23,=J8-J22,52424875,True
+3) Impact Analysis,K23,=K8-K22,59117362.5,True
+3) Impact Analysis,B25,Metrics,Metrics,False
+3) Impact Analysis,B26,Percentage net gain,Percentage net gain,False
+3) Impact Analysis,E26,=(E9-E12)/'2) Performance breakdown'!$C$25,-0.0200222222222222,True
+3) Impact Analysis,F26,=(F9-F12)/'2) Performance breakdown'!$C$25,0.092,True
+3) Impact Analysis,G26,=(G9-G12)/'2) Performance breakdown'!$C$25,0.102222222222222,True
+3) Impact Analysis,H26,=(H9-H12)/'2) Performance breakdown'!$C$25,0.092,True
+3) Impact Analysis,J26,=(J9-J12)/'2) Performance breakdown'!$C$25,0.316888888888889,True
+3) Impact Analysis,K26,=(K9-K12)/'2) Performance breakdown'!$C$25,0.428555555555556,True
+3) Impact Analysis,B27,Sales and marketing ROI,Sales and marketing ROI,False
+3) Impact Analysis,C27,=('3) Impact Analysis'!C8-'3) Impact Analysis'!C15)/'3) Impact Analysis'!C15,2.03848750844024,True
+3) Impact Analysis,E27,=(E8-E15)/E15,1.86423524918847,True
+3) Impact Analysis,F27,=(F8-F15)/F15,2.26301911667765,True
+3) Impact Analysis,G27,=(G8-G15)/G15,2.28731097961867,True
+3) Impact Analysis,H27,=(H8-H15)/H15,2.26301911667765,True
+3) Impact Analysis,J27,=(J8-J15)/J15,2.76947040498442,True
+3) Impact Analysis,K27,=(K8-K15)/K15,2.89751098096633,True
+3) Impact Analysis,B29,Assumptions,Assumptions,False
+3) Impact Analysis,E29,"This spreadsheet is designed to provide you with a baseline analysis to determine the impact of sales productivity investments on your company's income statement.  If you know the actual amounts for the other categories (G&A, R&D, COGS) then you can enter those figures directly into the corresponding cells.  However, you can see this information is already populated.  The table on the left contains industry average % of revenue metrics that are used to populate the data in this sheet.","This spreadsheet is designed to provide you with a baseline analysis to determine the impact of sales productivity investments on your company's income statement.  If you know the actual amounts for the other categories (G&A, R&D, COGS) then you can enter those figures directly into the corresponding cells.  However, you can see this information is already populated.  The table on the left contains industry average % of revenue metrics that are used to populate the data in this sheet.",False
+3) Impact Analysis,B30,Cost of revenue,Cost of revenue,False
+3) Impact Analysis,C30,0.1322,0.1322,False
+3) Impact Analysis,B31,R&D,R&D,False
+3) Impact Analysis,C31,0.1019,0.1019,False
+3) Impact Analysis,B32,G&A (other),G&A (other),False
+3) Impact Analysis,C32,0.154,0.154,False
+4) Scenario Diagnostic,B2,Issues Preventing Achievement of Scenarios,Issues Preventing Achievement of Scenarios,False
+4) Scenario Diagnostic,B3,©2011. Forrester Research.  All rights reserved.  ssantucci@forrester.com,©2011. Forrester Research.  All rights reserved.  ssantucci@forrester.com,False
+4) Scenario Diagnostic,B4,"This spreadsheet is designed to be a diagnostic tool to help you determine obstacles that your organization must overcome to achieve your desired goal in each scenario.  For each scenario, we have listed five common issues that most IT vendors face.  The issues listed are not to be considered exhaustive, as there will be issues unique to both your specific market and your company.  ","This spreadsheet is designed to be a diagnostic tool to help you determine obstacles that your organization must overcome to achieve your desired goal in each scenario.  For each scenario, we have listed five common issues that most IT vendors face.  The issues listed are not to be considered exhaustive, as there will be issues unique to both your specific market and your company.  ",False
+4) Scenario Diagnostic,B8,Increase close rate,Increase close rate,False
+4) Scenario Diagnostic,B9,Issue ,Issue ,False
+4) Scenario Diagnostic,D9,Reason,Reason,False
+4) Scenario Diagnostic,B10,1)  Sales people are unable to have relevant dialog with key stakeholders in their context,1)  Sales people are unable to have relevant dialog with key stakeholders in their context,False
+4) Scenario Diagnostic,D10,"Think of your typical sales person.  Imagine they get a meeting with a senior business executive in one of your top target accounts.  What are they going to say?  Many executives tell us one of the major problems they have is their sales organization does not understand what they do.  “We want to sell higher in the organization” is a common battle cry among other enterprise technology vendors.  However, it is not as simple as “get a meeting with the CXO”, you must be able to engage in a dialog in their context and most sales people are poorly equipped to have those conversations.  ","Think of your typical sales person.  Imagine they get a meeting with a senior business executive in one of your top target accounts.  What are they going to say?  Many executives tell us one of the major problems they have is their sales organization does not understand what they do.  “We want to sell higher in the organization” is a common battle cry among other enterprise technology vendors.  However, it is not as simple as “get a meeting with the CXO”, you must be able to engage in a dialog in their context and most sales people are poorly equipped to have those conversations.  ",False
+4) Scenario Diagnostic,B11,2)  Client does not clearly understand how you will provide the value you are proposing  ,2)  Client does not clearly understand how you will provide the value you are proposing  ,False
+4) Scenario Diagnostic,D11,"If a targeted account does not understand (from their point of view) how your products or services will impact them, they are not going to buy from you.  It is very common for technology companies to believe the features of their product ""obviously"" communicate value, and their clients will recognize that value as soon as they see it.  However, if your client cannot make the connection between the functionality you offer and how it addresses a business problem they have, you will not make a sale.  Many vendors overlook this issue and forget that while the problem and solution is obvious to them, the client is addressing the issue for the very first time.","If a targeted account does not understand (from their point of view) how your products or services will impact them, they are not going to buy from you.  It is very common for technology companies to believe the features of their product ""obviously"" communicate value, and their clients will recognize that value as soon as they see it.  However, if your client cannot make the connection between the functionality you offer and how it addresses a business problem they have, you will not make a sale.  Many vendors overlook this issue and forget that while the problem and solution is obvious to them, the client is addressing the issue for the very first time.",False
+4) Scenario Diagnostic,B12,3) Product does not meet needs of targeted market,3) Product does not meet needs of targeted market,False
+4) Scenario Diagnostic,D12,"Once a product is developed, there is a tremendous amount of temptation to identify new applications or markets for your offering.  As a matter of fact, it is taught in business school.  All of the uses of baking soda (refrigerator freshener, toothpaste, etc) is a good example of this concept.  Unfortunately, many technology vendors overlook the tremendous complexities of their market.  A solution you build for one company may not be a good fit for another.  All companies have different business processes, organizations, and technical architectures.","Once a product is developed, there is a tremendous amount of temptation to identify new applications or markets for your offering.  As a matter of fact, it is taught in business school.  All of the uses of baking soda (refrigerator freshener, toothpaste, etc) is a good example of this concept.  Unfortunately, many technology vendors overlook the tremendous complexities of their market.  A solution you build for one company may not be a good fit for another.  All companies have different business processes, organizations, and technical architectures.",False
+4) Scenario Diagnostic,B13,4) Out positioned by competitor,4) Out positioned by competitor,False
+4) Scenario Diagnostic,D13,"Many organizations focus on this issue as a way to increase their close rate, but few understand all of the dynamics.  If you ask the sales force why a deal was lost - it's almost always product related.  (Our price was too high, our product lacked the right features, etc).  Marketing will blame the sales force's inability to properly position the product.  Best practice vendors with high close rates against their competitors focus their energies on helping their clients define their requirements.  Vendors who help influence the requirements win the business an overwhelming majority of the time.  Other best practices highly competitive organizations implement include: timely and accurate competitive information distributed to sales people, positioning tactics and knock off tactics for each competitor, and pricing strategies to lock out competition.      ","Many organizations focus on this issue as a way to increase their close rate, but few understand all of the dynamics.  If you ask the sales force why a deal was lost - it's almost always product related.  (Our price was too high, our product lacked the right features, etc).  Marketing will blame the sales force's inability to properly position the product.  Best practice vendors with high close rates against their competitors focus their energies on helping their clients define their requirements.  Vendors who help influence the requirements win the business an overwhelming majority of the time.  Other best practices highly competitive organizations implement include: timely and accurate competitive information distributed to sales people, positioning tactics and knock off tactics for each competitor, and pricing strategies to lock out competition.      ",False
+4) Scenario Diagnostic,B14,5)  Defensible and economically justifiable business case not made to account,5)  Defensible and economically justifiable business case not made to account,False
+4) Scenario Diagnostic,D14,"In today’s economic climate, all major purchases are being scrutinized.  Company’s are making sure the investments they are making have a clear economic impact to the organization (and most are concentrating on ways to cut costs).  The finance department will evaluate various investments (projects) and determine which will have: the greatest internal return on investment, the shortest pay back period, and the biggest impact on the financial statement.  Not only are you competing with all of the other providers to be selected by the committee to be the “vendor of choice” for a given project, but also the other “vendor of choices” for other projects.  If your project lacks a clear business justification (in economic terms that a CFO could understand), then you are likely to be told by your champion “we are going to push this decision off until second quarter”. ","In today’s economic climate, all major purchases are being scrutinized.  Company’s are making sure the investments they are making have a clear economic impact to the organization (and most are concentrating on ways to cut costs).  The finance department will evaluate various investments (projects) and determine which will have: the greatest internal return on investment, the shortest pay back period, and the biggest impact on the financial statement.  Not only are you competing with all of the other providers to be selected by the committee to be the “vendor of choice” for a given project, but also the other “vendor of choices” for other projects.  If your project lacks a clear business justification (in economic terms that a CFO could understand), then you are likely to be told by your champion “we are going to push this decision off until second quarter”. ",False
+4) Scenario Diagnostic,B16,Decrease Sales Cycle Time,Decrease Sales Cycle Time,False
+4) Scenario Diagnostic,B17,Issue ,Issue ,False
+4) Scenario Diagnostic,D17,Reason / Solution,Reason / Solution,False
+4) Scenario Diagnostic,B18,1)  Lack of understanding for customers problem-solving lifecycle,1)  Lack of understanding for customers problem-solving lifecycle,False
+4) Scenario Diagnostic,D18,"Because of the complexity and scale of enterprise solutions, IT organizations have a process they go through throughout the entire lifecycle of an initiative (from inception to execution).  To make sure they are successful, organizations must be able to prove internally they are taking the best approach, make sure the right people are involved, have performed their due diligence, etc. Some of these processes are formal and others are more casual.  In each step of their problem-solving process they require different types of information and create different types of deliverables.  However, sales people have their own sales process and their own agenda each time they engage with a prospect.  The different processes (customer’s problem-solving and vendor’s selling) are often out of context and can create tension, confusion, or even delays. Vendors cannot decrease their sales cycle time unless they can help facilitate their customers problem solving process.      ","Because of the complexity and scale of enterprise solutions, IT organizations have a process they go through throughout the entire lifecycle of an initiative (from inception to execution).  To make sure they are successful, organizations must be able to prove internally they are taking the best approach, make sure the right people are involved, have performed their due diligence, etc. Some of these processes are formal and others are more casual.  In each step of their problem-solving process they require different types of information and create different types of deliverables.  However, sales people have their own sales process and their own agenda each time they engage with a prospect.  The different processes (customer’s problem-solving and vendor’s selling) are often out of context and can create tension, confusion, or even delays. Vendors cannot decrease their sales cycle time unless they can help facilitate their customers problem solving process.      ",False
+4) Scenario Diagnostic,B19,"2)  Understanding the total solution for the project is extremely complex, involved, and difficult","2)  Understanding the total solution for the project is extremely complex, involved, and difficult",False
+4) Scenario Diagnostic,D19,"The product or service you offer will help address a common business problem within your market segment.  Because this is an issue they have never successfully tackled before, each of your prospects must go through a decision-making process to assess the problem, determine the best way to fix it, understand what it will cost to fix it, and how they should go about fixing it.  The funding that will pay for your offering will come from an overall project budget that is allocated to address the client’s business problem.  However, there are many steps a client must go through internally to feel comfortable proceeding with that project.  Most vendors only provide information about their role in the overall project – leaving the customer to figure out the other steps.  If your customer has a clear understanding about your offerings and how to execute, but is not clear on other elements, their decision-making process will drag on.     ","The product or service you offer will help address a common business problem within your market segment.  Because this is an issue they have never successfully tackled before, each of your prospects must go through a decision-making process to assess the problem, determine the best way to fix it, understand what it will cost to fix it, and how they should go about fixing it.  The funding that will pay for your offering will come from an overall project budget that is allocated to address the client’s business problem.  However, there are many steps a client must go through internally to feel comfortable proceeding with that project.  Most vendors only provide information about their role in the overall project – leaving the customer to figure out the other steps.  If your customer has a clear understanding about your offerings and how to execute, but is not clear on other elements, their decision-making process will drag on.     ",False
+4) Scenario Diagnostic,B20,"3)  Sponsor has difficulty ""selling"" project internally","3)  Sponsor has difficulty ""selling"" project internally",False
+4) Scenario Diagnostic,D20,"When you consider IT organizations within Global 2000 organizations have thousands of employees, it is not too hard to find someone in an account who believes your offering can addresses a problem the firm has.  The challenge is how do you properly prepare the person who believes in your company to sell on your behalf.  What other stakeholders must be involved?  What are the internal business drives this project is related to?  How do we get a business sponsor for the project?  How do we gain committee support?  Who should be on the committee?","When you consider IT organizations within Global 2000 organizations have thousands of employees, it is not too hard to find someone in an account who believes your offering can addresses a problem the firm has.  The challenge is how do you properly prepare the person who believes in your company to sell on your behalf.  What other stakeholders must be involved?  What are the internal business drives this project is related to?  How do we get a business sponsor for the project?  How do we gain committee support?  Who should be on the committee?",False
+4) Scenario Diagnostic,B21,"4)  Clients who are confused (by technology, the approach, or the value of what you offer) will not buy.","4)  Clients who are confused (by technology, the approach, or the value of what you offer) will not buy.",False
+4) Scenario Diagnostic,D21,"Our industry is “buzzword” driven.  Once a “theme” such as “cloud” is deemed hot, all vendors claim to have a “cloud” solution.  Each vendor has their own interpretation about the challenges that must be addressed with that theme, a different definition of CRM, a different suite of offerings, and even a different technological architecture.  If you look at it from a customer’s perspective, what do they believe?  How do they organize all of the information and decide which definition they agree with, what solution meets their needs, or which technical architecture is best for them?  Confused customers will delay buying decisions until they feel comfortable.  Don't hide behind jargon, work to be clear.   ","Our industry is “buzzword” driven.  Once a “theme” such as “cloud” is deemed hot, all vendors claim to have a “cloud” solution.  Each vendor has their own interpretation about the challenges that must be addressed with that theme, a different definition of CRM, a different suite of offerings, and even a different technological architecture.  If you look at it from a customer’s perspective, what do they believe?  How do they organize all of the information and decide which definition they agree with, what solution meets their needs, or which technical architecture is best for them?  Confused customers will delay buying decisions until they feel comfortable.  Don't hide behind jargon, work to be clear.   ",False
+4) Scenario Diagnostic,B22,5)  Client's organization lacks internal sense of urgency around capabilities you offer.,5)  Client's organization lacks internal sense of urgency around capabilities you offer.,False
+4) Scenario Diagnostic,D22,"There are a variety of reasons clients do not have a sense of urgency around your offering.  Some of them include:  the project seems hard, executives question the benefits, the firm wants to tackle other projects with quicker returns on investment, confused about something, etc.  Each of these issues will lengthen the sales process with that account.","There are a variety of reasons clients do not have a sense of urgency around your offering.  Some of them include:  the project seems hard, executives question the benefits, the firm wants to tackle other projects with quicker returns on investment, confused about something, etc.  Each of these issues will lengthen the sales process with that account.",False
+4) Scenario Diagnostic,B24,Increase Revenue Per Transaction,Increase Revenue Per Transaction,False
+4) Scenario Diagnostic,B25,Issue ,Issue ,False
+4) Scenario Diagnostic,D25,Reason / Solution,Reason / Solution,False
+4) Scenario Diagnostic,B26,1)  Poor negotiation with prospect,1)  Poor negotiation with prospect,False
+4) Scenario Diagnostic,D26,"During most of the sales process, your organization has the upper hand.  You know more about a specific issue than the customer and are educating them throughout the process. However, when it comes to buying- the customer absolutely has the upper hand.  Most enterprise organizations have professional buyers who are trained to get you to discount as much as possible.  Bidding, negotiating during the end of the year or quarter, not returning your calls to make your sales people more anxious are all tactics commonly used by IT buyers to get you to drop your prices.  These tactics work because sales people (who have worked on an account for the past 6 months) are almost desperate to close and agree to almost anything.  ","During most of the sales process, your organization has the upper hand.  You know more about a specific issue than the customer and are educating them throughout the process. However, when it comes to buying- the customer absolutely has the upper hand.  Most enterprise organizations have professional buyers who are trained to get you to discount as much as possible.  Bidding, negotiating during the end of the year or quarter, not returning your calls to make your sales people more anxious are all tactics commonly used by IT buyers to get you to drop your prices.  These tactics work because sales people (who have worked on an account for the past 6 months) are almost desperate to close and agree to almost anything.  ",False
+4) Scenario Diagnostic,B27,2)  Product feature set does not meet with clients perceived value,2)  Product feature set does not meet with clients perceived value,False
+4) Scenario Diagnostic,D27,"As industry analysts, we’ve been in position to listen to the buyers needs and hear various vendors’ approaches to addressing those needs.  You would be amazed at the difference.  Buyer’s will say if the product would just do X, I would get so much more value out of it.  Whereas vendors seem more focused in being able to present a favorable checklist of features in their industry.  Certainly product feature sets are important (especially to help drive close rate), but more attention to meeting customer needs will help justify higher prices. ","As industry analysts, we’ve been in position to listen to the buyers needs and hear various vendors’ approaches to addressing those needs.  You would be amazed at the difference.  Buyer’s will say if the product would just do X, I would get so much more value out of it.  Whereas vendors seem more focused in being able to present a favorable checklist of features in their industry.  Certainly product feature sets are important (especially to help drive close rate), but more attention to meeting customer needs will help justify higher prices. ",False
+4) Scenario Diagnostic,B28,3)  Desperation by management to close quarterly revenue,3)  Desperation by management to close quarterly revenue,False
+4) Scenario Diagnostic,D28,Vendors always need to close business to meet quarterly expectations.  This issue becomes a problem when there are not enough opportunities being worked in the pipeline at any given time.  We believe the underlying cause of this desperation is a woefully inadequate internal pipeline management and forecasting reporting process.  Most companies find out far too late what their revenue targets are going to be and thus the end of each quarter becomes a scramble for business.  ,Vendors always need to close business to meet quarterly expectations.  This issue becomes a problem when there are not enough opportunities being worked in the pipeline at any given time.  We believe the underlying cause of this desperation is a woefully inadequate internal pipeline management and forecasting reporting process.  Most companies find out far too late what their revenue targets are going to be and thus the end of each quarter becomes a scramble for business.  ,False
+4) Scenario Diagnostic,B29,4)  Economic ROI not effectively established,4)  Economic ROI not effectively established,False
+4) Scenario Diagnostic,D29,"This problem occurs after the account has approved the internal business case for the entire project and now the client is looking to acquire the piece parts that comprise the entire solution.  This problem is related to the “Defensible and economically justifiable business case not made to account” issue in that both relate to ROI.  However, the later is more focused on helping the account justify the entire project.  This issue is focused on being able to clearly defend your role in adding the value the client anticipates to achieve by successfully executing this project. ","This problem occurs after the account has approved the internal business case for the entire project and now the client is looking to acquire the piece parts that comprise the entire solution.  This problem is related to the “Defensible and economically justifiable business case not made to account” issue in that both relate to ROI.  However, the later is more focused on helping the account justify the entire project.  This issue is focused on being able to clearly defend your role in adding the value the client anticipates to achieve by successfully executing this project. ",False
+4) Scenario Diagnostic,B30,5)  Product pricing doesn't align to the customer's value received,5)  Product pricing doesn't align to the customer's value received,False
+4) Scenario Diagnostic,D30,"Often, the pricing model or strategy of a vendor can limit its ability to realize the maximum value of a sales transaction.  There are many pricing models (perpetual licenses, annual licenses, server-based pricing, user-based pricing, leasing, activity-based pricing, etc.)  The point is that your pricing strategy must be oriented to how a customer will realize the benefits of your offering  - so they evaluate the offer more in their context.","Often, the pricing model or strategy of a vendor can limit its ability to realize the maximum value of a sales transaction.  There are many pricing models (perpetual licenses, annual licenses, server-based pricing, user-based pricing, leasing, activity-based pricing, etc.)  The point is that your pricing strategy must be oriented to how a customer will realize the benefits of your offering  - so they evaluate the offer more in their context.",False

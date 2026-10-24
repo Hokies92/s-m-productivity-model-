@@ -1,12 +1,14 @@
 {
   "model_metadata": {
     "name": "Sales Capacity Model",
-    "version": "2.0",
+    "version": "2.1",
     "original_creation_date": "2000",
     "audit_date": "2003",
     "auditor": "Ernst & Young",
     "documentation_date": "2026",
-    "subtitle": "A Cognitive-Temporal Throughput Model for Sales Effectiveness"
+    "subtitle": "A Cognitive-Temporal Throughput Model for Sales Effectiveness",
+    "spec_revision_note": "v2.1 reconciles the spec to the workbook formulas (source/workbook_cells.csv). See AUDIT_FINDINGS.md.",
+    "workbook_label": "Sales and Marketing Efficiency Model, (c)2011 Forrester Research (Scott Santucci); originated 2000"
   },
   "foundational_premise": {
     "core_assertion": "Sales capacity is not labor hours. It is cognitive bandwidth constrained by time.",
@@ -194,7 +196,8 @@
               }
             },
             "formula": "Base_Salary × (1 + Load_Rate)",
-            "example_calculation": "$95,000 × (1 + 0.23) = $116,850"
+            "example_calculation": "$95,000 × (1 + 0.23) = $116,850",
+            "note": "Entered value (116,850) is NOT used downstream. Performance Breakdown hard-codes 87,750. See finding F1."
           },
           "average_travel_costs_per_rep": {
             "description": "Annual travel expense per rep",
@@ -203,13 +206,27 @@
             "unit": "dollars/year",
             "formula": "(Airfare + Ground_Transport + (Meals × Days) + (Lodging × Days) + Entertainment) × Trips_Per_Year",
             "sub_inputs": {
-              "airfare": {"default_value": 750},
-              "ground_transport": {"default_value": 200},
-              "meals_per_day": {"default_value": 100},
-              "lodging_per_night": {"default_value": 250},
-              "days_per_trip": {"default_value": 2},
-              "entertainment_per_trip": {"default_value": 250},
-              "trips_per_year": {"default_value": 25}
+              "airfare": {
+                "default_value": 750
+              },
+              "ground_transport": {
+                "default_value": 200
+              },
+              "meals_per_day": {
+                "default_value": 100
+              },
+              "lodging_per_night": {
+                "default_value": 250
+              },
+              "days_per_trip": {
+                "default_value": 2
+              },
+              "entertainment_per_trip": {
+                "default_value": 250
+              },
+              "trips_per_year": {
+                "default_value": 25
+              }
             },
             "example_calculation": "($750 + $200 + ($100 × 2) + ($250 × 2) + $250) × 25 = $47,500"
           },
@@ -218,6 +235,11 @@
             "default_value": 0.08,
             "cell_reference": "E27",
             "unit": "percentage"
+          },
+          "unused_inputs": {
+            "number_of_contracts_last_year": 755,
+            "revenue_from_those_contracts": 25000000,
+            "note": "Entered but not referenced by any formula. 25,000,000 / 755 = 33,113, which does not match the 75,000 deal size used."
           }
         },
         "sales_mechanics": {
@@ -238,7 +260,7 @@
             "default_value": 12,
             "cell_reference": "E34",
             "unit": "months",
-            "note": "Present in model but not currently integrated into throughput calculation"
+            "note": "IS used: only in the territory scenarios. New territories earn (12 - ramp)/12 of a year of revenue. At 12 months that is zero. See findings F2, F3."
           },
           "close_rate": {
             "description": "Percentage of worked opportunities that convert",
@@ -254,11 +276,21 @@
             "cell_reference": "E40",
             "unit": "dollars",
             "sub_components": {
-              "non_quota_manager_salaries": {"default_value": 2750000},
-              "sales_engineers": {"default_value": 6000000},
-              "sales_admin": {"default_value": 800000},
-              "training_costs": {"default_value": 500000},
-              "incentive_costs": {"default_value": 750000}
+              "non_quota_manager_salaries": {
+                "default_value": 2750000
+              },
+              "sales_engineers": {
+                "default_value": 6000000
+              },
+              "sales_admin": {
+                "default_value": 800000
+              },
+              "training_costs": {
+                "default_value": 500000
+              },
+              "incentive_costs": {
+                "default_value": 750000
+              }
             }
           },
           "marketing_costs": {
@@ -267,14 +299,30 @@
             "cell_reference": "E47",
             "unit": "dollars",
             "sub_components": {
-              "marketing_personnel": {"default_value": 1000000},
-              "website": {"default_value": 250000},
-              "events": {"default_value": 500000},
-              "advertising": {"default_value": 500000},
-              "direct_mail": {"default_value": 250000},
-              "telemarketing": {"default_value": 250000},
-              "branding_pr": {"default_value": 200000},
-              "collateral": {"default_value": 750000}
+              "marketing_personnel": {
+                "default_value": 1000000
+              },
+              "website": {
+                "default_value": 250000
+              },
+              "events": {
+                "default_value": 500000
+              },
+              "advertising": {
+                "default_value": 500000
+              },
+              "direct_mail": {
+                "default_value": 250000
+              },
+              "telemarketing": {
+                "default_value": 250000
+              },
+              "branding_pr": {
+                "default_value": 200000
+              },
+              "collateral": {
+                "default_value": 750000
+              }
             }
           },
           "total_sales_and_marketing_costs": {
@@ -308,31 +356,33 @@
         "scenarios": {
           "column_D": {
             "name": "Hire more sales people",
-            "default_adjustment": 0.10,
+            "default_adjustment": 0.1,
             "adjustment_direction": "increase"
           },
           "column_E": {
             "name": "Increase close rate",
-            "default_adjustment": 0.10,
+            "default_adjustment": 0.1,
             "adjustment_direction": "increase"
           },
           "column_F": {
             "name": "Decrease sales cycle time",
-            "default_adjustment": 0.10,
+            "default_adjustment": 0.1,
             "adjustment_direction": "decrease"
           },
           "column_G": {
             "name": "Increase average revenue/transaction",
-            "default_adjustment": 0.10,
+            "default_adjustment": 0.1,
             "adjustment_direction": "increase"
           },
           "column_I": {
             "name": "Combined: Close + Deal Size + Cycle",
-            "default_adjustment": "per individual scenario"
+            "default_adjustment": "per individual scenario",
+            "actual_columns": "Workbook column J (territories held at baseline)"
           },
           "column_J": {
             "name": "Improve all scenarios",
-            "default_adjustment": "all at 10%"
+            "default_adjustment": "all at 10%",
+            "actual_columns": "Workbook column K"
           }
         }
       },
@@ -365,12 +415,17 @@
         "total_cost_per_rep": {
           "row": 13,
           "formula": "Fully_Loaded_Salary + Travel_Costs + Commission",
-          "baseline_result": 225250
+          "baseline_result": 225250,
+          "note": "Uses hard-coded 87,750 salary, not the Data Entry 116,850 (F1)."
         },
         "total_revenue": {
           "row": 24,
           "formula": "Revenue_Per_Rep × Number_of_Territories",
-          "baseline_result": 112500000
+          "baseline_result": 112500000,
+          "scenario_variants": {
+            "hire": "=((12-Ramp)/12 * New_Territories * Rev_Per_Rep) + Baseline_Revenue  -> new reps produce 0 in year 1 at 12-month ramp",
+            "improve_all": "=(T_new * Rev_Per_Rep_new) - ((12-Ramp)/12 * New_Territories * Rev_Per_Rep_base)  -> subtracts 0 at 12-month ramp, so new reps get full-year credit (F3)"
+          }
         },
         "total_sales_rep_costs": {
           "row": 25,
@@ -455,15 +510,16 @@
         },
         "metrics": {
           "percentage_net_gain": {
-            "row": 25,
-            "formula": "(Scenario_Operating_Income - Baseline_Operating_Income) / Baseline_Operating_Income",
-            "significance": "Key comparison metric - shows which lever produces greatest margin improvement"
+            "row": 26,
+            "formula": "(Scenario_Revenue - Baseline_Revenue - (Scenario_Sales_Costs - Baseline_Sales_Costs)) / Baseline_Revenue",
+            "excel": "=(E9-E12)/'2) Performance breakdown'!$C$25",
+            "significance": "Key comparison metric. Measures incremental gross contribution after sales cost, as a share of baseline revenue. Excludes the revenue-linked COGS/R&D/G&A growth (F4)."
           },
           "sales_and_marketing_roi": {
-            "row": 26,
-            "formula": "Total_Revenue / Total_S&M_Costs",
-            "baseline": 3.04,
-            "interpretation": "Revenue dollars per S&M dollar spent"
+            "row": 27,
+            "formula": "(Total_Revenue - Total_S&M_Costs) / Total_S&M_Costs",
+            "baseline": 2.0385,
+            "interpretation": "Net revenue return per S&M dollar (F5)"
           }
         }
       }
@@ -567,140 +623,447 @@
     "data_flow": {
       "stage_1": {
         "worksheet": "Data Entry",
-        "outputs": ["Territories", "Salary", "Travel", "Commission", "Mechanics", "Overhead", "Marketing"]
+        "outputs": [
+          "Territories",
+          "Salary",
+          "Travel",
+          "Commission",
+          "Mechanics",
+          "Overhead",
+          "Marketing"
+        ]
       },
       "stage_2": {
         "worksheet": "Performance Breakdown",
         "inputs_from": "Data Entry",
         "process": "Applies capacity logic → Computes throughput → Projects by scenario",
-        "outputs": ["Revenue by scenario", "Costs by scenario"]
+        "outputs": [
+          "Revenue by scenario",
+          "Costs by scenario"
+        ]
       },
       "stage_3": {
         "worksheet": "Impact Analysis",
         "inputs_from": "Performance Breakdown",
         "process": "Translates to income statement → Computes operating income → Calculates ROI",
-        "outputs": ["Operating Income", "Net Gain %", "S&M ROI"]
+        "outputs": [
+          "Operating Income",
+          "Net Gain %",
+          "S&M ROI"
+        ]
       },
       "stage_4": {
         "worksheet": "Scenario Diagnostics",
         "inputs_from": "Impact Analysis results",
         "process": "Interprets results → Identifies obstacles → Guides implementation",
-        "outputs": ["Operational guidance"]
+        "outputs": [
+          "Operational guidance"
+        ]
       }
     },
     "cell_references": {
       "worksheet_1_to_2": [
-        {"source": "E8", "target": "B8", "description": "Number of territories baseline"},
-        {"source": "E10", "target": "B9", "description": "Average revenue per transaction"},
-        {"source": "E14", "target": "B10", "description": "Fully loaded salary"},
-        {"source": "E18", "target": "B11", "description": "Travel costs per rep"},
-        {"source": "E27", "target": "B12 calc", "description": "Commission rate"},
-        {"source": "E30", "target": "B15", "description": "Cognitive load limit"},
-        {"source": "E32", "target": "B16", "description": "Sales cycle months"},
-        {"source": "E36", "target": "B18", "description": "Conversion rate"}
+        {
+          "source": "E8",
+          "target": "B8",
+          "description": "Number of territories baseline"
+        },
+        {
+          "source": "E10",
+          "target": "B9",
+          "description": "Average revenue per transaction"
+        },
+        {
+          "source": "E14",
+          "target": "B10",
+          "description": "Fully loaded salary"
+        },
+        {
+          "source": "E18",
+          "target": "B11",
+          "description": "Travel costs per rep"
+        },
+        {
+          "source": "E27",
+          "target": "B12 calc",
+          "description": "Commission rate"
+        },
+        {
+          "source": "E30",
+          "target": "B15",
+          "description": "Cognitive load limit"
+        },
+        {
+          "source": "E32",
+          "target": "B16",
+          "description": "Sales cycle months"
+        },
+        {
+          "source": "E36",
+          "target": "B18",
+          "description": "Conversion rate"
+        }
       ],
       "worksheet_2_to_3": [
-        {"source": "Row 24", "target": "Row 7", "description": "Revenue by scenario"},
-        {"source": "Row 25", "target": "Row 12 calc", "description": "Sales rep costs by scenario"},
-        {"source": "Row 8", "target": "cost scaling", "description": "Territory count by scenario"}
-      ]
+        {
+          "source": "Row 24",
+          "target": "Row 7",
+          "description": "Revenue by scenario"
+        },
+        {
+          "source": "Row 25",
+          "target": "Row 12 calc",
+          "description": "Sales rep costs by scenario"
+        },
+        {
+          "source": "Row 8",
+          "target": "cost scaling",
+          "description": "Territory count by scenario"
+        }
+      ],
+      "note": "v2.0 cell references were inferred and are off by one row/column. Authoritative references: source/workbook_cells.csv."
     },
     "calculation_dependencies": {
       "order": [
-        {"step": 1, "calculation": "Fully loaded salary", "requires": ["base salary", "load rate"]},
-        {"step": 2, "calculation": "Travel costs", "requires": ["component costs", "trips/year"]},
-        {"step": 3, "calculation": "Max opportunities", "requires": ["manageable opps", "cycle length"]},
-        {"step": 4, "calculation": "Deals closed", "requires": ["max opps", "close rate"]},
-        {"step": 5, "calculation": "Revenue per rep", "requires": ["deals", "deal size"]},
-        {"step": 6, "calculation": "Commission", "requires": ["revenue per rep", "commission rate"]},
-        {"step": 7, "calculation": "Cost per rep", "requires": ["salary", "travel", "commission"]},
-        {"step": 8, "calculation": "Total revenue", "requires": ["revenue per rep", "territories"]},
-        {"step": 9, "calculation": "Total costs", "requires": ["cost per rep", "territories", "overhead"]},
-        {"step": 10, "calculation": "Operating income", "requires": ["revenue", "all costs"]}
+        {
+          "step": 1,
+          "calculation": "Fully loaded salary",
+          "requires": [
+            "base salary",
+            "load rate"
+          ]
+        },
+        {
+          "step": 2,
+          "calculation": "Travel costs",
+          "requires": [
+            "component costs",
+            "trips/year"
+          ]
+        },
+        {
+          "step": 3,
+          "calculation": "Max opportunities",
+          "requires": [
+            "manageable opps",
+            "cycle length"
+          ]
+        },
+        {
+          "step": 4,
+          "calculation": "Deals closed",
+          "requires": [
+            "max opps",
+            "close rate"
+          ]
+        },
+        {
+          "step": 5,
+          "calculation": "Revenue per rep",
+          "requires": [
+            "deals",
+            "deal size"
+          ]
+        },
+        {
+          "step": 6,
+          "calculation": "Commission",
+          "requires": [
+            "revenue per rep",
+            "commission rate"
+          ]
+        },
+        {
+          "step": 7,
+          "calculation": "Cost per rep",
+          "requires": [
+            "salary",
+            "travel",
+            "commission"
+          ]
+        },
+        {
+          "step": 8,
+          "calculation": "Total revenue",
+          "requires": [
+            "revenue per rep",
+            "territories"
+          ]
+        },
+        {
+          "step": 9,
+          "calculation": "Total costs",
+          "requires": [
+            "cost per rep",
+            "territories",
+            "overhead"
+          ]
+        },
+        {
+          "step": 10,
+          "calculation": "Operating income",
+          "requires": [
+            "revenue",
+            "all costs"
+          ]
+        }
       ]
     }
   },
   "formula_reference": {
     "input_variables": [
-      {"variable": "Number of territories", "symbol": "T", "default": 100, "unit": "count"},
-      {"variable": "Average deal size", "symbol": "D", "default": 75000, "unit": "dollars"},
-      {"variable": "Base salary", "symbol": "S_base", "default": 95000, "unit": "dollars/year"},
-      {"variable": "Corporate load rate", "symbol": "L", "default": 0.23, "unit": "percentage"},
-      {"variable": "Travel cost per rep", "symbol": "V", "default": 47500, "unit": "dollars/year"},
-      {"variable": "Commission rate", "symbol": "C", "default": 0.08, "unit": "percentage"},
-      {"variable": "Manageable opportunities", "symbol": "M", "default": 30, "unit": "count"},
-      {"variable": "Sales cycle length", "symbol": "Y", "default": 6, "unit": "months"},
-      {"variable": "Close rate", "symbol": "R", "default": 0.25, "unit": "percentage"},
-      {"variable": "Sales overhead", "symbol": "O_s", "default": 10800000, "unit": "dollars"},
-      {"variable": "Marketing costs", "symbol": "O_m", "default": 3700000, "unit": "dollars"}
+      {
+        "variable": "Number of territories",
+        "symbol": "T",
+        "default": 100,
+        "unit": "count"
+      },
+      {
+        "variable": "Average deal size",
+        "symbol": "D",
+        "default": 75000,
+        "unit": "dollars"
+      },
+      {
+        "variable": "Base salary",
+        "symbol": "S_base",
+        "default": 95000,
+        "unit": "dollars/year"
+      },
+      {
+        "variable": "Corporate load rate",
+        "symbol": "L",
+        "default": 0.23,
+        "unit": "percentage"
+      },
+      {
+        "variable": "Travel cost per rep",
+        "symbol": "V",
+        "default": 47500,
+        "unit": "dollars/year"
+      },
+      {
+        "variable": "Commission rate",
+        "symbol": "C",
+        "default": 0.08,
+        "unit": "percentage"
+      },
+      {
+        "variable": "Manageable opportunities",
+        "symbol": "M",
+        "default": 30,
+        "unit": "count"
+      },
+      {
+        "variable": "Sales cycle length",
+        "symbol": "Y",
+        "default": 6,
+        "unit": "months"
+      },
+      {
+        "variable": "Close rate",
+        "symbol": "R",
+        "default": 0.25,
+        "unit": "percentage"
+      },
+      {
+        "variable": "Sales overhead",
+        "symbol": "O_s",
+        "default": 10800000,
+        "unit": "dollars"
+      },
+      {
+        "variable": "Marketing costs",
+        "symbol": "O_m",
+        "default": 3700000,
+        "unit": "dollars"
+      }
     ],
     "derived_variables": [
-      {"variable": "Fully loaded salary", "formula": "S = S_base × (1 + L)", "baseline_result": 116850},
-      {"variable": "Max opportunities/year", "formula": "MAX = M × (12 / Y)", "baseline_result": 60},
-      {"variable": "Deals closed/year", "formula": "DEALS = MAX × R", "baseline_result": 15},
-      {"variable": "Revenue per rep", "formula": "REV_rep = DEALS × D", "baseline_result": 1125000},
-      {"variable": "Commission per rep", "formula": "COMM = REV_rep × C", "baseline_result": 90000},
-      {"variable": "Cost per rep", "formula": "COST_rep = S + V + COMM", "baseline_result": 225250},
-      {"variable": "Total revenue", "formula": "REV_total = REV_rep × T", "baseline_result": 112500000},
-      {"variable": "Total rep costs", "formula": "COST_reps = COST_rep × T", "baseline_result": 22525000},
-      {"variable": "Total sales costs", "formula": "COST_sales = COST_reps + O_s", "baseline_result": 33325000},
-      {"variable": "Total S&M costs", "formula": "COST_sm = COST_sales + O_m", "baseline_result": 37025000}
+      {
+        "variable": "Fully loaded salary",
+        "formula": "S = S_base × (1 + L)",
+        "baseline_result": 116850
+      },
+      {
+        "variable": "Max opportunities/year",
+        "formula": "MAX = M × (12 / Y)",
+        "baseline_result": 60
+      },
+      {
+        "variable": "Deals closed/year",
+        "formula": "DEALS = MAX × R",
+        "baseline_result": 15
+      },
+      {
+        "variable": "Revenue per rep",
+        "formula": "REV_rep = DEALS × D",
+        "baseline_result": 1125000
+      },
+      {
+        "variable": "Commission per rep",
+        "formula": "COMM = REV_rep × C",
+        "baseline_result": 90000
+      },
+      {
+        "variable": "Cost per rep",
+        "formula": "COST_rep = S + V + COMM",
+        "baseline_result": 225250
+      },
+      {
+        "variable": "Total revenue",
+        "formula": "REV_total = REV_rep × T",
+        "baseline_result": 112500000
+      },
+      {
+        "variable": "Total rep costs",
+        "formula": "COST_reps = COST_rep × T",
+        "baseline_result": 22525000
+      },
+      {
+        "variable": "Total sales costs",
+        "formula": "COST_sales = COST_reps + O_s",
+        "baseline_result": 33325000
+      },
+      {
+        "variable": "Total S&M costs",
+        "formula": "COST_sm = COST_sales + O_m",
+        "baseline_result": 37025000
+      }
     ],
     "scenario_formulas": [
-      {"scenario": "Add territories", "adjusted_variable": "T_new = T × (1 + adj)", "example": "100 × 1.10 = 110"},
-      {"scenario": "Increase close rate", "adjusted_variable": "R_new = R × (1 + adj)", "example": "0.25 × 1.10 = 0.275"},
-      {"scenario": "Decrease cycle time", "adjusted_variable": "Y_new = Y × (1 - adj)", "example": "6 × 0.90 = 5.4"},
-      {"scenario": "Increase deal size", "adjusted_variable": "D_new = D × (1 + adj)", "example": "$75,000 × 1.10 = $82,500"}
+      {
+        "scenario": "Add territories",
+        "adjusted_variable": "T_new = T × (1 + adj)",
+        "example": "100 × 1.10 = 110"
+      },
+      {
+        "scenario": "Increase close rate",
+        "adjusted_variable": "R_new = R × (1 + adj)",
+        "example": "0.25 × 1.10 = 0.275"
+      },
+      {
+        "scenario": "Decrease cycle time",
+        "adjusted_variable": "Y_new = Y × (1 - adj)",
+        "example": "6 × 0.90 = 5.4"
+      },
+      {
+        "scenario": "Increase deal size",
+        "adjusted_variable": "D_new = D × (1 + adj)",
+        "example": "$75,000 × 1.10 = $82,500"
+      }
     ],
     "financial_metrics": [
-      {"metric": "Operating Income", "formula": "REV_total - (COGS + R&D + S&M + G&A)", "interpretation": "Profit from operations"},
-      {"metric": "% Net Gain", "formula": "(OI_scenario - OI_baseline) / OI_baseline", "interpretation": "Margin improvement vs. base"},
-      {"metric": "S&M ROI", "formula": "REV_total / COST_sm", "interpretation": "Revenue dollars per S&M dollar spent"}
+      {
+        "metric": "Operating Income",
+        "formula": "REV_total - (COGS + R&D + S&M + G&A)",
+        "interpretation": "Profit from operations"
+      },
+      {
+        "metric": "% Net Gain",
+        "formula": "(ΔRevenue - ΔSales_Costs) / Baseline_Revenue",
+        "interpretation": "Incremental contribution after sales cost, as share of baseline revenue"
+      },
+      {
+        "metric": "S&M ROI",
+        "formula": "(REV_total - COST_sm) / COST_sm",
+        "interpretation": "Revenue dollars per S&M dollar spent"
+      }
     ],
     "industry_assumption_rates": [
-      {"expense": "Cost of Revenue", "percentage": 0.1322, "source": "Industry average"},
-      {"expense": "R&D", "percentage": 0.1019, "source": "Industry average"},
-      {"expense": "G&A", "percentage": 0.154, "source": "Industry average"}
+      {
+        "expense": "Cost of Revenue",
+        "percentage": 0.1322,
+        "source": "Industry average"
+      },
+      {
+        "expense": "R&D",
+        "percentage": 0.1019,
+        "source": "Industry average"
+      },
+      {
+        "expense": "G&A",
+        "percentage": 0.154,
+        "source": "Industry average"
+      }
     ]
   },
   "key_findings": {
     "primary_finding": "Quality-based improvements (close rate, cycle time, deal size) consistently outperform quantity-based improvements (headcount, lead volume) in terms of margin impact per dollar invested",
     "lever_comparison": {
       "quality_levers": {
-        "levers": ["close rate", "cycle time", "deal size"],
+        "levers": [
+          "close rate",
+          "cycle time",
+          "deal size"
+        ],
         "characteristic": "Improve output without proportionally increasing cost"
       },
       "quantity_levers": {
-        "levers": ["headcount", "territories"],
+        "levers": [
+          "headcount",
+          "territories"
+        ],
         "characteristic": "Increase both output and cost linearly"
       }
     },
     "scenario_results_baseline": {
       "add_territories_10pct": {
-        "revenue_change": 11250000,
-        "cost_change": 2252500,
-        "operating_income_change": -2252500,
-        "percentage_net_gain": -0.071
+        "revenue_change": 0.0,
+        "sales_cost_change": 2252500.0,
+        "operating_income": 29561250.0,
+        "operating_income_change": -2252500.0,
+        "operating_income_change_pct": -0.0708,
+        "percentage_net_gain_workbook": -0.02,
+        "sm_roi": 1.8642
       },
       "increase_close_rate_10pct": {
-        "revenue_change": 11250000,
-        "cost_change": 900000,
-        "operating_income_change": 5983875,
-        "percentage_net_gain": 0.188
+        "revenue_change": 11250000.0,
+        "sales_cost_change": 900000.0,
+        "operating_income": 37797625.0,
+        "operating_income_change": 5983875.0,
+        "operating_income_change_pct": 0.1881,
+        "percentage_net_gain_workbook": 0.092,
+        "sm_roi": 2.263
       },
       "decrease_cycle_10pct": {
-        "revenue_change": 12500000,
-        "cost_change": 1000000,
-        "operating_income_change": 6648750,
-        "percentage_net_gain": 0.209
+        "revenue_change": 12500000.0,
+        "sales_cost_change": 1000000.0,
+        "operating_income": 38462500.0,
+        "operating_income_change": 6648750.0,
+        "operating_income_change_pct": 0.209,
+        "percentage_net_gain_workbook": 0.1022,
+        "sm_roi": 2.2873
       },
       "increase_deal_size_10pct": {
-        "revenue_change": 11250000,
-        "cost_change": 900000,
-        "operating_income_change": 5983875,
-        "percentage_net_gain": 0.188
+        "revenue_change": 11250000.0,
+        "sales_cost_change": 900000.0,
+        "operating_income": 37797625.0,
+        "operating_income_change": 5983875.0,
+        "operating_income_change_pct": 0.1881,
+        "percentage_net_gain_workbook": 0.092,
+        "sm_roi": 2.263
+      },
+      "combined_close_deal_cycle_10pct": {
+        "revenue_change": 38750000.0,
+        "sales_cost_change": 3100000.0,
+        "operating_income": 52424875.0,
+        "operating_income_change": 20611125.0,
+        "operating_income_change_pct": 0.6479,
+        "percentage_net_gain_workbook": 0.3169,
+        "sm_roi": 2.7695
+      },
+      "improve_all_10pct": {
+        "revenue_change": 53875000.0,
+        "sales_cost_change": 5662500.0,
+        "operating_income": 59117362.5,
+        "operating_income_change": 27303612.5,
+        "operating_income_change_pct": 0.8582,
+        "percentage_net_gain_workbook": 0.4286,
+        "sm_roi": 2.8975
       }
-    }
+    },
+    "scenario_results_source": "Recomputed by model/recompute.py; all match workbook stored values."
   },
   "model_classification": {
     "type": "Cognitive-Temporal Throughput Model",
@@ -750,10 +1113,15 @@
       },
       {
         "gap": "Ramp time integration",
-        "description": "Sales ramp up time (12 months) present as input but doesn't feed throughput calculation"
+        "description": "Ramp IS integrated, but only for added territories, and inconsistently between the Hire and Improve-all columns (F2, F3). Not applied to attrition/backfill."
       }
     ],
     "what_model_captures": "What to optimize",
     "what_model_does_not_capture": "How to optimize it"
+  },
+  "workbook_reconciliation": {
+    "findings_file": "AUDIT_FINDINGS.md",
+    "formula_export": "source/workbook_cells.csv",
+    "recompute_script": "model/recompute.py"
   }
 }
