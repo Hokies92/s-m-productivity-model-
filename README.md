@@ -1,21 +1,32 @@
 # Sales Capacity Model
 
-A cognitive-temporal throughput model of sales capacity, connected to the income statement.
+A falsifiable system model of a company's commercial engine: it states how the sales system is believed to work, tests those beliefs against the company's own financial results, and then explores what-if changes from a baseline that describes reality.
 
-**Sales capacity is not labor hours. It is cognitive bandwidth constrained by time.**
+**The data tab is an assumption ledger.** Every entry is a written, falsifiable claim with a declared basis, scope and owner, and a way to test it.
+
+**Sales capacity is not labor hours.** Territories are a design choice carrying an expected yield; salespeople are a hiring choice whose capacity is cognitive bandwidth constrained by time. Revenue happens where the two meet.
 
 ```
-Max opportunities / year = Manageable opportunities × (12 ÷ Sales cycle months)
-Revenue = Max opportunities × Close rate × Deal size × Territories
+Salesperson capacity (opportunities per year) = opportunities held at once × (12 ÷ cycle months)
+As-is model:  Revenue = capacity × close rate × deal size × territories
 ```
 
-- [Governing Reassessment](docs/Commercial_Effectiveness_Reassessment.md): the adopted product and architecture direction
-- [About](ABOUT.md): what the project is, why it exists, where it came from
-- [Product Overview](PRODUCT_OVERVIEW.md): who it's for, inputs, outputs, how to use it
-- [Audit Findings](AUDIT_FINDINGS.md): workbook defects and open decisions
-- [Discovery and Architecture Assessment](docs/Discovery_and_Architecture_Assessment.md): verdicts, sensitivity, gaps, target architecture, roadmap
+## Documents
 
-## Quick start
+**Current understanding and target design**
+
+- [Model Understanding](docs/MODEL_UNDERSTANDING.md): what the model is, territory design vs staffing, how assumptions are tested, Meadows leverage points, market comparison
+- [Data Model and Requirements](docs/DATA_MODEL_REQUIREMENTS.md): the assumption ledger, entities, record schema, tests, lifecycle, collection workflow, numbered requirements, map from the as-is sheet
+- [Orientation (rewritten)](docs/ORIENTATION.md): proposed first tab of the rebuilt workbook
+- [Governing Reassessment](docs/Commercial_Effectiveness_Reassessment.md): product and architecture direction for scenarios
+
+**As-is model (preserved unchanged)**
+
+- [As-Is Index](docs/AS_IS_INDEX.md): every as-is artifact, the original orientation text, logic, sample results, and findings as recorded vs as now understood
+- [About](ABOUT.md) · [Product Overview](PRODUCT_OVERVIEW.md) (v2.1 software) · [Audit Findings](AUDIT_FINDINGS.md) · [Discovery and Architecture Assessment](docs/Discovery_and_Architecture_Assessment.md)
+- Snapshot branch: `as-is-2026-10-24`
+
+## Quick start (as-is software)
 
 ```
 pip install -e .
@@ -33,18 +44,19 @@ results = run_scenarios(ModelInputs(close_rate=0.3))
 
 | Path | What it is |
 |------|-----------|
-| `src/sales_capacity_model/` | The Python package (`scm` command) |
-| `tests/` | Tests, including workbook parity (`pytest`) |
+| `src/sales_capacity_model/` | The Python package (`scm` command), reproducing the as-is workbook |
+| `tests/` | Workbook parity (48/48), option tests, terminology rule |
 | `source/` | Original workbook and its full formula export. Read-only history. |
-| `spec/` | Machine-readable JSON specification (v2.1) |
-| `docs/` | White paper (v2.0; needs the corrections in `AUDIT_FINDINGS.md`) |
+| `spec/` | Machine-readable JSON specification of the as-is model (v2.1) |
+| `docs/` | Current understanding, data model requirements, orientation, as-is index, assessments, white paper v2.0 |
 
 ## Working rules
 
 1. `source/` is never edited.
-2. Defaults reproduce the original workbook. Changes to logic go behind an option, and `scm verify` must still pass with defaults.
-3. Every change gets a `CHANGELOG.md` entry.
-4. **Terminology: never "seller".** Always "salesperson" / "salespeople", in code, docs and output. Enforced by `tests/test_terminology.py`.
+2. The as-is model stays reproducible: `scm verify` must pass with defaults.
+3. As-is documents are never rewritten; superseded readings get a dated note and a pointer to the current document.
+4. Every change gets a `CHANGELOG.md` entry.
+5. **Terminology: never "seller".** Always "salesperson" / "salespeople", in code, docs and output. Enforced by `tests/test_terminology.py`.
 
 Originated 2000 · E&Y audit 2003 · updated edition 2011 · Python rebuild 2026.
 

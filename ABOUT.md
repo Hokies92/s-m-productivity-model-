@@ -1,5 +1,8 @@
 # About the Sales Capacity Model
 
+> **Current understanding (2026-10-24):** the model is a falsifiable system model of a company's commercial engine. Its data tab is an assumption ledger: every entry is a written, testable claim with a declared basis, tested against the company's own financial results before any what-if runs. Territory design and hiring are separate decisions, linked by assignment. Full description: [docs/MODEL_UNDERSTANDING.md](docs/MODEL_UNDERSTANDING.md). The text below describes the project's origin and the as-is model, and is kept as written.
+
+
 ## The claim
 
 **Sales capacity is not labor hours. It is cognitive bandwidth constrained by time.**

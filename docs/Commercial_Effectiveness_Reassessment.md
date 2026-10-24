@@ -1,5 +1,8 @@
 # Commercial Effectiveness Model: Governing Reassessment
 
+> **Extended (note added 2026-10-24).** Still governing for scenarios and architecture. Extended by [MODEL_UNDERSTANDING.md](MODEL_UNDERSTANDING.md) (assumption ledger, territory design vs staffing, leverage points) and [DATA_MODEL_REQUIREMENTS.md](DATA_MODEL_REQUIREMENTS.md) (what is collected and why). Where they differ on the data module, the newer documents govern.
+
+
 Status: **adopted as the governing assessment, 2026-10-24.** Where earlier documents in this repo (AUDIT_FINDINGS.md, docs/Discovery_and_Architecture_Assessment.md) differ, this document wins, subject to the alignment notes below.
 
 © 2000–2026 Growth Enablement. All rights reserved.

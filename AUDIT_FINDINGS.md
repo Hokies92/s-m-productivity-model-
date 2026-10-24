@@ -1,5 +1,8 @@
 # Workbook Reconciliation Findings
 
+> **As-is record, kept unchanged (note added 2026-10-24).** The findings below are the audit as first recorded. Under the current understanding, several are undeclared assumptions rather than defects: F1 (hard-coded salary) and F2 (year-one ramp) are to be confirmed and declared; the contracts and revenue inputs are the actuals that test the assumptions; the $75,000 deal size is a deliberate reference value. F3 (improve-all ramp) remains a defect. See [docs/AS_IS_INDEX.md](docs/AS_IS_INDEX.md) and [docs/MODEL_UNDERSTANDING.md](docs/MODEL_UNDERSTANDING.md).
+
+
 Date: 2026-10-24
 Method: converted the original `.xls` to read its formulas (`source/workbook_cells.csv`, 415 cells), then rebuilt every calculation (now `scm verify` / `src/sales_capacity_model/engine.py`). All 48 stored outputs on the Impact Analysis sheet reproduce exactly.
 

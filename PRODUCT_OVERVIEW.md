@@ -1,5 +1,8 @@
 # Product Overview: Sales Capacity Model
 
+> **Describes the as-is software (package 2.1.0), which reproduces the original workbook.** The redesigned data module and model are specified in [docs/DATA_MODEL_REQUIREMENTS.md](docs/DATA_MODEL_REQUIREMENTS.md) and [docs/MODEL_UNDERSTANDING.md](docs/MODEL_UNDERSTANDING.md).
+
+
 ## The decision it supports
 
 > "We want more revenue. Do we hire, or do we get better?"

@@ -10,7 +10,8 @@
     "spec_revision_note": "v2.1 reconciles the spec to the workbook formulas (source/workbook_cells.csv). See AUDIT_FINDINGS.md.",
     "workbook_label": "Sales and Marketing Efficiency Model (2011 edition); originated 2000 by Scott Santucci",
     "owner": "Growth Enablement",
-    "copyright": "Copyright (c) 2000-2026 Growth Enablement. All rights reserved."
+    "copyright": "Copyright (c) 2000-2026 Growth Enablement. All rights reserved.",
+    "status": "As-is reference: describes the original workbook and its exact reproduction. Target design: docs/DATA_MODEL_REQUIREMENTS.md and docs/MODEL_UNDERSTANDING.md."
   },
   "foundational_premise": {
     "core_assertion": "Sales capacity is not labor hours. It is cognitive bandwidth constrained by time.",

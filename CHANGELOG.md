@@ -2,6 +2,11 @@
 
 ## Unreleased
 - Terminology rule: "salesperson", never "seller"; enforced by tests/test_terminology.py.
+- Snapshot of the as-is state preserved as branch `as-is-2026-10-24` (commit 1e1b03c).
+- Added current understanding and target design: `docs/MODEL_UNDERSTANDING.md` (falsifiable system model, assumption ledger, territory design vs staffing, Little's Law at the salesperson level, Meadows leverage points, market comparison, corrections to earlier readings), `docs/DATA_MODEL_REQUIREMENTS.md` (entities, assumption record, structural assumptions S1–S9, test library, cross-checks, lifecycles, collection workflow, as-is field map, requirements DM-01 to DM-61), `docs/ORIENTATION.md` (rewritten orientation).
+- Added `docs/AS_IS_INDEX.md`: every as-is artifact, the original orientation verbatim, as-is logic and sample results, findings as recorded vs as now understood.
+- Dated status notes added to the top of as-is documents (About, Product Overview, Audit Findings, Discovery Assessment, Reassessment, JSON spec); their content is unchanged.
+- README rewritten as a map of current vs as-is documents.
 
 ## Package 2.1.0 — 2026-10-24
 - Installable Python package `sales-capacity-model` (src layout, no runtime dependencies, Python 3.9+).

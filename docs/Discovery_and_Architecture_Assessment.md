@@ -1,5 +1,8 @@
 # Sales Capacity Model: Discovery and Architecture Assessment
 
+> **As-is assessment, kept unchanged (note added 2026-10-24).** Its formula audit, sensitivity and break-even figures stand. Its framing is partly superseded: territories are a design choice carrying expected yield, not headcount or demand; the data tab is an assumption ledger; the model is judged on whether its assumptions are explicit and testable. See [MODEL_UNDERSTANDING.md](MODEL_UNDERSTANDING.md).
+
+
 Oct 24, 2026 · Scott Santucci
 
 > Repository copy. The live version with its chart and two diagrams: https://claude.ai/artifact/U4pvy1F8aYHdJuVzPGE1Lh
