@@ -12,6 +12,7 @@ Revenue = Max opportunities × Close rate × Deal size × Territories
 - [About](ABOUT.md): what the project is, why it exists, where it came from
 - [Product Overview](PRODUCT_OVERVIEW.md): who it's for, inputs, outputs, how to use it
 - [Audit Findings](AUDIT_FINDINGS.md): workbook defects and open decisions
+- [Discovery and Architecture Assessment](docs/Discovery_and_Architecture_Assessment.md): verdicts, sensitivity, gaps, target architecture, roadmap
 
 ## Quick start
 
