@@ -9,6 +9,7 @@ ROOT = pathlib.Path(__file__).resolve().parents[1]
 SKIP_DIRS = {".git", "source", "__pycache__", "build", "dist"}
 TEXT_SUFFIXES = {".py", ".md", ".json", ".toml", ".txt", ".csv"}
 BANNED = re.compile(r"\bsellers?\b", re.IGNORECASE)
+RULE_STATEMENT = re.compile(r"never\s+[\"']sellers?[\"']", re.IGNORECASE)  # the rule itself may quote the word
 
 
 def test_no_seller_terminology():
@@ -21,6 +22,6 @@ def test_no_seller_terminology():
         if path.name == "test_terminology.py":
             continue
         for n, line in enumerate(path.read_text(errors="ignore").splitlines(), 1):
-            if BANNED.search(line):
+            if BANNED.search(RULE_STATEMENT.sub("", line)):
                 offenders.append(f"{path.relative_to(ROOT)}:{n}: {line.strip()[:80]}")
     assert not offenders, "Use 'salesperson', never 'seller':\n" + "\n".join(offenders)
