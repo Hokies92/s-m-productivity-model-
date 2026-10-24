@@ -4,7 +4,7 @@
 
 **Sales capacity is not labor hours. It is cognitive bandwidth constrained by time.**
 
-A salesperson does not "spend hours" on deals. They hold deals in working memory while each deal moves through the customer's decision process on the customer's clock. That gives every seller two hard ceilings:
+A salesperson does not "spend hours" on deals. They hold deals in working memory while each deal moves through the customer's decision process on the customer's clock. That gives every salesperson two hard ceilings:
 
 1. **Cognitive load:** how many live opportunities one person can hold and advance well at the same time. Effort does not raise it.
 2. **Resolution time:** how long the customer takes to decide. Pushing harder shortens it only by degrading conversion.
@@ -23,7 +23,7 @@ The model was built to show, with arithmetic anyone can audit, where the real li
 
 ## Where it came from
 
-Scott Santucci built the model in 2000 as a VP of Sales. It extended an earlier model he co-created with the CFO at META Group, where he was the company's top seller, to make the case for transforming sales and marketing.
+Scott Santucci built the model in 2000 as a VP of Sales. It extended an earlier model he co-created with the CFO at META Group, where he was the company's top salesperson, to make the case for transforming sales and marketing.
 
 The origin was personal. Following the prescribed sales methodology to the letter nearly got him fired. He had to prove his problem was not more leads, more training, more content, more objection handling, more calls or more meetings. "More" was exactly the wrong thing. So he rebuilt the math himself, drawing on how a competitive swimmer thinks: more strokes don't make you faster; efficiency through the water does. His compensation rewarded growth in contract value over the average, and he used that to turn $15,000 transactions into structured programs worth $90,000, $300,000 and $1 million.
 

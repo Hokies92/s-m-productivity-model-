@@ -62,7 +62,7 @@ Seven artifacts make up the model today; only the workbook and the package compu
 
 The premise is valid; the conclusion follows from it only once the cost of improving quality is added, which the model does not yet do.
 
-The capacity equation is Little's Law applied to a seller:
+The capacity equation is Little's Law applied to a salesperson:
 
     Opportunities resolved per year = Opportunities held at once ÷ Cycle time (years) = M × 12 ÷ Y
 

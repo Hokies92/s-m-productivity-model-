@@ -30,8 +30,8 @@
       "ceiling_2": {
         "name": "Resolution Time",
         "description": "Deals take elapsed time to close",
-        "nature": "Primarily the customer's decision process duration, not the seller's time",
-        "implication": "The seller cannot unilaterally accelerate this without degrading conversion quality"
+        "nature": "Primarily the customer's decision process duration, not the salesperson's time",
+        "implication": "The salesperson cannot unilaterally accelerate this without degrading conversion quality"
       }
     },
     "fundamental_equation": {
@@ -565,7 +565,7 @@
             {
               "number": 1,
               "obstacle": "Lack of understanding for customer's problem-solving lifecycle",
-              "root_cause": "Seller's process misaligned with buyer's process"
+              "root_cause": "Salesperson's process misaligned with buyer's process"
             },
             {
               "number": 2,

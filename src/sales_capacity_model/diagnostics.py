@@ -22,7 +22,7 @@ DIAGNOSTICS: Dict[str, List[Obstacle]] = {
     ],
     "cycle_time": [
         ("Lack of understanding of the customer's problem-solving lifecycle",
-         "Seller's process misaligned with the buyer's process"),
+         "Salesperson's process misaligned with the buyer's process"),
         ("Solution complexity is overwhelming",
          "Client cannot see a clear path from current state to future state"),
         ("Sponsor has difficulty selling internally",

@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Terminology rule: "salesperson", never "seller"; enforced by tests/test_terminology.py.
+
 ## Package 2.1.0 — 2026-10-24
 - Installable Python package `sales-capacity-model` (src layout, no runtime dependencies, Python 3.9+).
 - `scm` command: `about`, `overview`, `template`, `run`, `diagnose`, `verify`.

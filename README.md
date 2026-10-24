@@ -44,6 +44,7 @@ results = run_scenarios(ModelInputs(close_rate=0.3))
 1. `source/` is never edited.
 2. Defaults reproduce the original workbook. Changes to logic go behind an option, and `scm verify` must still pass with defaults.
 3. Every change gets a `CHANGELOG.md` entry.
+4. **Terminology: never "seller".** Always "salesperson" / "salespeople", in code, docs and output. Enforced by `tests/test_terminology.py`.
 
 Originated 2000 · E&Y audit 2003 · updated edition 2011 · Python rebuild 2026.
 

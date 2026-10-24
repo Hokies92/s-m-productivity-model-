@@ -61,7 +61,7 @@ Underlying mathematics	A steady-state opportunity-throughput equation feeding a 
 Assumptions versus actuals	The ability to use either is a design strength. Reconciliation to actuals must be an explicit mode, not a universal requirement.
 Financial true-up	Essential. It should become a first-class calculation and validation framework.
 Improvements compounding	Mathematically correct under the throughput model, but realizable results depend on demand, capacity, behavior, and cost constraints.
-Selling time / capacity	An important additional lever to expose, while keeping opportunity capacity distinct from the hours sellers work.
+Selling time / capacity	An important additional lever to expose, while keeping opportunity capacity distinct from the hours salespeople work.
 Equal-percentage comparisons	Useful demonstrations, but insufficient for making real resource-allocation decisions.
 Equal-difficulty comparisons	Promising analytical differentiation, provided difficulty is rigorously defined instead of assigned an arbitrary score.
 Market uniqueness	The integrated approach is potentially attractive, but existing enterprise planning vendors already offer substantial scenario and P&L modeling capabilities.
@@ -83,8 +83,8 @@ R=N\times P\times\frac{12}{C}\times w\times A
 
 Where:
 Variable	Meaning	Economic role
-\(N\)	Productive seller equivalents	Available selling resources
-\(P\)	Concurrent opportunities per seller	Opportunity-handling capacity
+\(N\)	Productive salesperson equivalents	Available selling resources
+\(P\)	Concurrent opportunities per salesperson	Opportunity-handling capacity
 \(C\)	Average opportunity cycle, in months	Speed of opportunity turnover
 \(w\)	Win rate	Conversion efficiency
 \(A\)	Average won-deal value	Monetization per successful outcome
@@ -98,12 +98,12 @@ In a stable process:
 \text{Throughput}=\frac{\text{Average work in process}}{\text{Average cycle time}}
 \]
 
-If a seller can manage 30 concurrent opportunities, and each opportunity remains active for an average of six months, the theoretical annual throughput is 60 completed opportunities.
+If a salesperson can manage 30 concurrent opportunities, and each opportunity remains active for an average of six months, the theoretical annual throughput is 60 completed opportunities.
 
 At a 25% win rate, that yields 15 sales per year.
 
 But this relationship depends on several assumptions that need to be explicit:
-- The seller consistently has enough qualified opportunities to utilize available capacity.
+- The salesperson consistently has enough qualified opportunities to utilize available capacity.
 - The process is sufficiently stable for average throughput and cycle time to be meaningful.
 - Win rate and cycle length refer to compatible opportunity populations.
 - Improving one variable does not automatically damage another.
@@ -125,7 +125,7 @@ We should distinguish:
 P=f(\text{Selling Time, Effort per Opportunity, Complexity, Tools, Support})
 \]
 
-For example, a reduction in administrative work could increase available selling time without proportionally increasing the number of opportunities a seller can manage. Complex deals may require more customer coordination or internal resources.
+For example, a reduction in administrative work could increase available selling time without proportionally increasing the number of opportunities a salesperson can manage. Complex deals may require more customer coordination or internal resources.
 
 Thus, we should expose \(P\) as an independent lever in the first rebuild and eventually model the factors that determine it.
 3. The most important mathematical insight: improvements interact
@@ -255,7 +255,7 @@ $0$20M$40M$60M$80MBaselineHire +10%Win rate +10%Cycle −10%Deal size +10%Improv
 There are several important reasons the productivity alternatives perform better:
 - Ten new hires are assigned no incremental first-year revenue under the 12-month ramp convention.
 - The model still charges additional hiring-related expenses.
-- Existing sellers are assumed to generate productivity gains immediately.
+- Existing salespeople are assumed to generate productivity gains immediately.
 - No separate implementation investment is charged to achieve better win rates, larger deals, or shorter cycles.
 - Marketing and sales management overhead largely remain fixed.
 These are design assumptions, not empirical findings about which intervention works best.
@@ -297,7 +297,7 @@ Combined hiring scenario adds $15.125M more revenue than warranted by the hiring
 Calculated fully loaded salary is $116,850, but modeled salary is hardcoded at $87,750	Confirmed disconnected value. We must establish whether that was intentional before choosing the replacement behavior.
 New hires incur commissions despite contributing no revenue during the modeled ramp period	Causal inconsistency under a purely revenue-based commission convention; a guarantee or draw would require explicit treatment.
 Historical contract inputs don't drive modeled revenue capacity	Not inherently a defect. It is legitimate to distinguish actual performance from an assumed or theoretical operating model.
-Territories are counted even when vacant, but the calculation treats them as productive, cost-bearing sellers	Important modeling ambiguity. Territory capacity, filled positions, and productive headcount need distinct definitions.
+Territories are counted even when vacant, but the calculation treats them as productive, cost-bearing salespeople	Important modeling ambiguity. Territory capacity, filled positions, and productive headcount need distinct definitions.
 Sales and marketing ROI is labeled differently from its economic calculation	Metric definition problem. It should be renamed or recalculated as a properly defined investment-return measure.
 
 The combined hiring error is particularly material.
@@ -322,7 +322,7 @@ The competitive landscape
 Category and examples	What already exists	Opportunity for our model
 Sales velocity simulators — Revenue Grid	Throughput calculations, adjustable levers, per-rep analysis and benchmark comparisons.  Free	Connect operating changes to complete incremental financial consequences and intervention costs.
 Vendor ROI tools — HubSpot	Customer inputs, benchmark-based improvement estimates, configurable assumptions and product investment ROI.  HubSpot	Support neutral, vendor-independent comparisons among competing business strategies.
-Capacity and scenario planning — Fullcast	Multiple scenarios, ramp profiles, productivity assumptions, sensitivity analysis and pro forma P&L.  support.fullcast.com	Put the economics of changing seller effectiveness on equal footing with headcount planning.
+Capacity and scenario planning — Fullcast	Multiple scenarios, ramp profiles, productivity assumptions, sensitivity analysis and pro forma P&L.  support.fullcast.com	Put the economics of changing salesperson effectiveness on equal footing with headcount planning.
 Interactive business planning — Pigment	Live what-if modeling with hiring, attainment, quota, ramp and capacity assumptions.  Pigment	Offer a more focused, self-service commercial improvement experience without requiring an enterprise planning environment.
 Enterprise revenue planning — Anaplan and Varicent	Connected planning, resource optimization, dynamic scenarios, territories and capacity modeling.  Anaplan Inc +2	Make causal assumptions, financial trade-offs and investment comparisons easier to understand and explore.
 Revenue architecture — Winning by Design	Lifecycle data model, conversion and retention metrics, customer-centric measurement, benchmarking.  Winning by Design +1	Connect buyer-side operating constraints to alternative interventions and their financial consequences.
@@ -400,7 +400,7 @@ A future model could quantify the consequences of reducing those obstacles.
 
 For example, the system might explore what happens when better buyer enablement reduces the effort needed per opportunity, improves conversion, or accelerates decisions. It could then calculate the potential operating and financial consequences.
 
-That would connect the buyer's path toward a successful exchange with the seller's economics.
+That would connect the buyer's path toward a successful exchange with the salesperson's economics.
 
 However, I would treat the proposed Successification lens as a methodology we need to define and operationalize, rather than assuming its differentiation has already been proven.
 
@@ -536,7 +536,7 @@ The implementation must account for consistent measurement periods and outstandi
 
 This is important because the same intervention can behave differently in different businesses.
 
-If demand is insufficient, hiring more sellers may not increase sales. If demand is abundant but selling capacity is limited, hiring or productivity improvements may produce substantial value.
+If demand is insufficient, hiring more salespeople may not increase sales. If demand is abundant but selling capacity is limited, hiring or productivity improvements may produce substantial value.
 
 That creates a much richer and more realistic set of strategic alternatives.
 9.4 The financial engine
@@ -744,7 +744,7 @@ The competing assessments have surfaced genuine design choices that are not sett
 I would carry these into the next architecture specification rather than decide them prematurely.
 Decision	My proposed default
 Is the baseline historical performance or hypothetical capacity?	Support both explicitly, with independent calibration
-What does sales headcount mean?	Separate territories, employed sellers and productive equivalents
+What does sales headcount mean?	Separate territories, employed salespeople and productive equivalents
 Is selling capacity demand-constrained?	Optional in simple mode, explicit in advanced mode
 Are improvement percentages independent?	Assume independence only until interaction rules are specified
 How do costs change?	Fixed, variable, step-fixed and discretionary functions

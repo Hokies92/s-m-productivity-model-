@@ -24,7 +24,7 @@ WHAT IT IS
     1. Cognitive load  - how many live opportunities one person can hold and
                          advance well at the same time.
     2. Resolution time - how long the customer's decision takes. Elapsed time,
-                         mostly on the customer's clock, not the seller's.
+                         mostly on the customer's clock, not the salesperson's.
 
   Capacity = Cognitive load limit x (12 / sales cycle months)
 
