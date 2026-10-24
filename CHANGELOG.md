@@ -1,5 +1,14 @@
 # Changelog
 
+## Package 2.1.0 — 2026-10-24
+- Installable Python package `sales-capacity-model` (src layout, no runtime dependencies, Python 3.9+).
+- `scm` command: `about`, `overview`, `template`, `run`, `diagnose`, `verify`.
+- Engine reproduces all 48 workbook outputs by default. Open decisions exposed as options: `use_entered_salary` (F1) and `ramp_rule` = workbook / year_one / steady_state (F2, F3). Per-lever adjustment sizes.
+- Optional `leads_per_territory` extension: opportunities worked = min(capacity, leads); reports utilization and excess leads.
+- Worksheet 4 diagnostics packaged as data.
+- Added `ABOUT.md` and `PRODUCT_OVERVIEW.md`. README rewritten.
+- `model/recompute.py` retired; its check now lives in `scm verify` and `tests/`.
+
 ## v2.1 — 2026-10-24
 - Exported all 415 workbook cells with formulas to `source/workbook_cells.csv`.
 - Added `model/recompute.py`: reproduces all 48 Impact Analysis outputs exactly.

@@ -1,7 +1,7 @@
 # Workbook Reconciliation Findings
 
 Date: 2026-10-24
-Method: converted the original `.xls` to read its formulas (`source/workbook_cells.csv`, 415 cells), then rebuilt every calculation in `model/recompute.py`. All 48 stored outputs on the Impact Analysis sheet reproduce exactly.
+Method: converted the original `.xls` to read its formulas (`source/workbook_cells.csv`, 415 cells), then rebuilt every calculation (now `scm verify` / `src/sales_capacity_model/engine.py`). All 48 stored outputs on the Impact Analysis sheet reproduce exactly.
 
 ## Verdict
 

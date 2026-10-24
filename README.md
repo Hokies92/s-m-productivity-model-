@@ -2,37 +2,45 @@
 
 A cognitive-temporal throughput model of sales capacity, connected to the income statement.
 
-**Core premise:** sales capacity is not labor hours. It is cognitive bandwidth constrained by time.
+**Sales capacity is not labor hours. It is cognitive bandwidth constrained by time.**
 
 ```
 Max opportunities / year = Manageable opportunities × (12 ÷ Sales cycle months)
-Revenue = Max opps × Close rate × Deal size × Territories
+Revenue = Max opportunities × Close rate × Deal size × Territories
 ```
 
-Originated 2000. Audited by Ernst & Young, 2003. Published as the Forrester Sales and Marketing Efficiency Model, 2011. Documentation and rebuild, 2026.
+- [About](ABOUT.md): what the project is, why it exists, where it came from
+- [Product Overview](PRODUCT_OVERVIEW.md): who it's for, inputs, outputs, how to use it
+- [Audit Findings](AUDIT_FINDINGS.md): workbook defects and open decisions
+
+## Quick start
+
+```
+pip install -e .
+scm about
+scm run
+scm verify        # 48/48 workbook outputs reproduced
+```
+
+```python
+from sales_capacity_model import ModelInputs, run_scenarios
+results = run_scenarios(ModelInputs(close_rate=0.3))
+```
 
 ## Repository layout
 
-| Path | What it is | Status |
-|------|-----------|--------|
-| `source/Sales_and_Marketing_Effectiveness_Model_original.xls` | Original workbook | Never edit. Reference copy. |
-| `source/workbook_cells.csv` | Every cell, formula, and stored value from the workbook (415 cells) | Ground truth for what the workbook does |
-| `model/recompute.py` | Rebuilds every calculation in Python and checks it against the workbook | 48/48 match |
-| `spec/sales_capacity_model_specification.json` | Machine-readable spec for analysis | v2.1, reconciled to workbook |
-| `docs/Sales_Capacity_Model_Technical_Specification_v2.0.docx` | Narrative white paper | v2.0, needs the corrections in `AUDIT_FINDINGS.md` |
-| `AUDIT_FINDINGS.md` | Defects in the workbook and errors in v2.0 spec | Read before rebuilding |
-| `CHANGELOG.md` | Version history | |
-
-## Verify the model
-
-```
-python3 model/recompute.py
-```
-
-Exit code 0 means the Python logic reproduces the workbook exactly. Run this after any change to the logic.
+| Path | What it is |
+|------|-----------|
+| `src/sales_capacity_model/` | The Python package (`scm` command) |
+| `tests/` | Tests, including workbook parity (`pytest`) |
+| `source/` | Original workbook and its full formula export. Read-only history. |
+| `spec/` | Machine-readable JSON specification (v2.1) |
+| `docs/` | White paper (v2.0; needs the corrections in `AUDIT_FINDINGS.md`) |
 
 ## Working rules
 
-1. `source/` is read-only history.
-2. Change logic in `model/`, then rerun `recompute.py`. Intentional departures from the workbook (fixing F1 to F3) go in a new function, not by editing the reproduction.
-3. Every change to spec or logic gets a `CHANGELOG.md` entry.
+1. `source/` is never edited.
+2. Defaults reproduce the original workbook. Changes to logic go behind an option, and `scm verify` must still pass with defaults.
+3. Every change gets a `CHANGELOG.md` entry.
+
+Originated 2000 · E&Y audit 2003 · Forrester edition 2011 · Python rebuild 2026. Author: Scott Santucci.

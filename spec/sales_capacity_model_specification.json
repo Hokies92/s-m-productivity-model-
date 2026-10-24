@@ -1063,7 +1063,7 @@
         "sm_roi": 2.8975
       }
     },
-    "scenario_results_source": "Recomputed by model/recompute.py; all match workbook stored values."
+    "scenario_results_source": "Recomputed by the sales_capacity_model engine (scm verify); all match workbook stored values."
   },
   "model_classification": {
     "type": "Cognitive-Temporal Throughput Model",
@@ -1122,6 +1122,6 @@
   "workbook_reconciliation": {
     "findings_file": "AUDIT_FINDINGS.md",
     "formula_export": "source/workbook_cells.csv",
-    "recompute_script": "model/recompute.py"
+    "recompute_script": "scm verify (src/sales_capacity_model/verify.py)"
   }
 }

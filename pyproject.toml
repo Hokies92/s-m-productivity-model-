@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sales-capacity-model"
+dynamic = ["version"]
+description = "A cognitive-temporal throughput model of sales capacity, connected to the income statement."
+readme = "README.md"
+requires-python = ">=3.9"
+authors = [{ name = "Scott Santucci", email = "scott.santucci@growthenablement.com" }]
+license = { text = "Proprietary" }
+keywords = ["sales capacity", "throughput", "little's law", "sales productivity", "income statement"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Intended Audience :: Financial and Insurance Industry",
+  "Topic :: Office/Business :: Financial",
+]
+dependencies = []
+
+[project.optional-dependencies]
+test = ["pytest>=7"]
+
+[project.scripts]
+scm = "sales_capacity_model.cli:main"
+
+[project.urls]
+Repository = "https://github.com/Hokies92/s-m-productivity-model-"
+
+[tool.setuptools.dynamic]
+version = { attr = "sales_capacity_model.__about__.__version__" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+"sales_capacity_model.data" = ["*.csv"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
