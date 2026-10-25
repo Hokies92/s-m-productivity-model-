@@ -132,3 +132,19 @@ def test_failed_test_exposes_candidate_set(con):
     assert con.execute("SELECT COUNT(*) FROM v_candidate_set WHERE run_id = 'r1'").fetchone()[0] == 0
     profile = dict(con.execute("SELECT basis, n FROM v_confidence_profile").fetchall())
     assert profile == {"judgment": 4, "validated_actual": 1}
+
+
+# ---------------------------------------------------------------- invariants 7 and 8: register purity, separate schemas
+def test_register_schema_has_no_scenario_objects():
+    from sales_capacity_model.db import schema_sql
+    assert "scenario" not in schema_sql().lower()
+
+
+def test_modeller_loads_and_does_not_reference_register_by_key():
+    from sales_capacity_model.db import create_modeller, modeller_sql
+    sql = modeller_sql().lower()
+    for register_table in ("assumption", "baseline_version", "field(", "entity(", "engagement("):
+        assert f"references {register_table}" not in sql
+    con = create_modeller()
+    assert con.execute("SELECT COUNT(*) FROM scenario WHERE is_default = 1").fetchone()[0] == 4
+    assert con.execute("SELECT COUNT(*) FROM scenario_lever WHERE scenario_id = 'combined'").fetchone()[0] == 3

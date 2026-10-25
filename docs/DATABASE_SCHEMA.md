@@ -1,17 +1,18 @@
-# Database Schema: the Assumption Ledger
+# Database Schema: Register and Modeller
 
-Status: **V1 schema, 2026-10-24.** Implements [DATA_MODEL_REQUIREMENTS.md](DATA_MODEL_REQUIREMENTS.md). Code: `src/sales_capacity_model/db/schema.sql` (tables, triggers, views) and `seed.sql` (collection steps, field catalog, structural assumptions, tests, causal links). Tested in `tests/test_schema.py` with the as-is sample data.
+Status: **V1, 2026-10-24; split into two schemas 2026-10-25** per [MODEL.md §4](MODEL.md). The **register** (`schema.sql`, `seed.sql`) holds state assumptions: the client's beliefs about the system as it is. The **modeller** (`modeller.sql`) holds method versions and intervention hypotheses (scenarios). The two never share a foreign key: the modeller refers to the register by identifiers only, so the register stays valid with the modeller absent and the baseline can never depend on a hypothesis. Tested in `tests/test_schema.py`.
 
 ```python
-from sales_capacity_model.db import create
-con = create("engagement.db")   # schema + reference data, SQLite
+from sales_capacity_model.db import create, create_modeller
+reg = create("register.db")          # register: schema + reference data
+mod = create_modeller("modeller.db") # modeller: levers, method versions, default scenarios
 ```
 
 © 2000–2026 Growth Enablement. All rights reserved.
 
 ## Design in one paragraph
 
-Raw facts (CRM opportunities, pipeline snapshots, ledger lines, roster, territory plan, events) are stored as **observations**. Everything the model reasons with is an **assumption**: one field, about one entity, in one scope, in one baseline version. Each assumption keeps every **value** ever asserted for it, append-only, with its basis, owner, range, lineage and evidence. **Tests** record which values they used, so a failure points to its candidate set. **Scenarios** change assumptions in a copy and never write back. The model's own structure is data too: the **field catalog** tags every field with its element type and Meadows leverage point, and **causal links** record how fields drive each other.
+Raw facts (CRM opportunities, pipeline snapshots, ledger lines, roster, territory plan, events) are stored as **observations**. Every **state** value the model reasons with is an **assumption** in the register: one field, about one entity, in one scope, in one baseline version. Each assumption keeps every **value** ever asserted for it, append-only, with its basis, owner, range, lineage and evidence. **Tests** record which values they used, so a failure points to its candidate set. **Scenarios** live in the modeller, as multipliers on levers applied to a frozen register version; they never write back. The model's own structure is data too: the **field catalog** tags every field with its element type and Meadows leverage point, and **causal links** record how fields drive each other.
 
 ## Entity relationships
 
@@ -52,9 +53,6 @@ erDiagram
     TEST_RUN ||--o{ TEST_RUN_INPUT : "candidate set"
     TEST_RUN ||--o{ RESOLUTION : "fixed, explained, accepted"
     ASSUMPTION ||--o{ ACCURACY_RECORD : "assumed vs observed"
-    BASELINE_VERSION ||--o{ SCENARIO : "starts from"
-    SCENARIO ||--o{ SCENARIO_CHANGE : changes
-    SCENARIO ||--o{ SCENARIO_RESULT : produces
 ```
 
 ## Tables by layer
@@ -69,7 +67,6 @@ erDiagram
 | 6. Assumption ledger | `assumption`, `assumption_value`, `assumption_input`, `assumption_evidence`, `assumption_validation`, `assumption_test` | Every claim, its history, lineage, evidence, Finance validation and falsification test |
 | 7. Tests | `test_definition`, `test_member`, `engagement_test_config`, `test_run`, `test_run_input`, `resolution` | Test library, which fields each test involves, per-engagement tolerances, every run with the exact values used, and how failures were resolved |
 | 8. Track record | `accuracy_record` | Assumed vs observed per period |
-| 9. Scenarios | `scenario`, `scenario_change`, `scenario_result` | Changes to a baseline's assumptions (including scenario-only entities), cached results with engine version |
 
 ## Rules enforced by the database
 
@@ -100,5 +97,25 @@ erDiagram
 
 - **V1 is SQLite**; the SQL is standard enough to move to PostgreSQL with type changes (`TEXT` dates to `DATE`, `REAL` to `NUMERIC`), adding row-level security per client.
 - **Evidence files** live outside the database (file storage), referenced by `source_document.content_hash`.
-- **Derived values are not stored as truth:** calculated estimates are stored as assumption values with their inputs, so they can always be recomputed and audited; scenario results are a cache keyed by engine version.
-- **Scenario-only structure:** a scenario can add a territory or role as an entity with `scenario_id` set, so structural what-ifs never touch the baseline.
+- **Derived values are not stored as truth:** calculated estimates are stored as assumption values with their inputs, so they can always be recomputed and audited; scenario results are a modeller cache keyed by scenario, method version and register version.
+- **Structural what-ifs** (adding territories or roles) are deferred with the territory and hiring scenarios; when they return they are modeller objects, not register entities.
+
+## The modeller schema (`modeller.sql`)
+
+| Table | Holds | Note |
+|---|---|---|
+| `lever` | A register field the modeller may scale, its direction, and how revenue responds (proportional, inverse, structural) | Refers to the register field by id, not by key |
+| `method_version` | The chain as applied: unit of throughput and the rules in words | A method assumption, versioned |
+| `scenario` | A named hypothesis and the question it answers | The original's four quality scenarios ship as defaults |
+| `scenario_lever` | The multipliers: one row per lever per scenario | Adding a scenario is adding rows |
+| `scenario_run` | Which scenario, with which method version, against which frozen register version | The three keys of any result |
+| `scenario_run_result` | Cached metrics for a run | Never written to the register |
+
+```mermaid
+erDiagram
+    LEVER ||--o{ SCENARIO_LEVER : scaled_by
+    SCENARIO ||--o{ SCENARIO_LEVER : has
+    SCENARIO ||--o{ SCENARIO_RUN : run_as
+    METHOD_VERSION ||--o{ SCENARIO_RUN : applies
+    SCENARIO_RUN ||--o{ SCENARIO_RUN_RESULT : produces
+```

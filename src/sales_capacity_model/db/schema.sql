@@ -1,4 +1,5 @@
--- Sales Capacity Model: data module schema (assumption ledger)
+-- Sales Capacity Model: register schema (state assumptions only; docs/MODEL.md section 4)
+-- What-if hypotheses and method versions live in modeller.sql and never reference this schema by foreign key.
 -- © 2000–2026 Growth Enablement. All rights reserved.
 --
 -- Written for SQLite (V1); portable to PostgreSQL with type changes only.
@@ -13,7 +14,6 @@
 --   7. Tests                            test_definition, test_member, engagement_test_config, test_run,
 --                                       test_run_input, resolution
 --   8. Track record                     accuracy_record
---   9. Scenarios                        scenario, scenario_change, scenario_result
 -- Rules enforced here: append-only history, frozen signed baselines, pseudonymous salespeople,
 -- declared basis and scope on every value, reference values name their context.
 
@@ -143,7 +143,6 @@ CREATE TABLE entity (
   engagement_id  TEXT NOT NULL REFERENCES engagement(engagement_id),
   entity_type    TEXT NOT NULL CHECK (entity_type IN ('company', 'territory', 'salesperson', 'assignment',
                    'segment', 'group', 'rule', 'model')),
-  scenario_id    TEXT REFERENCES scenario(scenario_id),  -- non-null: exists only inside that scenario
   created_at     TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -400,41 +399,6 @@ CREATE TABLE accuracy_record (
   observed_value_id  TEXT NOT NULL REFERENCES assumption_value(value_id),
   error              REAL NOT NULL,                        -- observed − assumed
   recorded_at        TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
-);
-
--- ---------------------------------------------------------------- 9. Scenarios
-CREATE TABLE scenario (
-  scenario_id          TEXT PRIMARY KEY,
-  baseline_version_id  TEXT NOT NULL REFERENCES baseline_version(baseline_version_id),
-  name                 TEXT NOT NULL,
-  description          TEXT,
-  created_by           TEXT REFERENCES contributor(contributor_id),
-  created_at           TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
-);
-
--- Changes are applied to a copy at run time; they never touch the baseline's values.
-CREATE TABLE scenario_change (
-  change_id           TEXT PRIMARY KEY,
-  scenario_id         TEXT NOT NULL REFERENCES scenario(scenario_id),
-  assumption_id       TEXT REFERENCES assumption(assumption_id),  -- change to an existing assumption
-  field_id            TEXT REFERENCES field(field_id),            -- or a new one (e.g. on a scenario-only entity)
-  entity_id           TEXT REFERENCES entity(entity_id),
-  change_kind         TEXT NOT NULL CHECK (change_kind IN ('set', 'multiply', 'add', 'structure')),
-  value_num           REAL,
-  value_text          TEXT,
-  rationale           TEXT NOT NULL,
-  intervention_cost   REAL,
-  timing_months       REAL,
-  CHECK (assumption_id IS NOT NULL OR (field_id IS NOT NULL AND entity_id IS NOT NULL))
-);
-
-CREATE TABLE scenario_result (
-  scenario_id     TEXT NOT NULL REFERENCES scenario(scenario_id),
-  metric          TEXT NOT NULL,
-  value           REAL,
-  engine_version  TEXT NOT NULL,
-  computed_at     TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (scenario_id, metric, engine_version)
 );
 
 -- ---------------------------------------------------------------- Indexes
