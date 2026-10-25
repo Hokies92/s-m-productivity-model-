@@ -1,6 +1,10 @@
 #!/bin/sh
 # Refuse to push unless the test suite passes. Install once:  git config core.hooksPath .githooks
+# Uses $PYTHON if set, else the venv in the repo or scratch, else python3.
 set -e
 cd "$(git rev-parse --show-toplevel)"
-echo "pre-push: running tests"
-python -m pytest -q
+PY="${PYTHON:-}"
+[ -z "$PY" ] && [ -x .venv/bin/python ] && PY=.venv/bin/python
+[ -z "$PY" ] && PY=python3
+echo "pre-push: running tests with $PY"
+"$PY" -m pytest -q
