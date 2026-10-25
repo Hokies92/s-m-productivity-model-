@@ -23,8 +23,8 @@ def test_terminology_class():
             continue
         if any(part in SKIP_DIRS or part.endswith(".egg-info") for part in path.relative_to(ROOT).parts):
             continue
-        if path.name in ("test_terminology.py", "workbook_cells.csv"):  # the latter is a copy of the original
-            continue
+        if path.name in ("test_terminology.py", "workbook_cells.csv") or path.name.endswith(".manifest.json"):
+            continue  # copies of the original's own text are exempt
         for n, line in enumerate(path.read_text(errors="ignore").splitlines(), 1):
             if BANNED.search(RULE_STATEMENT.sub("", line)):
                 offenders.append(f"{path.relative_to(ROOT)}:{n}: {line.strip()[:80]}")
