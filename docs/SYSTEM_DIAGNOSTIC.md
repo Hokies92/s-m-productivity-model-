@@ -66,7 +66,7 @@ No test connects them. The engine is faithful to the as-is and is the parity ora
 
 ### 2.5 Instance fixes, not class fixes
 
-- "Never seller" was implemented as a regex for one word. "Rep" survives in 33 places including `__about__.py`, `ABOUT.md`, `PRODUCT_OVERVIEW.md`. The principle (salespeople are agents measured as a system; use the word that says so) was not implemented; one token was.
+- The salesperson terminology rule was implemented as a regex for one banned word. "Rep" survives in 33 places including `__about__.py`, `ABOUT.md`, `PRODUCT_OVERVIEW.md`. The principle (salespeople are agents measured as a system; use the word that says so) was not implemented; one token was.
 - `MIN` ignoring blanks was fixed in the one cell that showed it, not by a rule for how blank inputs are read.
 - Each correction from Scott produced a local patch plus a new rule (DM-08, the terminology test, the as-is note), and the rules then accumulated as more things to monitor.
 
