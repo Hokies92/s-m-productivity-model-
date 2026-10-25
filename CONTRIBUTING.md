@@ -4,7 +4,7 @@
 
 - `main` is the as-is: the frozen source, the Python oracle, the blank modern workbook with its rubric score. Only changes that keep every invariant in `docs/MODEL.md` land here.
 - `evolution` is where the rebuild proceeds (register, modeller, territory–salesperson separation). It is rebased on `main` after each accepted as-is version.
-- A tag marks each state Scott has accepted: `asis-v1.0`, `asis-v1.1`, ... A `-candidate` tag marks what is submitted for acceptance.
+- A tag marks each state Scott has accepted: `asis-v1.0`, `asis-v1.1`, ... A branch `candidate/<version>` marks what is submitted for acceptance (this session's proxy cannot push tags or delete remote branches, so candidates are branches and Scott creates the tag on acceptance: `git tag -a asis-v1.0 <commit> && git push origin asis-v1.0`). Current candidate: `candidate/asis-v1.0` = commit `5acd93d`.
 - `as-is-2026-10-24` is the snapshot before any rebuild documents.
 
 ## Before every push
