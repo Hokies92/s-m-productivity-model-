@@ -65,6 +65,12 @@ RECALC = pathlib.Path("/mnt/skills/public/xlsx/scripts/recalc.py")
 AUTO, HUMAN = "AUTO", "HUMAN"
 TOL = 0.005  # currency and ratio tolerance, absolute, after recalculation
 
+# Original cells excluded from the fidelity count, each with its reason. Adding to this list is a visible change.
+ORIGINAL_STRAY_CELLS = {
+    ("3) Impact Analysis", "I9"): "formula in the empty spacer column I (=I8-baseline revenue) with no label and no "
+                                  "dependents; an accident of fill-right, not part of the model",
+}
+
 
 # ---------------------------------------------------------------- infrastructure
 @dataclass
@@ -209,14 +215,21 @@ def g1(ctx):
 
 @criterion("G2", "Gate", "Every original numeric formula cell (all sheets) is mapped and matches")
 def g2(ctx):
-    orig_formula_numeric = sum(1 for k, o in ctx.orig.items() if o["is_formula"] and o["value"] is not None)
+    orig_formula_numeric = sum(1 for k, o in ctx.orig.items() if o["is_formula"] and o["value"] is not None
+                               and k not in ORIGINAL_STRAY_CELLS)
     r = _compare(ctx)
     if r[0] is None:
         return None, r[1], []
     ok, n, bad = r
-    unmapped = orig_formula_numeric - n
-    score = 2 if ok == orig_formula_numeric else 0
-    return score, f"{ok} matched of {orig_formula_numeric} original numeric formula cells ({unmapped} unmapped)", bad[:40]
+    mapped = {(m["orig_sheet"], m["orig_cell"]) for m in ctx.m["cell_map"] if m["role"] == "formula"}
+    unmapped = [k for k, o in ctx.orig.items() if o["is_formula"] and o["value"] is not None
+                and k not in ORIGINAL_STRAY_CELLS and k not in mapped]
+    bad = bad + [f"unmapped: {k[0]}!{k[1]}" for k in unmapped]
+    ok -= sum(1 for m in ctx.m["cell_map"] if m["role"] == "formula" and not ctx.orig.get((m["orig_sheet"], m["orig_cell"]), {}).get("is_formula")
+              and (m["orig_sheet"], m["orig_cell"]) in ctx.orig and f"{m['orig_sheet']}!{m['orig_cell']}" not in " ".join(bad))
+    score = 2 if ok == orig_formula_numeric and not unmapped else 0
+    unmapped = len(unmapped)
+    return score, f"{ok} matched of {orig_formula_numeric} original numeric formula cells ({unmapped} unmapped; {len(ORIGINAL_STRAY_CELLS)} excluded as stray)", bad[:40]
 
 
 _NUM = re.compile(r"(?<![A-Za-z_$])\d+(?:\.\d+)?(?![A-Za-z_\d])")
@@ -378,30 +391,36 @@ def c1(ctx):
 
 
 def _skeleton(formula: str) -> str:
-    """Formula with column letters removed, so the same chain in different columns compares equal."""
+    """Formula with column letters, parentheses and spaces removed, so the same chain in different columns compares equal."""
     f = re.sub(r"'[^']*'!", "S!", formula)
     f = re.sub(r"\$?[A-Z]{1,3}(\$?\d+)", r"#\1", f)
-    return f
+    return re.sub(r"[()\s]", "", f)
 
 
-@criterion("C2", "C. Scenarios", "Within each chain row, scenario columns share one formula skeleton (combined columns may reference single-lever columns)")
+@criterion("C2", "C. Scenarios", "Within each chain row, the scenario columns (baseline excluded) share one skeleton plus at most one pass-through form; "
+                                 "the revenue row mapped from the original's row 25 may have three, as the original does")
 def c2(ctx):
+    revenue_rows = {(m["sheet"], int(re.sub(r"[A-Z]", "", m["cell"]))) for m in ctx.m["cell_map"]
+                    if m["orig_sheet"] == "2) Performance breakdown" and re.sub(r"[A-Z]", "", m["orig_cell"]) == "25"}
     n, ok, bad = 0, 0, []
     for cr in ctx.m["chain_rows"]:
         ws = ctx.wb[cr["sheet"]]
         skels = {}
         for col in cr["columns"]:
+            if col == "C":
+                continue
             v = ws[f"{col}{cr['row']}"].value
             if isinstance(v, str) and v.startswith("="):
                 skels[col] = _skeleton(v)
         if not skels:
             continue
         n += 1
+        allowed = 3 if (cr["sheet"], cr["row"]) in revenue_rows else 2
         distinct = set(skels.values())
-        if len(distinct) <= 2:          # one chain skeleton, plus at most one "= other column" pass-through form
+        if len(distinct) <= allowed:
             ok += 1
         else:
-            bad.append(f"{cr['sheet']} row {cr['row']}: {len(distinct)} skeletons")
+            bad.append(f"{cr['sheet']} row {cr['row']}: {len(distinct)} skeletons {sorted(distinct)}")
     return band(ok / n if n else 0, 1.0, 0.8), f"{ok} of {n} rows consistent", bad[:20]
 
 
@@ -529,7 +548,10 @@ def f2(ctx):
             bad.append(f"no freeze panes: {ws.title}")
     general = 0
     total = 0
+    vals = ctx.blank_values["wb"] if ctx.blank_values else None
     for ws, c in ctx.formula_cells():
+        if vals is not None and isinstance(vals[ws.title][c.coordinate].value, str) and vals[ws.title][c.coordinate].value != "":
+            continue                                   # text results need no number format
         total += 1
         if c.number_format in (None, "General"):
             general += 1

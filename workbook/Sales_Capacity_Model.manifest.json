@@ -1,0 +1,2560 @@
+{
+ "sheet_order": [
+  "Orientation",
+  "1) Data entry",
+  "2) Performance breakdown",
+  "3) Impact Analysis",
+  "4) Scenario Diagnostic"
+ ],
+ "entry_sheet": "1) Data entry",
+ "inputs": [
+  {
+   "sheet": "1) Data entry",
+   "cell": "E9",
+   "id": "territories",
+   "label": "Number of sales territories",
+   "unit": "count",
+   "definition": "Sales territories funded last year, filled or open; a territory is a slot in your coverage design, not a person.",
+   "where": "Territory plan or sales operations",
+   "original_text": "Enter the number of open sales territories you had last year. This is not based on individual people, so if someone has left the company, but the territory is still open, count that as a sales territory."
+  },
+  {
+   "sheet": "1) Data entry",
+   "cell": "E11",
+   "id": "deal_size",
+   "label": "Average revenue per sales transaction",
+   "unit": "currency",
+   "definition": "Average revenue per closed contract. Enter it directly, or leave blank and the model divides revenue by contracts (lines below).",
+   "where": "Finance: revenue \u00f7 contracts, or CRM closed-won report",
+   "original_text": "This is the average deal size for your company. For this simple analysis, you can get this figure by dividing your revenue by total number of contracts. For more detailed analysis, we recommend that you break things down into product lines, services offerings, and sales channels. You should also separate new client revenue from upselling your installed base. For professional services, credit the total esimated hours for a project towards one sales transaction."
+  },
+  {
+   "sheet": "1) Data entry",
+   "cell": "E12",
+   "id": "entry_12",
+   "label": "Number of contracts last year",
+   "unit": "count",
+   "definition": "Contracts closed in the year.",
+   "where": "Billing or contract system",
+   "original_text": "Number of contracts last year"
+  },
+  {
+   "sheet": "1) Data entry",
+   "cell": "E13",
+   "id": "entry_13",
+   "label": "Revenue from those contract",
+   "unit": "currency",
+   "definition": "Revenue recognized from those contracts.",
+   "where": "Income statement",
+   "original_text": "Revenue from those contract"
+  },
+  {
+   "sheet": "1) Data entry",
+   "cell": "E15",
+   "id": "loaded_salary",
+   "label": "Average fully loaded salary",
+   "unit": "currency",
+   "definition": "Fully loaded cost of one salesperson per year. Enter it directly, or leave blank and the model computes salary \u00d7 (1 + load rate).",
+   "where": "Payroll and benefits ledger, quota-carrying roles only",
+   "original_text": "To help develop the most effective market development effort, we must better understand our cost of sales and what drives them. Right now we are focusing on the salaries of the sales team only. Do not count salaries of non-quota carrying managers, sales engineers, or other executives. Your CFO should know what your benefits load rate is. This metric assumes a fully loaded resource (insurance, 401K, FICA, allocation of overhead, etc)."
+  },
+  {
+   "sheet": "1) Data entry",
+   "cell": "E16",
+   "id": "entry_16",
+   "label": "Average salary per sales rep",
+   "unit": "currency",
+   "definition": "Average base salary of a quota-carrying salesperson.",
+   "where": "Payroll register",
+   "original_text": "Average salary per sales rep"
+  },
+  {
+   "sheet": "1) Data entry",
+   "cell": "E17",
+   "id": "entry_17",
+   "label": "Corporate load rate",
+   "unit": "pct",
+   "definition": "Benefits and payroll taxes as a share of base salary, e.g. 0.23.",
+   "where": "Benefits ledger \u00f7 base payroll",
+   "original_text": "Corporate load rate"
+  },
+  {
+   "sheet": "1) Data entry",
+   "cell": "E19",
+   "id": "travel_per_salesperson",
+   "label": "Average travel costs per rep",
+   "unit": "currency",
+   "definition": "Travel and entertainment per salesperson per year. Enter it directly, or leave blank and the model builds it from the trip lines below.",
+   "where": "T&E ledger for quota-carrying salespeople \u00f7 salespeople",
+   "original_text": "Most CFO's track overall travel expenses and try to reduce costs by limiting per diems, hotel expenses, etc. However, the real driver is a sales call. Sales people only incur these travel costs on the road. The best way to reduce travel costs is to get a better return out of each sales trip. Oftentimes, sales people will go on multiple client site visits to gain information easily gathered over the phone, or to have meetings with buyers who lack the right marketing materials to decide to buy your solution. Below are the elements of a sales trip. Estimate the costs assumed for each sales trip. Again, only assume the cost of a single sales person. Sales engineers and other costs are too complex for simple analysis."
+  },
+  {
+   "sheet": "1) Data entry",
+   "cell": "E20",
+   "id": "entry_20",
+   "label": "Travel (air fare, train, mileage round trip)",
+   "unit": "currency",
+   "definition": "Air, train or mileage, round trip, one person.",
+   "where": "Expense reports",
+   "original_text": "Travel (air fare, train, mileage round trip)"
+  },
+  {
+   "sheet": "1) Data entry",
+   "cell": "E21",
+   "id": "entry_21",
+   "label": "Cabs, tolls, car rentals (etc)",
+   "unit": "currency",
+   "definition": "Ground transport per trip.",
+   "where": "Expense reports",
+   "original_text": "Cabs, tolls, car rentals (etc)"
+  },
+  {
+   "sheet": "1) Data entry",
+   "cell": "E22",
+   "id": "entry_22",
+   "label": "Meals (breakfast, lunch, dinner) per day",
+   "unit": "currency",
+   "definition": "Meals per day away.",
+   "where": "Expense policy or reports",
+   "original_text": "Meals (breakfast, lunch, dinner) per day"
+  },
+  {
+   "sheet": "1) Data entry",
+   "cell": "E23",
+   "id": "entry_23",
+   "label": "Lodging (per night average room expense)",
+   "unit": "currency",
+   "definition": "Average room cost per night.",
+   "where": "Expense policy or reports",
+   "original_text": "Lodging (per night average room expense)"
+  },
+  {
+   "sheet": "1) Data entry",
+   "cell": "E24",
+   "id": "entry_24",
+   "label": "Days gone per trip",
+   "unit": "count",
+   "definition": "Days away per trip.",
+   "where": "Calendars or expense reports",
+   "original_text": "Days gone per trip"
+  },
+  {
+   "sheet": "1) Data entry",
+   "cell": "E25",
+   "id": "entry_25",
+   "label": "Entertainment (client dinners, lunch, movies, etc.) per each trip",
+   "unit": "currency",
+   "definition": "Client entertainment per trip.",
+   "where": "Expense reports",
+   "original_text": "Entertainment (client dinners, lunch, movies, etc.) per each trip"
+  },
+  {
+   "sheet": "1) Data entry",
+   "cell": "E26",
+   "id": "entry_26",
+   "label": "Trips per year",
+   "unit": "count",
+   "definition": "Sales trips per salesperson per year.",
+   "where": "Calendars or expense reports",
+   "original_text": "Trips per year"
+  },
+  {
+   "sheet": "1) Data entry",
+   "cell": "E28",
+   "id": "commission_rate",
+   "label": "Commission",
+   "unit": "pct",
+   "definition": "Commission as a share of revenue, e.g. 0.08.",
+   "where": "Compensation plan, or commissions paid \u00f7 revenue",
+   "original_text": "Commissions are the most logical and well understood driver of variable sales costs. Simply enter your sales forces average commission. Again, for simple analysis - just use an average. This model can be modified to accommodate your whole compensation plan."
+  },
+  {
+   "sheet": "1) Data entry",
+   "cell": "E31",
+   "id": "opportunities_capacity",
+   "label": "Number of pipeline opportunities manageable at one time",
+   "unit": "count",
+   "definition": "The most qualified opportunities one salesperson can hold and advance well at the same time.",
+   "where": "Sales leadership; test against CRM load per salesperson",
+   "original_text": "One driver of sales force inefficiency is the amount of NON-selling time spent by sales people. Some companies estimate as much at 50% of their time is invested in \"non-selling\" activities. Our studies reveal that a larger portion of that time in spend in activitity that isn't value-added to customers. The best way to financially measure that impact is by monitoring the number of accounts any given sales person can effectively manage at the same time. The greater amount of time you allow your sales people to sell - the more opportunities they can work in a given year."
+  },
+  {
+   "sheet": "1) Data entry",
+   "cell": "E33",
+   "id": "cycle_months",
+   "label": "Length of sales cycle (in months)",
+   "unit": "months",
+   "definition": "Months from qualified opportunity to signature, won deals.",
+   "where": "CRM closed-won report (median)",
+   "original_text": "Tracks how long from when a qualified opportunity enters the pipeline to when it closes as a sale. Your sales process may have many steps, so for simplicity track the time it takes from first meeting to the date the agreement is received by accounting. Most organizations do not track this information, so if you do not have the data - make an estimate. The single greatest impact you can have on your business is to shorten your sales cycle times."
+  },
+  {
+   "sheet": "1) Data entry",
+   "cell": "E35",
+   "id": "ramp_months",
+   "label": "Sales ramp up time (in months)",
+   "unit": "months",
+   "definition": "Months until a new salesperson reaches average productivity.",
+   "where": "Sales management; productivity by tenure",
+   "original_text": "How long does it take to get a new sales person up to speed to where they are operating at maximum efficiency? Most high tech companies do a good job of training sales people on what their products are, but do very little to help them understand WHY the product is important or how to sell it. This leads to lengthy \"ramp up\" times. We recommend getting this figure from a sales manager."
+  },
+  {
+   "sheet": "1) Data entry",
+   "cell": "E37",
+   "id": "close_rate",
+   "label": "close rate",
+   "unit": "pct",
+   "definition": "Won \u00f7 (won + lost) qualified opportunities, e.g. 0.25.",
+   "where": "CRM closed-opportunity report",
+   "original_text": "This certainly can mean a lot of things to different people. Here we want to understand the effectiveness of how well your organization manages the sales process from first sales meeting to eventual close. Please estimate the percentage of all of the pipeline opportunities that your organization has worked that have resulted in an executed agreement."
+  },
+  {
+   "sheet": "1) Data entry",
+   "cell": "E39",
+   "id": "sales_overhead_and_marketing",
+   "label": "Total Sales Overhead and Marketing Costs",
+   "unit": "currency",
+   "definition": "Total of the two sections below. Enter directly only if you cannot split it.",
+   "where": "General ledger",
+   "original_text": "Our goal with this exercise is to assess how well your company is is utilizing its sales and marketing assets. To do this, we have to examine all of the associated costs that are related to sales and marketing performance. This will help you put these investments in the right context and determine the effectiveness of these investments."
+  },
+  {
+   "sheet": "1) Data entry",
+   "cell": "E41",
+   "id": "sales_overhead",
+   "label": "Sales Overhead Costs",
+   "unit": "currency",
+   "definition": "Non-variable cost of running the sales organization. Enter directly, or leave blank and the model sums the lines below.",
+   "where": "General ledger: sales cost centers",
+   "original_text": "This tracks all of the non-variable costs associated with running a sales organization, and includes executive salaries, sales support, training, and performance plans."
+  },
+  {
+   "sheet": "1) Data entry",
+   "cell": "E42",
+   "id": "entry_42",
+   "label": "Total Non-quota carrying sales manager salaries",
+   "unit": "currency",
+   "definition": "Salaries of sales managers who carry no quota.",
+   "where": "Payroll",
+   "original_text": "Total Non-quota carrying sales manager salaries"
+  },
+  {
+   "sheet": "1) Data entry",
+   "cell": "E43",
+   "id": "entry_43",
+   "label": "Sales engineers or other non-quota sales support personnel",
+   "unit": "currency",
+   "definition": "Sales engineers and other non-quota support.",
+   "where": "Payroll",
+   "original_text": "Sales engineers or other non-quota sales support personnel"
+  },
+  {
+   "sheet": "1) Data entry",
+   "cell": "E44",
+   "id": "entry_44",
+   "label": "Sales administrative personnel (Sales operations, sales Admins)",
+   "unit": "currency",
+   "definition": "Sales operations and administrative staff.",
+   "where": "Payroll",
+   "original_text": "Sales administrative personnel (Sales operations, sales Admins)"
+  },
+  {
+   "sheet": "1) Data entry",
+   "cell": "E45",
+   "id": "entry_45",
+   "label": "Training costs (total expenses related to training, travel for training, and all headcount associated)",
+   "unit": "currency",
+   "definition": "All training cost, including travel for training.",
+   "where": "General ledger",
+   "original_text": "Training costs (total expenses related to training, travel for training, and all headcount associated)"
+  },
+  {
+   "sheet": "1) Data entry",
+   "cell": "E46",
+   "id": "entry_46",
+   "label": "Incentive costs (non-quota related commissions, President's Club costs, etc)",
+   "unit": "currency",
+   "definition": "Non-quota incentives: contests, club, recognition.",
+   "where": "General ledger",
+   "original_text": "Incentive costs (non-quota related commissions, President's Club costs, etc)"
+  },
+  {
+   "sheet": "1) Data entry",
+   "cell": "E48",
+   "id": "marketing",
+   "label": "Marketing Costs",
+   "unit": "currency",
+   "definition": "All marketing investment. Enter directly, or leave blank and the model sums the lines below.",
+   "where": "General ledger: marketing cost centers",
+   "original_text": "This tracks all of the overall investments the company makes to help drive revenue. Marketing resources are extremely important to consider because in most organizations the sales and marketing departments are not coordinated and this results in tremendous waste."
+  },
+  {
+   "sheet": "1) Data entry",
+   "cell": "E49",
+   "id": "entry_49",
+   "label": "All marketing personnel",
+   "unit": "currency",
+   "definition": "Marketing staff cost.",
+   "where": "Payroll",
+   "original_text": "All marketing personnel"
+  },
+  {
+   "sheet": "1) Data entry",
+   "cell": "E50",
+   "id": "entry_50",
+   "label": "Web site investments and maintenance",
+   "unit": "currency",
+   "definition": "Website build and maintenance.",
+   "where": "General ledger",
+   "original_text": "Web site investments and maintenance"
+  },
+  {
+   "sheet": "1) Data entry",
+   "cell": "E51",
+   "id": "entry_51",
+   "label": "Events - online and roadshows",
+   "unit": "currency",
+   "definition": "Events, online and in person.",
+   "where": "General ledger",
+   "original_text": "Events - online and roadshows"
+  },
+  {
+   "sheet": "1) Data entry",
+   "cell": "E52",
+   "id": "entry_52",
+   "label": "Advertising",
+   "unit": "currency",
+   "definition": "Paid media.",
+   "where": "General ledger",
+   "original_text": "Advertising"
+  },
+  {
+   "sheet": "1) Data entry",
+   "cell": "E53",
+   "id": "entry_53",
+   "label": "Direct mail (print and online)",
+   "unit": "currency",
+   "definition": "Direct mail, print and online.",
+   "where": "General ledger",
+   "original_text": "Direct mail (print and online)"
+  },
+  {
+   "sheet": "1) Data entry",
+   "cell": "E54",
+   "id": "entry_54",
+   "label": "Telemarketing and other lead generation programs",
+   "unit": "currency",
+   "definition": "Telemarketing and lead generation programs.",
+   "where": "General ledger",
+   "original_text": "Telemarketing and other lead generation programs"
+  },
+  {
+   "sheet": "1) Data entry",
+   "cell": "E55",
+   "id": "entry_55",
+   "label": "Investments in branding and Public Relations (logo design, consulting, identity, etc)",
+   "unit": "currency",
+   "definition": "Brand and public relations.",
+   "where": "General ledger",
+   "original_text": "Investments in branding and Public Relations (logo design, consulting, identity, etc)"
+  },
+  {
+   "sheet": "1) Data entry",
+   "cell": "E56",
+   "id": "entry_56",
+   "label": "Collateral (sales tools, white papers, brochures, printing)",
+   "unit": "currency",
+   "definition": "Collateral and sales tools.",
+   "where": "General ledger",
+   "original_text": "Collateral (sales tools, white papers, brochures, printing)"
+  },
+  {
+   "sheet": "1) Data entry",
+   "cell": "E59",
+   "id": "cost_of_revenue_pct",
+   "label": "Cost of revenue",
+   "unit": "pct",
+   "definition": "Cost of revenue as a share of revenue, e.g. 0.13.",
+   "where": "Income statement: cost of revenue \u00f7 revenue",
+   "original_text": "Cost of revenue. Cost of revenue as a share of revenue, e.g. 0.13."
+  },
+  {
+   "sheet": "1) Data entry",
+   "cell": "E60",
+   "id": "rnd_pct",
+   "label": "R&D",
+   "unit": "pct",
+   "definition": "Research and development as a share of revenue.",
+   "where": "Income statement: R&D \u00f7 revenue",
+   "original_text": "R&D. Research and development as a share of revenue."
+  },
+  {
+   "sheet": "1) Data entry",
+   "cell": "E61",
+   "id": "gna_pct",
+   "label": "G&A (other)",
+   "unit": "pct",
+   "definition": "General and administrative as a share of revenue.",
+   "where": "Income statement: G&A \u00f7 revenue",
+   "original_text": "G&A (other). General and administrative as a share of revenue."
+  }
+ ],
+ "cell_map": [
+  {
+   "orig_sheet": "1) Data entry",
+   "orig_cell": "F9",
+   "sheet": "1) Data entry",
+   "cell": "E9",
+   "role": "input"
+  },
+  {
+   "orig_sheet": "1) Data entry",
+   "orig_cell": "F11",
+   "sheet": "1) Data entry",
+   "cell": "E11",
+   "role": "input"
+  },
+  {
+   "orig_sheet": "1) Data entry",
+   "orig_cell": "E12",
+   "sheet": "1) Data entry",
+   "cell": "E12",
+   "role": "input"
+  },
+  {
+   "orig_sheet": "1) Data entry",
+   "orig_cell": "E13",
+   "sheet": "1) Data entry",
+   "cell": "E13",
+   "role": "input"
+  },
+  {
+   "orig_sheet": "1) Data entry",
+   "orig_cell": "F15",
+   "sheet": "1) Data entry",
+   "cell": "F15",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "1) Data entry",
+   "orig_cell": "E16",
+   "sheet": "1) Data entry",
+   "cell": "E16",
+   "role": "input"
+  },
+  {
+   "orig_sheet": "1) Data entry",
+   "orig_cell": "E17",
+   "sheet": "1) Data entry",
+   "cell": "E17",
+   "role": "input"
+  },
+  {
+   "orig_sheet": "1) Data entry",
+   "orig_cell": "F19",
+   "sheet": "1) Data entry",
+   "cell": "F19",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "1) Data entry",
+   "orig_cell": "E20",
+   "sheet": "1) Data entry",
+   "cell": "E20",
+   "role": "input"
+  },
+  {
+   "orig_sheet": "1) Data entry",
+   "orig_cell": "E21",
+   "sheet": "1) Data entry",
+   "cell": "E21",
+   "role": "input"
+  },
+  {
+   "orig_sheet": "1) Data entry",
+   "orig_cell": "E22",
+   "sheet": "1) Data entry",
+   "cell": "E22",
+   "role": "input"
+  },
+  {
+   "orig_sheet": "1) Data entry",
+   "orig_cell": "E23",
+   "sheet": "1) Data entry",
+   "cell": "E23",
+   "role": "input"
+  },
+  {
+   "orig_sheet": "1) Data entry",
+   "orig_cell": "E24",
+   "sheet": "1) Data entry",
+   "cell": "E24",
+   "role": "input"
+  },
+  {
+   "orig_sheet": "1) Data entry",
+   "orig_cell": "E25",
+   "sheet": "1) Data entry",
+   "cell": "E25",
+   "role": "input"
+  },
+  {
+   "orig_sheet": "1) Data entry",
+   "orig_cell": "E26",
+   "sheet": "1) Data entry",
+   "cell": "E26",
+   "role": "input"
+  },
+  {
+   "orig_sheet": "1) Data entry",
+   "orig_cell": "F28",
+   "sheet": "1) Data entry",
+   "cell": "E28",
+   "role": "input"
+  },
+  {
+   "orig_sheet": "1) Data entry",
+   "orig_cell": "F31",
+   "sheet": "1) Data entry",
+   "cell": "E31",
+   "role": "input"
+  },
+  {
+   "orig_sheet": "1) Data entry",
+   "orig_cell": "F33",
+   "sheet": "1) Data entry",
+   "cell": "E33",
+   "role": "input"
+  },
+  {
+   "orig_sheet": "1) Data entry",
+   "orig_cell": "F35",
+   "sheet": "1) Data entry",
+   "cell": "E35",
+   "role": "input"
+  },
+  {
+   "orig_sheet": "1) Data entry",
+   "orig_cell": "F37",
+   "sheet": "1) Data entry",
+   "cell": "E37",
+   "role": "input"
+  },
+  {
+   "orig_sheet": "1) Data entry",
+   "orig_cell": "F39",
+   "sheet": "1) Data entry",
+   "cell": "F39",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "1) Data entry",
+   "orig_cell": "F41",
+   "sheet": "1) Data entry",
+   "cell": "F41",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "1) Data entry",
+   "orig_cell": "E42",
+   "sheet": "1) Data entry",
+   "cell": "E42",
+   "role": "input"
+  },
+  {
+   "orig_sheet": "1) Data entry",
+   "orig_cell": "E43",
+   "sheet": "1) Data entry",
+   "cell": "E43",
+   "role": "input"
+  },
+  {
+   "orig_sheet": "1) Data entry",
+   "orig_cell": "E44",
+   "sheet": "1) Data entry",
+   "cell": "E44",
+   "role": "input"
+  },
+  {
+   "orig_sheet": "1) Data entry",
+   "orig_cell": "E45",
+   "sheet": "1) Data entry",
+   "cell": "E45",
+   "role": "input"
+  },
+  {
+   "orig_sheet": "1) Data entry",
+   "orig_cell": "E46",
+   "sheet": "1) Data entry",
+   "cell": "E46",
+   "role": "input"
+  },
+  {
+   "orig_sheet": "1) Data entry",
+   "orig_cell": "F48",
+   "sheet": "1) Data entry",
+   "cell": "F48",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "1) Data entry",
+   "orig_cell": "E49",
+   "sheet": "1) Data entry",
+   "cell": "E49",
+   "role": "input"
+  },
+  {
+   "orig_sheet": "1) Data entry",
+   "orig_cell": "E50",
+   "sheet": "1) Data entry",
+   "cell": "E50",
+   "role": "input"
+  },
+  {
+   "orig_sheet": "1) Data entry",
+   "orig_cell": "E51",
+   "sheet": "1) Data entry",
+   "cell": "E51",
+   "role": "input"
+  },
+  {
+   "orig_sheet": "1) Data entry",
+   "orig_cell": "E52",
+   "sheet": "1) Data entry",
+   "cell": "E52",
+   "role": "input"
+  },
+  {
+   "orig_sheet": "1) Data entry",
+   "orig_cell": "E53",
+   "sheet": "1) Data entry",
+   "cell": "E53",
+   "role": "input"
+  },
+  {
+   "orig_sheet": "1) Data entry",
+   "orig_cell": "E54",
+   "sheet": "1) Data entry",
+   "cell": "E54",
+   "role": "input"
+  },
+  {
+   "orig_sheet": "1) Data entry",
+   "orig_cell": "E55",
+   "sheet": "1) Data entry",
+   "cell": "E55",
+   "role": "input"
+  },
+  {
+   "orig_sheet": "1) Data entry",
+   "orig_cell": "E56",
+   "sheet": "1) Data entry",
+   "cell": "E56",
+   "role": "input"
+  },
+  {
+   "orig_sheet": "3) Impact Analysis",
+   "orig_cell": "C30",
+   "sheet": "1) Data entry",
+   "cell": "E59",
+   "role": "input"
+  },
+  {
+   "orig_sheet": "3) Impact Analysis",
+   "orig_cell": "C31",
+   "sheet": "1) Data entry",
+   "cell": "E60",
+   "role": "input"
+  },
+  {
+   "orig_sheet": "3) Impact Analysis",
+   "orig_cell": "C32",
+   "sheet": "1) Data entry",
+   "cell": "E61",
+   "role": "input"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "C11",
+   "sheet": "1) Data entry",
+   "cell": "E15",
+   "role": "input"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "E7",
+   "sheet": "2) Performance breakdown",
+   "cell": "E7",
+   "role": "input"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "F7",
+   "sheet": "2) Performance breakdown",
+   "cell": "F7",
+   "role": "input"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "G7",
+   "sheet": "2) Performance breakdown",
+   "cell": "G7",
+   "role": "input"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "H7",
+   "sheet": "2) Performance breakdown",
+   "cell": "H7",
+   "role": "input"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "C9",
+   "sheet": "2) Performance breakdown",
+   "cell": "C9",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "E9",
+   "sheet": "2) Performance breakdown",
+   "cell": "E9",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "F9",
+   "sheet": "2) Performance breakdown",
+   "cell": "F9",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "G9",
+   "sheet": "2) Performance breakdown",
+   "cell": "G9",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "H9",
+   "sheet": "2) Performance breakdown",
+   "cell": "H9",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "J9",
+   "sheet": "2) Performance breakdown",
+   "cell": "J9",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "K9",
+   "sheet": "2) Performance breakdown",
+   "cell": "K9",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "C10",
+   "sheet": "2) Performance breakdown",
+   "cell": "C10",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "E10",
+   "sheet": "2) Performance breakdown",
+   "cell": "E10",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "F10",
+   "sheet": "2) Performance breakdown",
+   "cell": "F10",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "G10",
+   "sheet": "2) Performance breakdown",
+   "cell": "G10",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "H10",
+   "sheet": "2) Performance breakdown",
+   "cell": "H10",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "J10",
+   "sheet": "2) Performance breakdown",
+   "cell": "J10",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "K10",
+   "sheet": "2) Performance breakdown",
+   "cell": "K10",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "E11",
+   "sheet": "2) Performance breakdown",
+   "cell": "E11",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "F11",
+   "sheet": "2) Performance breakdown",
+   "cell": "F11",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "G11",
+   "sheet": "2) Performance breakdown",
+   "cell": "G11",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "H11",
+   "sheet": "2) Performance breakdown",
+   "cell": "H11",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "J11",
+   "sheet": "2) Performance breakdown",
+   "cell": "J11",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "K11",
+   "sheet": "2) Performance breakdown",
+   "cell": "K11",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "C12",
+   "sheet": "2) Performance breakdown",
+   "cell": "C12",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "E12",
+   "sheet": "2) Performance breakdown",
+   "cell": "E12",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "F12",
+   "sheet": "2) Performance breakdown",
+   "cell": "F12",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "G12",
+   "sheet": "2) Performance breakdown",
+   "cell": "G12",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "H12",
+   "sheet": "2) Performance breakdown",
+   "cell": "H12",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "J12",
+   "sheet": "2) Performance breakdown",
+   "cell": "J12",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "K12",
+   "sheet": "2) Performance breakdown",
+   "cell": "K12",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "C13",
+   "sheet": "2) Performance breakdown",
+   "cell": "C13",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "E13",
+   "sheet": "2) Performance breakdown",
+   "cell": "E13",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "F13",
+   "sheet": "2) Performance breakdown",
+   "cell": "F13",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "G13",
+   "sheet": "2) Performance breakdown",
+   "cell": "G13",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "H13",
+   "sheet": "2) Performance breakdown",
+   "cell": "H13",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "J13",
+   "sheet": "2) Performance breakdown",
+   "cell": "J13",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "K13",
+   "sheet": "2) Performance breakdown",
+   "cell": "K13",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "C14",
+   "sheet": "2) Performance breakdown",
+   "cell": "C14",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "E14",
+   "sheet": "2) Performance breakdown",
+   "cell": "E14",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "F14",
+   "sheet": "2) Performance breakdown",
+   "cell": "F14",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "G14",
+   "sheet": "2) Performance breakdown",
+   "cell": "G14",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "H14",
+   "sheet": "2) Performance breakdown",
+   "cell": "H14",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "J14",
+   "sheet": "2) Performance breakdown",
+   "cell": "J14",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "K14",
+   "sheet": "2) Performance breakdown",
+   "cell": "K14",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "C16",
+   "sheet": "2) Performance breakdown",
+   "cell": "C16",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "E16",
+   "sheet": "2) Performance breakdown",
+   "cell": "E16",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "F16",
+   "sheet": "2) Performance breakdown",
+   "cell": "F16",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "G16",
+   "sheet": "2) Performance breakdown",
+   "cell": "G16",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "H16",
+   "sheet": "2) Performance breakdown",
+   "cell": "H16",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "J16",
+   "sheet": "2) Performance breakdown",
+   "cell": "J16",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "K16",
+   "sheet": "2) Performance breakdown",
+   "cell": "K16",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "C17",
+   "sheet": "2) Performance breakdown",
+   "cell": "C17",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "E17",
+   "sheet": "2) Performance breakdown",
+   "cell": "E17",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "F17",
+   "sheet": "2) Performance breakdown",
+   "cell": "F17",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "G17",
+   "sheet": "2) Performance breakdown",
+   "cell": "G17",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "H17",
+   "sheet": "2) Performance breakdown",
+   "cell": "H17",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "J17",
+   "sheet": "2) Performance breakdown",
+   "cell": "J17",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "K17",
+   "sheet": "2) Performance breakdown",
+   "cell": "K17",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "C18",
+   "sheet": "2) Performance breakdown",
+   "cell": "C18",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "E18",
+   "sheet": "2) Performance breakdown",
+   "cell": "E18",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "F18",
+   "sheet": "2) Performance breakdown",
+   "cell": "F18",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "G18",
+   "sheet": "2) Performance breakdown",
+   "cell": "G18",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "H18",
+   "sheet": "2) Performance breakdown",
+   "cell": "H18",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "J18",
+   "sheet": "2) Performance breakdown",
+   "cell": "J18",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "K18",
+   "sheet": "2) Performance breakdown",
+   "cell": "K18",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "C19",
+   "sheet": "2) Performance breakdown",
+   "cell": "C19",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "E19",
+   "sheet": "2) Performance breakdown",
+   "cell": "E19",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "F19",
+   "sheet": "2) Performance breakdown",
+   "cell": "F19",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "G19",
+   "sheet": "2) Performance breakdown",
+   "cell": "G19",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "H19",
+   "sheet": "2) Performance breakdown",
+   "cell": "H19",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "J19",
+   "sheet": "2) Performance breakdown",
+   "cell": "J19",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "K19",
+   "sheet": "2) Performance breakdown",
+   "cell": "K19",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "C21",
+   "sheet": "2) Performance breakdown",
+   "cell": "C21",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "E21",
+   "sheet": "2) Performance breakdown",
+   "cell": "E21",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "F21",
+   "sheet": "2) Performance breakdown",
+   "cell": "F21",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "G21",
+   "sheet": "2) Performance breakdown",
+   "cell": "G21",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "H21",
+   "sheet": "2) Performance breakdown",
+   "cell": "H21",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "J21",
+   "sheet": "2) Performance breakdown",
+   "cell": "J21",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "K21",
+   "sheet": "2) Performance breakdown",
+   "cell": "K21",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "C22",
+   "sheet": "2) Performance breakdown",
+   "cell": "C22",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "E22",
+   "sheet": "2) Performance breakdown",
+   "cell": "E22",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "F22",
+   "sheet": "2) Performance breakdown",
+   "cell": "F22",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "G22",
+   "sheet": "2) Performance breakdown",
+   "cell": "G22",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "H22",
+   "sheet": "2) Performance breakdown",
+   "cell": "H22",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "J22",
+   "sheet": "2) Performance breakdown",
+   "cell": "J22",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "K22",
+   "sheet": "2) Performance breakdown",
+   "cell": "K22",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "C23",
+   "sheet": "2) Performance breakdown",
+   "cell": "C23",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "E23",
+   "sheet": "2) Performance breakdown",
+   "cell": "E23",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "F23",
+   "sheet": "2) Performance breakdown",
+   "cell": "F23",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "G23",
+   "sheet": "2) Performance breakdown",
+   "cell": "G23",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "H23",
+   "sheet": "2) Performance breakdown",
+   "cell": "H23",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "J23",
+   "sheet": "2) Performance breakdown",
+   "cell": "J23",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "K23",
+   "sheet": "2) Performance breakdown",
+   "cell": "K23",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "C25",
+   "sheet": "2) Performance breakdown",
+   "cell": "C25",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "E25",
+   "sheet": "2) Performance breakdown",
+   "cell": "E25",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "F25",
+   "sheet": "2) Performance breakdown",
+   "cell": "F25",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "G25",
+   "sheet": "2) Performance breakdown",
+   "cell": "G25",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "H25",
+   "sheet": "2) Performance breakdown",
+   "cell": "H25",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "J25",
+   "sheet": "2) Performance breakdown",
+   "cell": "J25",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "K25",
+   "sheet": "2) Performance breakdown",
+   "cell": "K25",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "C26",
+   "sheet": "2) Performance breakdown",
+   "cell": "C26",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "E26",
+   "sheet": "2) Performance breakdown",
+   "cell": "E26",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "F26",
+   "sheet": "2) Performance breakdown",
+   "cell": "F26",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "G26",
+   "sheet": "2) Performance breakdown",
+   "cell": "G26",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "H26",
+   "sheet": "2) Performance breakdown",
+   "cell": "H26",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "J26",
+   "sheet": "2) Performance breakdown",
+   "cell": "J26",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "2) Performance breakdown",
+   "orig_cell": "K26",
+   "sheet": "2) Performance breakdown",
+   "cell": "K26",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "3) Impact Analysis",
+   "orig_cell": "C8",
+   "sheet": "3) Impact Analysis",
+   "cell": "C8",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "3) Impact Analysis",
+   "orig_cell": "E8",
+   "sheet": "3) Impact Analysis",
+   "cell": "E8",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "3) Impact Analysis",
+   "orig_cell": "F8",
+   "sheet": "3) Impact Analysis",
+   "cell": "F8",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "3) Impact Analysis",
+   "orig_cell": "G8",
+   "sheet": "3) Impact Analysis",
+   "cell": "G8",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "3) Impact Analysis",
+   "orig_cell": "H8",
+   "sheet": "3) Impact Analysis",
+   "cell": "H8",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "3) Impact Analysis",
+   "orig_cell": "J8",
+   "sheet": "3) Impact Analysis",
+   "cell": "J8",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "3) Impact Analysis",
+   "orig_cell": "K8",
+   "sheet": "3) Impact Analysis",
+   "cell": "K8",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "3) Impact Analysis",
+   "orig_cell": "E9",
+   "sheet": "3) Impact Analysis",
+   "cell": "E9",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "3) Impact Analysis",
+   "orig_cell": "F9",
+   "sheet": "3) Impact Analysis",
+   "cell": "F9",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "3) Impact Analysis",
+   "orig_cell": "G9",
+   "sheet": "3) Impact Analysis",
+   "cell": "G9",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "3) Impact Analysis",
+   "orig_cell": "H9",
+   "sheet": "3) Impact Analysis",
+   "cell": "H9",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "3) Impact Analysis",
+   "orig_cell": "J9",
+   "sheet": "3) Impact Analysis",
+   "cell": "J9",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "3) Impact Analysis",
+   "orig_cell": "K9",
+   "sheet": "3) Impact Analysis",
+   "cell": "K9",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "3) Impact Analysis",
+   "orig_cell": "E12",
+   "sheet": "3) Impact Analysis",
+   "cell": "E12",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "3) Impact Analysis",
+   "orig_cell": "F12",
+   "sheet": "3) Impact Analysis",
+   "cell": "F12",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "3) Impact Analysis",
+   "orig_cell": "G12",
+   "sheet": "3) Impact Analysis",
+   "cell": "G12",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "3) Impact Analysis",
+   "orig_cell": "H12",
+   "sheet": "3) Impact Analysis",
+   "cell": "H12",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "3) Impact Analysis",
+   "orig_cell": "J12",
+   "sheet": "3) Impact Analysis",
+   "cell": "J12",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "3) Impact Analysis",
+   "orig_cell": "K12",
+   "sheet": "3) Impact Analysis",
+   "cell": "K12",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "3) Impact Analysis",
+   "orig_cell": "C13",
+   "sheet": "3) Impact Analysis",
+   "cell": "C13",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "3) Impact Analysis",
+   "orig_cell": "E13",
+   "sheet": "3) Impact Analysis",
+   "cell": "E13",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "3) Impact Analysis",
+   "orig_cell": "F13",
+   "sheet": "3) Impact Analysis",
+   "cell": "F13",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "3) Impact Analysis",
+   "orig_cell": "G13",
+   "sheet": "3) Impact Analysis",
+   "cell": "G13",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "3) Impact Analysis",
+   "orig_cell": "H13",
+   "sheet": "3) Impact Analysis",
+   "cell": "H13",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "3) Impact Analysis",
+   "orig_cell": "J13",
+   "sheet": "3) Impact Analysis",
+   "cell": "J13",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "3) Impact Analysis",
+   "orig_cell": "K13",
+   "sheet": "3) Impact Analysis",
+   "cell": "K13",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "3) Impact Analysis",
+   "orig_cell": "C14",
+   "sheet": "3) Impact Analysis",
+   "cell": "C14",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "3) Impact Analysis",
+   "orig_cell": "E14",
+   "sheet": "3) Impact Analysis",
+   "cell": "E14",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "3) Impact Analysis",
+   "orig_cell": "F14",
+   "sheet": "3) Impact Analysis",
+   "cell": "F14",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "3) Impact Analysis",
+   "orig_cell": "G14",
+   "sheet": "3) Impact Analysis",
+   "cell": "G14",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "3) Impact Analysis",
+   "orig_cell": "H14",
+   "sheet": "3) Impact Analysis",
+   "cell": "H14",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "3) Impact Analysis",
+   "orig_cell": "J14",
+   "sheet": "3) Impact Analysis",
+   "cell": "J14",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "3) Impact Analysis",
+   "orig_cell": "K14",
+   "sheet": "3) Impact Analysis",
+   "cell": "K14",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "3) Impact Analysis",
+   "orig_cell": "C15",
+   "sheet": "3) Impact Analysis",
+   "cell": "C15",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "3) Impact Analysis",
+   "orig_cell": "E15",
+   "sheet": "3) Impact Analysis",
+   "cell": "E15",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "3) Impact Analysis",
+   "orig_cell": "F15",
+   "sheet": "3) Impact Analysis",
+   "cell": "F15",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "3) Impact Analysis",
+   "orig_cell": "G15",
+   "sheet": "3) Impact Analysis",
+   "cell": "G15",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "3) Impact Analysis",
+   "orig_cell": "H15",
+   "sheet": "3) Impact Analysis",
+   "cell": "H15",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "3) Impact Analysis",
+   "orig_cell": "J15",
+   "sheet": "3) Impact Analysis",
+   "cell": "J15",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "3) Impact Analysis",
+   "orig_cell": "K15",
+   "sheet": "3) Impact Analysis",
+   "cell": "K15",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "3) Impact Analysis",
+   "orig_cell": "C18",
+   "sheet": "3) Impact Analysis",
+   "cell": "C18",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "3) Impact Analysis",
+   "orig_cell": "E18",
+   "sheet": "3) Impact Analysis",
+   "cell": "E18",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "3) Impact Analysis",
+   "orig_cell": "F18",
+   "sheet": "3) Impact Analysis",
+   "cell": "F18",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "3) Impact Analysis",
+   "orig_cell": "G18",
+   "sheet": "3) Impact Analysis",
+   "cell": "G18",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "3) Impact Analysis",
+   "orig_cell": "H18",
+   "sheet": "3) Impact Analysis",
+   "cell": "H18",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "3) Impact Analysis",
+   "orig_cell": "J18",
+   "sheet": "3) Impact Analysis",
+   "cell": "J18",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "3) Impact Analysis",
+   "orig_cell": "K18",
+   "sheet": "3) Impact Analysis",
+   "cell": "K18",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "3) Impact Analysis",
+   "orig_cell": "C19",
+   "sheet": "3) Impact Analysis",
+   "cell": "C19",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "3) Impact Analysis",
+   "orig_cell": "E19",
+   "sheet": "3) Impact Analysis",
+   "cell": "E19",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "3) Impact Analysis",
+   "orig_cell": "F19",
+   "sheet": "3) Impact Analysis",
+   "cell": "F19",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "3) Impact Analysis",
+   "orig_cell": "G19",
+   "sheet": "3) Impact Analysis",
+   "cell": "G19",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "3) Impact Analysis",
+   "orig_cell": "H19",
+   "sheet": "3) Impact Analysis",
+   "cell": "H19",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "3) Impact Analysis",
+   "orig_cell": "J19",
+   "sheet": "3) Impact Analysis",
+   "cell": "J19",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "3) Impact Analysis",
+   "orig_cell": "K19",
+   "sheet": "3) Impact Analysis",
+   "cell": "K19",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "3) Impact Analysis",
+   "orig_cell": "C20",
+   "sheet": "3) Impact Analysis",
+   "cell": "C20",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "3) Impact Analysis",
+   "orig_cell": "E20",
+   "sheet": "3) Impact Analysis",
+   "cell": "E20",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "3) Impact Analysis",
+   "orig_cell": "F20",
+   "sheet": "3) Impact Analysis",
+   "cell": "F20",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "3) Impact Analysis",
+   "orig_cell": "G20",
+   "sheet": "3) Impact Analysis",
+   "cell": "G20",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "3) Impact Analysis",
+   "orig_cell": "H20",
+   "sheet": "3) Impact Analysis",
+   "cell": "H20",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "3) Impact Analysis",
+   "orig_cell": "J20",
+   "sheet": "3) Impact Analysis",
+   "cell": "J20",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "3) Impact Analysis",
+   "orig_cell": "K20",
+   "sheet": "3) Impact Analysis",
+   "cell": "K20",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "3) Impact Analysis",
+   "orig_cell": "C21",
+   "sheet": "3) Impact Analysis",
+   "cell": "C21",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "3) Impact Analysis",
+   "orig_cell": "E21",
+   "sheet": "3) Impact Analysis",
+   "cell": "E21",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "3) Impact Analysis",
+   "orig_cell": "F21",
+   "sheet": "3) Impact Analysis",
+   "cell": "F21",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "3) Impact Analysis",
+   "orig_cell": "G21",
+   "sheet": "3) Impact Analysis",
+   "cell": "G21",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "3) Impact Analysis",
+   "orig_cell": "H21",
+   "sheet": "3) Impact Analysis",
+   "cell": "H21",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "3) Impact Analysis",
+   "orig_cell": "J21",
+   "sheet": "3) Impact Analysis",
+   "cell": "J21",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "3) Impact Analysis",
+   "orig_cell": "K21",
+   "sheet": "3) Impact Analysis",
+   "cell": "K21",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "3) Impact Analysis",
+   "orig_cell": "C22",
+   "sheet": "3) Impact Analysis",
+   "cell": "C22",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "3) Impact Analysis",
+   "orig_cell": "E22",
+   "sheet": "3) Impact Analysis",
+   "cell": "E22",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "3) Impact Analysis",
+   "orig_cell": "F22",
+   "sheet": "3) Impact Analysis",
+   "cell": "F22",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "3) Impact Analysis",
+   "orig_cell": "G22",
+   "sheet": "3) Impact Analysis",
+   "cell": "G22",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "3) Impact Analysis",
+   "orig_cell": "H22",
+   "sheet": "3) Impact Analysis",
+   "cell": "H22",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "3) Impact Analysis",
+   "orig_cell": "J22",
+   "sheet": "3) Impact Analysis",
+   "cell": "J22",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "3) Impact Analysis",
+   "orig_cell": "K22",
+   "sheet": "3) Impact Analysis",
+   "cell": "K22",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "3) Impact Analysis",
+   "orig_cell": "C23",
+   "sheet": "3) Impact Analysis",
+   "cell": "C23",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "3) Impact Analysis",
+   "orig_cell": "E23",
+   "sheet": "3) Impact Analysis",
+   "cell": "E23",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "3) Impact Analysis",
+   "orig_cell": "F23",
+   "sheet": "3) Impact Analysis",
+   "cell": "F23",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "3) Impact Analysis",
+   "orig_cell": "G23",
+   "sheet": "3) Impact Analysis",
+   "cell": "G23",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "3) Impact Analysis",
+   "orig_cell": "H23",
+   "sheet": "3) Impact Analysis",
+   "cell": "H23",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "3) Impact Analysis",
+   "orig_cell": "J23",
+   "sheet": "3) Impact Analysis",
+   "cell": "J23",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "3) Impact Analysis",
+   "orig_cell": "K23",
+   "sheet": "3) Impact Analysis",
+   "cell": "K23",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "3) Impact Analysis",
+   "orig_cell": "E26",
+   "sheet": "3) Impact Analysis",
+   "cell": "E26",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "3) Impact Analysis",
+   "orig_cell": "F26",
+   "sheet": "3) Impact Analysis",
+   "cell": "F26",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "3) Impact Analysis",
+   "orig_cell": "G26",
+   "sheet": "3) Impact Analysis",
+   "cell": "G26",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "3) Impact Analysis",
+   "orig_cell": "H26",
+   "sheet": "3) Impact Analysis",
+   "cell": "H26",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "3) Impact Analysis",
+   "orig_cell": "J26",
+   "sheet": "3) Impact Analysis",
+   "cell": "J26",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "3) Impact Analysis",
+   "orig_cell": "K26",
+   "sheet": "3) Impact Analysis",
+   "cell": "K26",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "3) Impact Analysis",
+   "orig_cell": "C27",
+   "sheet": "3) Impact Analysis",
+   "cell": "C27",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "3) Impact Analysis",
+   "orig_cell": "E27",
+   "sheet": "3) Impact Analysis",
+   "cell": "E27",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "3) Impact Analysis",
+   "orig_cell": "F27",
+   "sheet": "3) Impact Analysis",
+   "cell": "F27",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "3) Impact Analysis",
+   "orig_cell": "G27",
+   "sheet": "3) Impact Analysis",
+   "cell": "G27",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "3) Impact Analysis",
+   "orig_cell": "H27",
+   "sheet": "3) Impact Analysis",
+   "cell": "H27",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "3) Impact Analysis",
+   "orig_cell": "J27",
+   "sheet": "3) Impact Analysis",
+   "cell": "J27",
+   "role": "formula"
+  },
+  {
+   "orig_sheet": "3) Impact Analysis",
+   "orig_cell": "K27",
+   "sheet": "3) Impact Analysis",
+   "cell": "K27",
+   "role": "formula"
+  }
+ ],
+ "scenario_size_cells": [
+  {
+   "sheet": "2) Performance breakdown",
+   "cell": "E7"
+  },
+  {
+   "sheet": "2) Performance breakdown",
+   "cell": "F7"
+  },
+  {
+   "sheet": "2) Performance breakdown",
+   "cell": "G7"
+  },
+  {
+   "sheet": "2) Performance breakdown",
+   "cell": "H7"
+  }
+ ],
+ "chain_rows": [
+  {
+   "sheet": "2) Performance breakdown",
+   "row": 9,
+   "rule_cell": "L9",
+   "columns": [
+    "E",
+    "F",
+    "G",
+    "H",
+    "J",
+    "K"
+   ]
+  },
+  {
+   "sheet": "2) Performance breakdown",
+   "row": 10,
+   "rule_cell": "L10",
+   "columns": [
+    "E",
+    "F",
+    "G",
+    "H",
+    "J",
+    "K"
+   ]
+  },
+  {
+   "sheet": "2) Performance breakdown",
+   "row": 11,
+   "rule_cell": "L11",
+   "columns": [
+    "E",
+    "F",
+    "G",
+    "H",
+    "J",
+    "K"
+   ]
+  },
+  {
+   "sheet": "2) Performance breakdown",
+   "row": 12,
+   "rule_cell": "L12",
+   "columns": [
+    "E",
+    "F",
+    "G",
+    "H",
+    "J",
+    "K"
+   ]
+  },
+  {
+   "sheet": "2) Performance breakdown",
+   "row": 13,
+   "rule_cell": "L13",
+   "columns": [
+    "E",
+    "F",
+    "G",
+    "H",
+    "J",
+    "K"
+   ]
+  },
+  {
+   "sheet": "2) Performance breakdown",
+   "row": 14,
+   "rule_cell": "L14",
+   "columns": [
+    "E",
+    "F",
+    "G",
+    "H",
+    "J",
+    "K"
+   ]
+  },
+  {
+   "sheet": "2) Performance breakdown",
+   "row": 16,
+   "rule_cell": "L16",
+   "columns": [
+    "E",
+    "F",
+    "G",
+    "H",
+    "J",
+    "K"
+   ]
+  },
+  {
+   "sheet": "2) Performance breakdown",
+   "row": 17,
+   "rule_cell": "L17",
+   "columns": [
+    "E",
+    "F",
+    "G",
+    "H",
+    "J",
+    "K"
+   ]
+  },
+  {
+   "sheet": "2) Performance breakdown",
+   "row": 18,
+   "rule_cell": "L18",
+   "columns": [
+    "E",
+    "F",
+    "G",
+    "H",
+    "J",
+    "K"
+   ]
+  },
+  {
+   "sheet": "2) Performance breakdown",
+   "row": 19,
+   "rule_cell": "L19",
+   "columns": [
+    "E",
+    "F",
+    "G",
+    "H",
+    "J",
+    "K"
+   ]
+  },
+  {
+   "sheet": "2) Performance breakdown",
+   "row": 21,
+   "rule_cell": "L21",
+   "columns": [
+    "E",
+    "F",
+    "G",
+    "H",
+    "J",
+    "K"
+   ]
+  },
+  {
+   "sheet": "2) Performance breakdown",
+   "row": 22,
+   "rule_cell": "L22",
+   "columns": [
+    "E",
+    "F",
+    "G",
+    "H",
+    "J",
+    "K"
+   ]
+  },
+  {
+   "sheet": "2) Performance breakdown",
+   "row": 23,
+   "rule_cell": "L23",
+   "columns": [
+    "E",
+    "F",
+    "G",
+    "H",
+    "J",
+    "K"
+   ]
+  },
+  {
+   "sheet": "2) Performance breakdown",
+   "row": 25,
+   "rule_cell": "L25",
+   "columns": [
+    "E",
+    "F",
+    "G",
+    "H",
+    "J",
+    "K"
+   ]
+  },
+  {
+   "sheet": "2) Performance breakdown",
+   "row": 26,
+   "rule_cell": "L26",
+   "columns": [
+    "E",
+    "F",
+    "G",
+    "H",
+    "J",
+    "K"
+   ]
+  },
+  {
+   "sheet": "3) Impact Analysis",
+   "row": 8,
+   "rule_cell": "L8",
+   "columns": [
+    "E",
+    "F",
+    "G",
+    "H",
+    "J",
+    "K"
+   ]
+  },
+  {
+   "sheet": "3) Impact Analysis",
+   "row": 9,
+   "rule_cell": "L9",
+   "columns": [
+    "E",
+    "F",
+    "G",
+    "H",
+    "J",
+    "K"
+   ]
+  },
+  {
+   "sheet": "3) Impact Analysis",
+   "row": 12,
+   "rule_cell": "L12",
+   "columns": [
+    "E",
+    "F",
+    "G",
+    "H",
+    "J",
+    "K"
+   ]
+  },
+  {
+   "sheet": "3) Impact Analysis",
+   "row": 13,
+   "rule_cell": "L13",
+   "columns": [
+    "E",
+    "F",
+    "G",
+    "H",
+    "J",
+    "K"
+   ]
+  },
+  {
+   "sheet": "3) Impact Analysis",
+   "row": 14,
+   "rule_cell": "L14",
+   "columns": [
+    "E",
+    "F",
+    "G",
+    "H",
+    "J",
+    "K"
+   ]
+  },
+  {
+   "sheet": "3) Impact Analysis",
+   "row": 15,
+   "rule_cell": "L15",
+   "columns": [
+    "E",
+    "F",
+    "G",
+    "H",
+    "J",
+    "K"
+   ]
+  },
+  {
+   "sheet": "3) Impact Analysis",
+   "row": 18,
+   "rule_cell": "L18",
+   "columns": [
+    "E",
+    "F",
+    "G",
+    "H",
+    "J",
+    "K"
+   ]
+  },
+  {
+   "sheet": "3) Impact Analysis",
+   "row": 19,
+   "rule_cell": "L19",
+   "columns": [
+    "E",
+    "F",
+    "G",
+    "H",
+    "J",
+    "K"
+   ]
+  },
+  {
+   "sheet": "3) Impact Analysis",
+   "row": 20,
+   "rule_cell": "L20",
+   "columns": [
+    "E",
+    "F",
+    "G",
+    "H",
+    "J",
+    "K"
+   ]
+  },
+  {
+   "sheet": "3) Impact Analysis",
+   "row": 21,
+   "rule_cell": "L21",
+   "columns": [
+    "E",
+    "F",
+    "G",
+    "H",
+    "J",
+    "K"
+   ]
+  },
+  {
+   "sheet": "3) Impact Analysis",
+   "row": 22,
+   "rule_cell": "L22",
+   "columns": [
+    "E",
+    "F",
+    "G",
+    "H",
+    "J",
+    "K"
+   ]
+  },
+  {
+   "sheet": "3) Impact Analysis",
+   "row": 23,
+   "rule_cell": "L23",
+   "columns": [
+    "E",
+    "F",
+    "G",
+    "H",
+    "J",
+    "K"
+   ]
+  },
+  {
+   "sheet": "3) Impact Analysis",
+   "row": 26,
+   "rule_cell": "L26",
+   "columns": [
+    "E",
+    "F",
+    "G",
+    "H",
+    "J",
+    "K"
+   ]
+  },
+  {
+   "sheet": "3) Impact Analysis",
+   "row": 27,
+   "rule_cell": "L27",
+   "columns": [
+    "E",
+    "F",
+    "G",
+    "H",
+    "J",
+    "K"
+   ]
+  }
+ ],
+ "detail_rows": [
+  {
+   "sheet": "1) Data entry",
+   "rows": [
+    12,
+    13
+   ]
+  },
+  {
+   "sheet": "1) Data entry",
+   "rows": [
+    16,
+    17
+   ]
+  },
+  {
+   "sheet": "1) Data entry",
+   "rows": [
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26
+   ]
+  },
+  {
+   "sheet": "1) Data entry",
+   "rows": [
+    42,
+    43,
+    44,
+    45,
+    46
+   ]
+  },
+  {
+   "sheet": "1) Data entry",
+   "rows": [
+    49,
+    50,
+    51,
+    52,
+    53,
+    54,
+    55,
+    56
+   ]
+  }
+ ],
+ "diagnostic_sheet": "4) Scenario Diagnostic",
+ "no_gridline_sheets": [
+  "Orientation",
+  "2) Performance breakdown",
+  "3) Impact Analysis",
+  "4) Scenario Diagnostic"
+ ]
+}

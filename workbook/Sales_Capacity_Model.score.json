@@ -1,0 +1,279 @@
+[
+  {
+    "cid": "G1",
+    "dimension": "Gate",
+    "statement": "Original inputs typed in -> every numeric formula on Performance breakdown and Impact Analysis matches the original",
+    "method": "AUTO",
+    "score": 2,
+    "measured": "199 of 199 matched",
+    "evidence": []
+  },
+  {
+    "cid": "G2",
+    "dimension": "Gate",
+    "statement": "Every original numeric formula cell (all sheets) is mapped and matches",
+    "method": "AUTO",
+    "score": 2,
+    "measured": "200 matched of 200 original numeric formula cells (0 unmapped; 1 excluded as stray)",
+    "evidence": []
+  },
+  {
+    "cid": "G3",
+    "dimension": "Gate",
+    "statement": "No typed constant in any formula on engine or analysis sheets (literals other than 0, 1, 12, 100)",
+    "method": "AUTO",
+    "score": 2,
+    "measured": "0 formulas with typed constants",
+    "evidence": []
+  },
+  {
+    "cid": "G4",
+    "dimension": "Gate",
+    "statement": "Both original ramp treatments reproduced (Performance breakdown E25 and K25 match)",
+    "method": "AUTO",
+    "score": 2,
+    "measured": "2 of 2",
+    "evidence": []
+  },
+  {
+    "cid": "A1",
+    "dimension": "A. Layout",
+    "statement": "Sheet order follows the work: orient -> enter -> scenarios -> income statement -> obstacles",
+    "method": "HUMAN",
+    "score": null,
+    "measured": "UNSCORED (human)",
+    "evidence": []
+  },
+  {
+    "cid": "A2",
+    "dimension": "A. Layout",
+    "statement": "Each sheet reads only sheets before it in presentation order",
+    "method": "AUTO",
+    "score": 2,
+    "measured": "0 backward references",
+    "evidence": []
+  },
+  {
+    "cid": "A3",
+    "dimension": "A. Layout",
+    "statement": "One titled section per sheet; nothing needed is below the fold without a visible pointer (1366x768)",
+    "method": "HUMAN",
+    "score": null,
+    "measured": "UNSCORED (human)",
+    "evidence": []
+  },
+  {
+    "cid": "A4",
+    "dimension": "A. Layout",
+    "statement": "Ten sampled output cells each trace to an input in two clicks",
+    "method": "HUMAN",
+    "score": null,
+    "measured": "UNSCORED (human)",
+    "evidence": []
+  },
+  {
+    "cid": "B1",
+    "dimension": "B. Collection",
+    "statement": "Every input unlocked and filled; every formula locked; sheet protection on without password",
+    "method": "AUTO",
+    "score": 2,
+    "measured": "0 violations",
+    "evidence": []
+  },
+  {
+    "cid": "B2",
+    "dimension": "B. Collection",
+    "statement": "Every input has label, unit, definition, where-to-find and the original's explanation",
+    "method": "AUTO",
+    "score": 2,
+    "measured": "39 of 39 inputs complete",
+    "evidence": []
+  },
+  {
+    "cid": "B3",
+    "dimension": "B. Collection",
+    "statement": "Every input cell has data validation",
+    "method": "AUTO",
+    "score": 2,
+    "measured": "39 of 39 validated",
+    "evidence": []
+  },
+  {
+    "cid": "B4",
+    "dimension": "B. Collection",
+    "statement": "Blank workbook recalculates with zero error values",
+    "method": "AUTO",
+    "score": 2,
+    "measured": "0 error cells",
+    "evidence": [
+      "{}"
+    ]
+  },
+  {
+    "cid": "B5",
+    "dimension": "B. Collection",
+    "statement": "Inputs that can be entered or calculated show both, say which is in use, never silently prefer one",
+    "method": "HUMAN",
+    "score": null,
+    "measured": "UNSCORED (human)",
+    "evidence": []
+  },
+  {
+    "cid": "B6",
+    "dimension": "B. Collection",
+    "statement": "Detail rows are grouped under their totals (outline level set)",
+    "method": "AUTO",
+    "score": 2,
+    "measured": "24 of 24 detail rows grouped",
+    "evidence": []
+  },
+  {
+    "cid": "B7",
+    "dimension": "B. Collection",
+    "statement": "A Finance person can fill the entry sheet alone, forwarded without the rest of the workbook",
+    "method": "HUMAN",
+    "score": null,
+    "measured": "UNSCORED (human)",
+    "evidence": []
+  },
+  {
+    "cid": "C1",
+    "dimension": "C. Scenarios",
+    "statement": "Scenario sizes are unlocked, labeled, validated input cells",
+    "method": "AUTO",
+    "score": 2,
+    "measured": "4 of 4",
+    "evidence": []
+  },
+  {
+    "cid": "C2",
+    "dimension": "C. Scenarios",
+    "statement": "Within each chain row, the scenario columns (baseline excluded) share one skeleton plus at most one pass-through form; the revenue row mapped from the original's row 25 may have three, as the original does",
+    "method": "AUTO",
+    "score": 2,
+    "measured": "29 of 29 rows consistent",
+    "evidence": []
+  },
+  {
+    "cid": "C3",
+    "dimension": "C. Scenarios",
+    "statement": "Every chain row carries its rule in words",
+    "method": "AUTO",
+    "score": 2,
+    "measured": "29 of 29",
+    "evidence": []
+  },
+  {
+    "cid": "C4",
+    "dimension": "C. Scenarios",
+    "statement": "Perturbing each input (after original inputs are typed) changes at least one output and introduces no error",
+    "method": "AUTO",
+    "score": 0,
+    "measured": "31 of 35 inputs move an output cleanly",
+    "evidence": [
+      "entry_12: no output changed",
+      "entry_13: no output changed",
+      "entry_16: no output changed",
+      "entry_17: no output changed"
+    ]
+  },
+  {
+    "cid": "D1",
+    "dimension": "D. Analysis",
+    "statement": "Impact Analysis lines, including % net gain and S&M ROI, match the original",
+    "method": "AUTO",
+    "score": 2,
+    "measured": "95 of 95",
+    "evidence": []
+  },
+  {
+    "cid": "D2",
+    "dimension": "D. Analysis",
+    "statement": "Cost ratios (cost of revenue, R&D, G&A) are inputs on the entry sheet",
+    "method": "AUTO",
+    "score": 2,
+    "measured": "3 of 3",
+    "evidence": []
+  },
+  {
+    "cid": "D3",
+    "dimension": "D. Analysis",
+    "statement": "Each scenario column shows change vs baseline for revenue, costs and operating income",
+    "method": "HUMAN",
+    "score": null,
+    "measured": "UNSCORED (human)",
+    "evidence": []
+  },
+  {
+    "cid": "E1",
+    "dimension": "E. Diagnostic",
+    "statement": "All original Scenario Diagnostic text present word for word",
+    "method": "AUTO",
+    "score": 2,
+    "measured": "41 of 41 texts present",
+    "evidence": []
+  },
+  {
+    "cid": "E2",
+    "dimension": "E. Diagnostic",
+    "statement": "Diagnostic text cells wrap and their rows are taller than default",
+    "method": "AUTO",
+    "score": 2,
+    "measured": "17 of 17 long texts wrapped",
+    "evidence": []
+  },
+  {
+    "cid": "F1",
+    "dimension": "F. Presentation",
+    "statement": "One typeface; at most four font sizes across the workbook",
+    "method": "AUTO",
+    "score": 2,
+    "measured": "1 typefaces ['Arial'], 4 sizes [9.0, 10.0, 12.0, 16.0]",
+    "evidence": []
+  },
+  {
+    "cid": "F2",
+    "dimension": "F. Presentation",
+    "statement": "Freeze panes on every sheet with a table; numeric formula cells carry a number format",
+    "method": "AUTO",
+    "score": 2,
+    "measured": "0 sheets without freeze panes; 0 of 224 formulas in General format",
+    "evidence": []
+  },
+  {
+    "cid": "F3",
+    "dimension": "F. Presentation",
+    "statement": "Every sheet set to fit one page wide",
+    "method": "AUTO",
+    "score": 2,
+    "measured": "0 sheets not fit to width",
+    "evidence": []
+  },
+  {
+    "cid": "F4",
+    "dimension": "F. Presentation",
+    "statement": "Gridlines off on presentation sheets, on for the entry sheet",
+    "method": "AUTO",
+    "score": 2,
+    "measured": "0 sheets wrong",
+    "evidence": []
+  },
+  {
+    "cid": "F5",
+    "dimension": "F. Presentation",
+    "statement": "No external links, no macros, blank file recalculates without error",
+    "method": "AUTO",
+    "score": 2,
+    "measured": "0 problems",
+    "evidence": []
+  },
+  {
+    "cid": "F6",
+    "dimension": "F. Presentation",
+    "statement": "Attribution: Growth Enablement with the original year; no historical attribution outside source/",
+    "method": "AUTO",
+    "score": 2,
+    "measured": "GE=True year=True historical=False",
+    "evidence": []
+  }
+]
