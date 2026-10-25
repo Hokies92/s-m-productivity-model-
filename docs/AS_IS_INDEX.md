@@ -1,6 +1,6 @@
 # As-Is Model: Index
 
-Status: **reference record of the as-is model, preserved unchanged.** Everything listed here describes the original workbook and its faithful reproduction. The current understanding and target design are in [MODEL_UNDERSTANDING.md](MODEL_UNDERSTANDING.md), [ORIENTATION.md](ORIENTATION.md) and [DATA_MODEL_REQUIREMENTS.md](DATA_MODEL_REQUIREMENTS.md).
+Status: **reference record of the as-is model, preserved unchanged.** Everything listed here describes the original workbook and its faithful reproduction. The current statement of the model is [MODEL.md](MODEL.md); supporting reasoning in [MODEL_UNDERSTANDING.md](MODEL_UNDERSTANDING.md) and [DATA_MODEL_REQUIREMENTS.md](DATA_MODEL_REQUIREMENTS.md).
 
 Snapshot: the branch `as-is-2026-10-24` on GitHub holds the repository exactly as it stood before the redesign documents were added (commit `1e1b03c`).
 
@@ -19,9 +19,9 @@ The Sales and Marketing Efficiency Modeling Tool: five worksheets (Orientation, 
 | `src/sales_capacity_model/` (package 2.1.0) | Python reproduction; defaults reproduce the workbook exactly; options for salary source and ramp rule | Current software |
 | `tests/test_model.py` | Workbook parity (48/48) and option tests | Passing |
 | `spec/sales_capacity_model_specification.json` (v2.1) | Machine-readable description of the as-is inputs, formulas, cell references and scenario results | Reconciled to the workbook |
-| `docs/Sales_Capacity_Model_Technical_Specification_v2.0.docx` | First narrative description | Contains errors listed in `AUDIT_FINDINGS.md` |
-| `AUDIT_FINDINGS.md` | Formula audit: workbook findings F1–F3, spec errors F4–F8 | Findings stand as the as-is record; see the reframing note at its top |
-| `docs/Discovery_and_Architecture_Assessment.md` | Verdicts, sensitivity, break-even, six gaps, target architecture | As-is assessment; partly superseded |
+| `docs/archive/Sales_Capacity_Model_Technical_Specification_v2.0.docx` | First narrative description | Contains errors listed in `AUDIT_FINDINGS.md` |
+| `docs/archive/AUDIT_FINDINGS_2026-10-24.md` | First reading: findings F1–F3 (now understood as deliberate test values), spec errors F4–F8 | Findings stand as the as-is record; see the reframing note at its top |
+| `docs/archive/Discovery_and_Architecture_Assessment_2026-10-24.md` | Verdicts, sensitivity, break-even, six gaps, target architecture | As-is assessment; partly superseded |
 | `docs/Commercial_Effectiveness_Reassessment.md` | Governing product and architecture direction | Still governing for scenarios and architecture; extended by the new documents |
 | `ABOUT.md`, `PRODUCT_OVERVIEW.md` | Project description and the v2.1 software overview | Describe the as-is software accurately |
 
@@ -46,7 +46,7 @@ Max opportunities per territory per year = opportunities manageable at once × (
 Deals = max opportunities × close rate
 Revenue per territory = deals × deal size
 Revenue = revenue per territory × territories
-Cost per territory = $87,750 (hard-coded) + travel + revenue per territory × commission
+Cost per territory = $87,750 (typed into the engine; a deliberate test value) + travel + revenue per territory × commission
 Operating income = revenue − revenue × (13.22% + 10.19% + 15.40%) − (territories × cost per territory + sales overhead + marketing)
 ```
 
@@ -68,11 +68,11 @@ Workbook definitions: % net gain = (Δrevenue − Δsales cost) ÷ baseline reve
 
 ## As-is findings, as recorded and as now understood
 
-| Finding (AUDIT_FINDINGS.md) | Recorded as | Now understood as |
+| Finding (archived AUDIT_FINDINGS) | Recorded as | Now understood as |
 |---|---|---|
 | F1 salary hard-coded at $87,750; entered $116,850 unused | Defect | **Confirmed by Scott (2026-10-24):** an estimate placed in the engine deliberately, to test whether a reviewer understood how the model works. It shows why no value may enter a calculation outside the ledger (DM-08) |
 | F2 added territories earn zero in year one at 12-month ramp | Undisclosed modeling choice | A declared assumption (structural S2, S5) |
-| F3 improve-all credits added territories with a full year | Defect | Still a defect: contradicts F2 within the same model |
+| F3 improve-all credits added territories with a full year | Defect | With F2, the third deliberate value: ramp credited two ways, testing whether the reader declares one ramp rule (MODEL.md §6). The rebuild holds ramp as one register entry with one rule. |
 | Contracts and revenue entered but unused | Dead inputs | The actuals that test the assumptions |
 | $75,000 deal size vs $33,113 implied | Data problem | A deliberate reference value from another client; declare its scope |
 | New hires charged commission with no revenue (from the governing reassessment) | Causal inconsistency | Still an inconsistency to resolve with a declared rule |

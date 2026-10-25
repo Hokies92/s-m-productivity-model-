@@ -1,6 +1,6 @@
 # Data Model and Requirements: the Assumption Ledger
 
-Status: **draft for review, 2026-10-24.** Defines what the data entry module collects, why, in what structure, and with what metadata, so scenario modules can later build on it. Background: [MODEL_UNDERSTANDING.md](MODEL_UNDERSTANDING.md). The as-is data entry sheet is preserved verbatim in `source/` and mapped field by field in section 10.
+Status: **draft for review, 2026-10-24; aligned to [MODEL.md](MODEL.md) 2026-10-25.** Scope: the register (state assumptions) only. Method assumptions and scenarios belong to the modeller (MODEL.md §4) and are out of scope here. Defines what the data entry module collects, why, in what structure, and with what metadata, so scenario modules can later build on it. Background: [MODEL_UNDERSTANDING.md](MODEL_UNDERSTANDING.md). The as-is data entry sheet is preserved verbatim in `source/` and mapped field by field in section 10.
 
 © 2000–2026 Growth Enablement. All rights reserved.
 
@@ -181,9 +181,9 @@ Every as-is field is kept. Cell references are the original's (see `source/workb
 | Number of contracts last year (E12) | 755 | Financial actuals: contracts | Illustrative actual | Now feeds the implication tests |
 | Revenue from those contracts (E13) | $25,000,000 | Financial actuals: revenue | Illustrative actual | Now feeds the implication tests and the yield bridge |
 | Average fully loaded salary (F15) | $116,850 | Derived: salary × (1 + load) | Calculated | As-is engine uses a hard-coded $87,750 (to declare and test) |
-| Average salary per sales rep (E16) | $95,000 | Costs: base salary, per salesperson or band | Judgment | |
+| Average salary per sales salesperson (E16) | $95,000 | Costs: base salary, per salesperson or band | Judgment | |
 | Corporate load rate (E17) | 23% | Costs: load rate | Judgment | As-is definition includes overhead allocation; proposed: benefits and taxes only |
-| Average travel costs per rep (F19) | $47,500 | Costs: travel per salesperson | Calculated from trip components | |
+| Average travel costs per salesperson (F19) | $47,500 | Costs: travel per salesperson | Calculated from trip components | |
 | Travel components (E20–E26) | $750, $200, $100, $250, 2 days, $250, 25 trips | Estimator: trip calculator | Judgment | Kept as the travel estimator |
 | Commission (F28) | 8% | Rules: comp plan; Costs: effective commission | Judgment | Flat rate is structural assumption S7 |
 | Opportunities manageable at one time (F31) | 30 | Agent measure: stated capacity (plus measured load, new) | Judgment | Capacity and load now separate |
@@ -207,7 +207,7 @@ Every as-is field is kept. Cell references are the original's (see `source/workb
 - **DM-05** Calculated estimates record their inputs and inherit the lowest basis among them.
 - **DM-06** Structural assumptions S1–S9 are stored in the same ledger at model level.
 - **DM-07** Only a Finance user may assign the validated-actual basis (until named Finance users exist, an attestation is recorded and the baseline stays a working model).
-- **DM-08** No value enters a calculation unless it is an assumption in the ledger. The engine holds no inputs of its own. (As-is case: the $87,750 salary placed in the calculations while the data tab showed $116,850.)
+- **DM-08** Every *state* value a calculation uses is a register entry with a basis; the modeller holds no state of its own. Method assumptions (equations, rules) live with the modeller, in words beside the formula, and are not register entries. (As-is case: the $87,750 salary typed into the engine is a state value with an alternative basis; in the rebuild it is the loaded-salary entry with its input method.)
 
 ### Entities
 - **DM-10** Territories and salespeople are separate entities; revenue attribution requires an assignment.

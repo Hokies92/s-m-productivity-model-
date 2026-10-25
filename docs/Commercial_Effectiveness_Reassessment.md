@@ -3,7 +3,7 @@
 > **Extended (note added 2026-10-24).** Still governing for scenarios and architecture. Extended by [MODEL_UNDERSTANDING.md](MODEL_UNDERSTANDING.md) (assumption ledger, territory design vs staffing, leverage points) and [DATA_MODEL_REQUIREMENTS.md](DATA_MODEL_REQUIREMENTS.md) (what is collected and why). Where they differ on the data module, the newer documents govern.
 
 
-Status: **adopted as the governing assessment, 2026-10-24.** Where earlier documents in this repo (AUDIT_FINDINGS.md, docs/Discovery_and_Architecture_Assessment.md) differ, this document wins, subject to the alignment notes below.
+Status: **adopted 2026-10-24 for product direction and architecture.** The current statement of the model is [MODEL.md](MODEL.md); where this document differs from it (defects vs deliberate values; scenarios held with assumptions), MODEL.md wins. Where earlier documents in this repo (the archived first audit findings and discovery assessment in docs/archive/) differ, this document wins, subject to the alignment notes below.
 
 © 2000–2026 Growth Enablement. All rights reserved.
 
@@ -229,7 +229,7 @@ That is correct within the existing assumptions, but we need to distinguish resu
 Original sample scenario comparison
 Scenario	Modeled revenue	Operating income
 Baseline	$112.50M	$31.81M
-Hire 10 additional reps	$112.50M	$29.56M
+Hire 10 additional salespeople	$112.50M	$29.56M
 Improve win rate 10%	$123.75M	$37.80M
 Shorten cycle 10%	$125.00M	$38.46M
 Increase deal size 10%	$123.75M	$37.80M
@@ -278,7 +278,7 @@ ILLUSTRATIVE FIRST-YEAR COMPARISON
 Win-rate improvement — incremental operating income
 +$5.984M
 
-Hiring 10 reps — incremental operating income
+Hiring 10 salespeople — incremental operating income
 −$2.253M
 
 
@@ -323,7 +323,7 @@ Some now do both.
 The more useful distinction is what question each category is designed to answer, how much modeling freedom users have, and whether it helps them compare fundamentally different commercial improvement strategies.
 The competitive landscape
 Category and examples	What already exists	Opportunity for our model
-Sales velocity simulators — Revenue Grid	Throughput calculations, adjustable levers, per-rep analysis and benchmark comparisons.  Free	Connect operating changes to complete incremental financial consequences and intervention costs.
+Sales velocity simulators — Revenue Grid	Throughput calculations, adjustable levers, per-salesperson analysis and benchmark comparisons.  Free	Connect operating changes to complete incremental financial consequences and intervention costs.
 Vendor ROI tools — HubSpot	Customer inputs, benchmark-based improvement estimates, configurable assumptions and product investment ROI.  HubSpot	Support neutral, vendor-independent comparisons among competing business strategies.
 Capacity and scenario planning — Fullcast	Multiple scenarios, ramp profiles, productivity assumptions, sensitivity analysis and pro forma P&L.  support.fullcast.com	Put the economics of changing salesperson effectiveness on equal footing with headcount planning.
 Interactive business planning — Pigment	Live what-if modeling with hiring, attainment, quota, ramp and capacity assumptions.  Pigment	Offer a more focused, self-service commercial improvement experience without requiring an enterprise planning environment.

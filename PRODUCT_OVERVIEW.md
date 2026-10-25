@@ -14,7 +14,7 @@ The model puts both answers on the same income statement, so the comparison is m
 | Audience | What they get |
 |----------|---------------|
 | CFO | Operating-income impact of each lever, side by side, with fully loaded sales cost |
-| CRO / VP Sales | Where reps hit their ceiling, and why more leads or more reps won't move it |
+| CRO / VP Sales | Where salespeople hit their ceiling, and why more leads or more salespeople won't move it |
 | CEO / Board | Which capability to invest in, and what growth costs each way |
 | Private equity operating partners | A fast, auditable read on whether a portfolio company's growth plan is volume-bound or quality-bound |
 
@@ -37,7 +37,7 @@ Inputs ─► Capacity ─► Throughput ─► Revenue ─► Sales cost ─►
 | Group | Fields |
 |-------|--------|
 | Structure | territories, average deal size |
-| Rep cost | base salary, load rate, commission rate, travel components and trips per year |
+| Salesperson cost | base salary, load rate, commission rate, travel components and trips per year |
 | Mechanics | opportunities manageable at once, sales cycle (months), ramp (months), close rate |
 | Overhead | non-quota managers, sales engineers, sales admin, training, incentives |
 | Marketing | personnel, web, events, advertising, direct mail, telemarketing, branding/PR, collateral |
@@ -49,7 +49,7 @@ Defaults are the original workbook's illustrative values. `scm template` prints 
 ## Outputs, per scenario
 
 - Max opportunities, opportunities worked, deals and revenue per territory
-- Cost per territory, rep costs, sales and marketing cost
+- Cost per territory, salesperson costs, sales and marketing cost
 - Revenue, operating income, and change vs baseline (absolute and %)
 - **% Net Gain** as the workbook defines it: (Δrevenue − Δsales cost) ÷ baseline revenue
 - **S&M ROI**: (revenue − S&M cost) ÷ S&M cost
@@ -100,11 +100,11 @@ results = run_scenarios(
 print(results["close_rate"].operating_income_change)
 ```
 
-## Options for the open decisions
+## Options: alternatives to the original's deliberate values
 
 | Option | Values | Default |
 |--------|--------|---------|
-| `use_entered_salary` / `--use-entered-salary` | Use base salary × (1 + load rate) instead of the workbook's hard-coded 87,750 | off (workbook) |
+| `use_entered_salary` / `--use-entered-salary` | Use base salary × (1 + load rate) instead of the 87,750 the original types into its engine (a deliberate test value; docs/MODEL.md §6) | off (workbook) |
 | `ramp_rule` / `--ramp-rule` | `workbook`: reproduces the original, including its inconsistency · `year_one`: new territories earn only post-ramp revenue everywhere · `steady_state`: full-year credit everywhere | `workbook` |
 | `adjustments` / `--adjust`, `--adjust-<lever>` | Size of each lever's change | 10% each |
 

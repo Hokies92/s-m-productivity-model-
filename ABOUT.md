@@ -20,7 +20,7 @@ Thirty opportunities held on a six-month cycle turn over twice a year: sixty opp
 
 ## Why it exists
 
-Most sales planning assumes capacity equals headcount equals hours. If that were true, adding reps, leads, calls, meetings, content or training would raise revenue in proportion. Companies do all of these routinely and the revenue doesn't follow.
+Most sales planning assumes capacity equals headcount equals hours. If that were true, adding salespeople, leads, calls, meetings, content or training would raise revenue in proportion. Companies do all of these routinely and the revenue doesn't follow.
 
 The model was built to show, with arithmetic anyone can audit, where the real limits are and which levers actually move profit. Its consistent answer: improving how well each opportunity is handled (close rate, cycle time, deal size) beats adding volume (territories, leads), because quality levers raise output without raising cost in proportion.
 
@@ -53,8 +53,8 @@ The model is the first proof of a broader idea: conventional management conflate
 ## Status and honesty about the numbers
 
 - The engine reproduces every output of the original workbook exactly (`scm verify`, 48/48).
-- The 2026 formula audit found three defects in the workbook (a hard-coded salary, and two inconsistent treatments of new-rep ramp) and errors in the first draft of the specification. All are in [`AUDIT_FINDINGS.md`](AUDIT_FINDINGS.md).
-- The open decisions are exposed as options, not settled silently. Under every combination of options, the conclusion holds: each quality lever beats adding territories.
+- The original contains deliberate test values (an engine salary that differs from the entry sheet; a reference deal size; ramp credited two ways). They test whether a reader composes the whole before judging a part. See [docs/MODEL.md §6](docs/MODEL.md). The engine reproduces them as the as-is oracle; options expose the alternatives.
+- Under every combination of those options, the conclusion holds: each quality lever beats adding territories.
 - The model measures the outcome of selling quality. It does not yet model how to produce it.
 
 © 2000–2026 Growth Enablement. All rights reserved. The model and its logic are owned by Growth Enablement.

@@ -9,7 +9,7 @@ from __future__ import annotations
 from dataclasses import asdict, dataclass, field, fields
 from typing import Optional
 
-WORKBOOK_HARDCODED_SALARY = 87_750.0
+WORKBOOK_ENGINE_SALARY = 87_750.0   # deliberate test value typed into the original's engine (docs/MODEL.md section 6)
 RAMP_RULES = ("workbook", "year_one", "steady_state")
 
 
@@ -19,7 +19,7 @@ class ModelInputs:
     territories: float = 100            # open territories (a workload container, not headcount)
     deal_size: float = 75_000           # average revenue per transaction
 
-    # Rep cost
+    # Salesperson cost
     base_salary: float = 95_000
     load_rate: float = 0.23             # benefits, payroll tax, etc. as % of base
     commission_rate: float = 0.08
@@ -36,7 +36,7 @@ class ModelInputs:
     # Sales mechanics
     manageable_opportunities: float = 30    # cognitive load limit
     cycle_months: float = 6                 # resolution time
-    ramp_months: float = 12                 # time for a new rep to reach full productivity
+    ramp_months: float = 12                 # time for a new salesperson to reach full productivity
     close_rate: float = 0.25
 
     # Sales overhead components
@@ -128,12 +128,12 @@ class Adjustments:
 
 @dataclass
 class ModelOptions:
-    """Switches for the open decisions in AUDIT_FINDINGS.md.
+    """Alternatives to the original's deliberate values (docs/MODEL.md section 6).
 
     Defaults reproduce the original workbook exactly.
     """
-    use_entered_salary: bool = False     # F1: False = workbook's hard-coded 87,750
-    ramp_rule: str = "workbook"          # F2/F3: workbook | year_one | steady_state
+    use_entered_salary: bool = False     # False = the 87,750 typed into the original's engine
+    ramp_rule: str = "workbook"          # workbook | year_one | steady_state
     adjustments: Adjustments = field(default_factory=Adjustments)
 
     def __post_init__(self) -> None:

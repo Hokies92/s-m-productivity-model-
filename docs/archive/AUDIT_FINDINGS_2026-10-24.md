@@ -1,3 +1,5 @@
+> **Archived 2026-10-25.** First reading of the original (2026-10-24). Its "workbook defects" F1–F3 are deliberate test values and declared assumptions; see [MODEL.md §6](../MODEL.md). Its spec errors F4–F8 were real and are fixed in the JSON spec v2.1. Kept as a record of the interpretation, not as a description of the model.
+
 # Workbook Reconciliation Findings
 
 > **As-is record, kept unchanged (note added 2026-10-24).** The findings below are the audit as first recorded. Under the current understanding, several are undeclared assumptions rather than defects: F1 (hard-coded salary) and F2 (year-one ramp) are to be confirmed and declared; the contracts and revenue inputs are the actuals that test the assumptions; the $75,000 deal size is a deliberate reference value. F3 (improve-all ramp) remains a defect. See [docs/AS_IS_INDEX.md](docs/AS_IS_INDEX.md) and [docs/MODEL_UNDERSTANDING.md](docs/MODEL_UNDERSTANDING.md).
@@ -16,7 +18,7 @@ Method: converted the original `.xls` to read its formulas (`source/workbook_cel
 
 | ID | Defect | Where | Effect at defaults |
 |----|--------|-------|--------------------|
-| F1 | Fully loaded salary is hard-coded at **87,750**. The Data Entry value (**116,850** = 95,000 × 1.23) is never used. | Performance Breakdown row 11 (C, F, G, H, J) | Rep costs understated by 29,100 per rep, 2.91M total. Baseline operating income would be 28.9M, not 31.8M. Ranking of levers unchanged. |
+| F1 | Fully loaded salary is hard-coded at **87,750**. The Data Entry value (**116,850** = 95,000 × 1.23) is never used. | Performance Breakdown row 11 (C, F, G, H, J) | Salesperson costs understated by 29,100 per salesperson, 2.91M total. Baseline operating income would be 28.9M, not 31.8M. Ranking of levers unchanged. |
 | F2 | Ramp time applies only to added territories: they earn `(12 − ramp)/12` of a year. At 12-month ramp, new territories produce **0 revenue** in year 1 but carry full cost. | Performance Breakdown E25 | "Hire" shows revenue flat and operating income **down 2.25M**. This is defensible as a year-1 view, but it is a modeling choice that should be stated, not hidden. |
 | F3 | "Improve all" subtracts the *ramped* share instead of the *un-ramped* share, so new territories get **full-year** credit. Opposite of F2. | Performance Breakdown K25 | Improve-all revenue overstated by up to 15.1M (10 territories × 1.5125M). With F2's logic it would equal the combined-quality revenue (151.25M) at higher cost. |
 

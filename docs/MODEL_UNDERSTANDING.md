@@ -168,12 +168,12 @@ People hear these words through a model where **sales capacity is labor**: heads
 
 | Word | What people usually hear | What this model means | Why the difference matters |
 |---|---|---|---|
-| Territory | A patch of accounts given to a person | A design choice: a funded slot that carries an expected yield, whether or not anyone fills it | An open territory is not "a rep short"; it is lost contribution, priced every month |
-| Rep / quota-carrying | Headcount with a number attached | An agent with a cognitive ceiling, measured as part of a system | The search is for system interventions, not individual performance problems |
+| Territory | A patch of accounts given to a person | A design choice: a funded slot that carries an expected yield, whether or not anyone fills it | An open territory is not "a salesperson short"; it is lost contribution, priced every month |
+| Salesperson / quota-carrying | Headcount with a number attached | An agent with a cognitive ceiling, measured as part of a system | The search is for system interventions, not individual performance problems |
 | Capacity | Heads × quota × attainment | Opportunities a salesperson can hold and advance well × 12 ÷ cycle months | Capacity has a ceiling set by attention and time; more leads or calls do not raise it |
 | Headcount | The number of salespeople | One input among several: territories, filled seats and productive (ramped) salespeople are different numbers | Treating them as one hides vacancies and ramp |
 | Time | Calendar: weeks to close, months to ramp | A resource and a set of delays (cycle, ramp, approvals) that cap throughput and cost money | Delay is a lever with a price, e.g. about $38.6K per open territory per month in the as-is sample |
-| Productivity | Revenue per rep | What the system produces once design, staffing, capacity and delays are accounted for | Low productivity can be a territory or process problem, not a person problem |
+| Productivity | Revenue per salesperson | What the system produces once design, staffing, capacity and delays are accounted for | Low productivity can be a territory or process problem, not a person problem |
 | Data / inputs | Facts to type in | Falsifiable assumptions with a declared basis, tested against the P&L | The model's answers are only as believable as its tested assumptions |
 
 **The articulation rule is the model's own discipline: lead with definitions.** Before any discussion, state them, for example: "When I say territory, I mean a funded design choice with an expected yield, separate from who fills it." Definitions are assumptions too; writing them down turns "yeah, I know" into "that is not what I meant."
@@ -217,7 +217,7 @@ Earlier documents in this repo are preserved as written. These readings in them 
 | A territory is a unit of demand | A territory is a design choice carrying an expected yield |
 | $75,000 vs $33,113 is a data error | $75,000 is a deliberate reference value; the ledger must declare it and its scope |
 | $112.5M vs $25M means the data contradicts itself | It is the gap between designed and actual yield, which the model exists to explain |
-| Hard-coded salary and 12-month ramp are defects | Probably undeclared assumptions; declare, then test. Only the improve-all ramp contradiction is clearly a defect |
+| Engine salary and 12-month ramp are defects | Deliberate test values and declared assumptions (MODEL.md §6). Only the improve-all ramp contradiction is clearly a defect |
 | Contracts and revenue inputs are dead | They are the actuals that test the assumptions |
 | Judge the model on whether the math is right | Judge it on whether every assumption is explicit and testable |
 | Per-salesperson output tables | Distributions and groups only; salespeople measured as agents |

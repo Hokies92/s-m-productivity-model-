@@ -49,7 +49,7 @@ def test_ramp_rules():
 def test_entered_salary_option():
     r = run_scenarios(options=ModelOptions(use_entered_salary=True))
     assert r["baseline"].salary == pytest.approx(116_850)
-    assert r["baseline"].rep_costs == pytest.approx(22_525_000 + 2_910_000)
+    assert r["baseline"].salesperson_costs == pytest.approx(22_525_000 + 2_910_000)
 
 
 def test_lead_constraint_extension():

@@ -66,7 +66,7 @@ No test connects them. The engine is faithful to the as-is and is the parity ora
 
 ### 2.5 Instance fixes, not class fixes
 
-- The salesperson terminology rule was implemented as a regex for one banned word. "Rep" survives in 33 places including `__about__.py`, `ABOUT.md`, `PRODUCT_OVERVIEW.md`. The principle (salespeople are agents measured as a system; use the word that says so) was not implemented; one token was.
+- The salesperson terminology rule was implemented as a regex for one banned word. The abbreviation of "representative" survived in 33 places including `__about__.py`, `ABOUT.md`, `PRODUCT_OVERVIEW.md`. The principle (salespeople are agents measured as a system; use the word that says so) was not implemented; one token was.
 - `MIN` ignoring blanks was fixed in the one cell that showed it, not by a rule for how blank inputs are read.
 - Each correction from Scott produced a local patch plus a new rule (DM-08, the terminology test, the as-is note), and the rules then accumulated as more things to monitor.
 
@@ -91,7 +91,7 @@ Stated plainly: reactive local repair. For each correction, find the nearest art
 ## 5. Remedy: structural, not another document
 
 1. **One current statement of the model.** `docs/MODEL.md`: definitions, the unit of each quantity, the chain in order, the three kinds of assumption and where each lives, the deliberate test values and what each tests, the invariants. Under 1,500 words. Every other 2026 document is either corrected to match it or moved to `docs/archive/` with one status line. Only `source/`, the parity engine, and the verbatim original text keep "never rewrite" protection.
-2. **Invariants as tests, on the product.** (a) New workbook reproduces the original's four quality scenarios (contracts, revenue, ΔOI) from the same inputs. (b) Structure: one-way sheet flow; every `v_` name referenced exists; every logic row has its rule in words; no scenario field in the register. (c) Language: the salesperson rule applied to the whole class of banned words (the s-word, `rep`, `headcount` used to mean capacity), outside `source/` and quoted original text.
+2. **Invariants as tests, on the product.** (a) New workbook reproduces the original's four quality scenarios (contracts, revenue, ΔOI) from the same inputs. (b) Structure: one-way sheet flow; every `v_` name referenced exists; every logic row has its rule in words; no scenario field in the register. (c) Language: the salesperson rule applied to the whole class of banned words (the s-word and the abbreviation of "representative"), outside `source/` and quoted original text.
 3. **Resolve the unit in code.** The Python engine is either renamed as the as-is oracle (`asis/`) and nothing else, or regenerated from the same specification as the workbook. It cannot stay in `main` as a third model.
 4. **Separate the modeller's data from the register's data.** Scenario definitions (id, levers, multipliers, method version, register version run against) live in the modeller, in their own table or sheet, never in the assumption schema. Schema layer 9 is moved out.
 5. **Change protocol, to lower the monitoring cost.** Each commit states: which invariant it serves; which artifacts it changed; which it deliberately left. If a change cannot name an invariant, it does not go in.

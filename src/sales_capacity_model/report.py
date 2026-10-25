@@ -27,8 +27,8 @@ def text_report(results: Dict[str, ScenarioResult], inputs: ModelInputs,
     out.append("CAPACITY (per territory)")
     out.append(f"  {inputs.manageable_opportunities:g} opportunities held x (12 / {inputs.cycle_months:g} months) "
                f"= {b.max_opportunities:,.1f} opportunities / year")
-    out.append(f"  x {inputs.close_rate:.1%} close rate = {b.deals_per_rep:,.1f} deals "
-               f"x {inputs.deal_size:,.0f} = {b.revenue_per_rep:,.0f} revenue / rep")
+    out.append(f"  x {inputs.close_rate:.1%} close rate = {b.deals_per_salesperson:,.1f} deals "
+               f"x {inputs.deal_size:,.0f} = {b.revenue_per_salesperson:,.0f} revenue / salesperson")
     if b.capacity_utilization is not None:
         out.append(f"  Leads {inputs.leads_per_territory:g} vs capacity {b.max_opportunities:,.1f}: "
                    f"utilization {b.capacity_utilization:.0%}, excess leads {b.excess_leads_per_territory:,.1f}")
@@ -51,7 +51,7 @@ def text_report(results: Dict[str, ScenarioResult], inputs: ModelInputs,
     out.append("Net gain = (ΔRevenue - ΔSales cost) / baseline revenue, as the workbook defines it.")
     if options.ramp_rule == "workbook" and inputs.ramp_months > 0:
         out.append("Note: 'Improve all' gives new territories full-year revenue while 'Add territories' "
-                   "applies ramp (AUDIT_FINDINGS F3).")
+                   "applies ramp (original K25).")
     return "\n".join(out)
 
 

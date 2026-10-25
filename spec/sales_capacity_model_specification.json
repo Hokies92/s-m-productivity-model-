@@ -7,7 +7,7 @@
     "auditor": "Ernst & Young",
     "documentation_date": "2026",
     "subtitle": "A Cognitive-Temporal Throughput Model for Sales Effectiveness",
-    "spec_revision_note": "v2.1 reconciles the spec to the workbook formulas (source/workbook_cells.csv). See AUDIT_FINDINGS.md.",
+    "spec_revision_note": "v2.1 reconciles the spec to the workbook formulas (source/workbook_cells.csv). See docs/archive/AUDIT_FINDINGS_2026-10-24.md.",
     "workbook_label": "Sales and Marketing Efficiency Model (2011 edition); originated 2000 by Scott Santucci",
     "owner": "Growth Enablement",
     "copyright": "Copyright (c) 2000-2026 Growth Enablement. All rights reserved.",
@@ -17,7 +17,7 @@
     "core_assertion": "Sales capacity is not labor hours. It is cognitive bandwidth constrained by time.",
     "conventional_assumption": {
       "description": "Capacity equals labor",
-      "implication": "Linear scaling - double the reps, double the output",
+      "implication": "Linear scaling - double the salespeople, double the output",
       "validity": "Empirically false"
     },
     "failure_reason": "The constraint on sales output is not hours available. It is attention deployable.",
@@ -38,7 +38,7 @@
     "fundamental_equation": {
       "formula": "Capacity = Cognitive Load Limit × Time Velocity",
       "components": {
-        "cognitive_load_limit": "Maximum opportunities a rep can simultaneously track, understand, and advance",
+        "cognitive_load_limit": "Maximum opportunities a salesperson can simultaneously track, understand, and advance",
         "time_velocity": "Number of times per year that cognitive inventory turns over (12 ÷ sales cycle months)"
       }
     }
@@ -58,7 +58,7 @@
         "conventional_meaning": "Geographic or account assignment",
         "model_meaning": "A workload container independent of the person assigned"
       },
-      "rep": {
+      "salesperson": {
         "conventional_meaning": "Labor cost unit",
         "model_meaning": "A processing system with cognitive constraints"
       },
@@ -77,7 +77,7 @@
     },
     "leads_exclusion_rationale": {
       "reason": "Output is constrained by processing capacity, not input volume",
-      "example": "If a rep can hold 30 opportunities and cycle is 6 months, max is 60/year regardless of lead volume",
+      "example": "If a salesperson can hold 30 opportunities and cycle is 6 months, max is 60/year regardless of lead volume",
       "excess_leads_outcomes": [
         "Get ignored (waste)",
         "Get worked poorly, degrading close rate",
@@ -102,13 +102,13 @@
         "formula": "Deals_Closed = Max_Opportunities × Close_Rate",
         "example": {
           "calculation": "60 × 0.25 = 15",
-          "result": "15 deals/year per rep"
+          "result": "15 deals/year per salesperson"
         },
         "logic": "Throughput capacity filtered by conversion quality"
       },
       "step_3": {
-        "name": "Revenue Per Rep",
-        "formula": "Revenue_Per_Rep = Deals_Closed × Avg_Deal_Size",
+        "name": "Revenue Per Salesperson",
+        "formula": "Revenue_Per_Salesperson = Deals_Closed × Avg_Deal_Size",
         "example": {
           "calculation": "15 × $75,000 = $1,125,000",
           "result": "$1,125,000/year"
@@ -117,16 +117,16 @@
       },
       "step_4": {
         "name": "Total Revenue",
-        "formula": "Total_Revenue = Revenue_Per_Rep × Number_of_Territories",
+        "formula": "Total_Revenue = Revenue_Per_Salesperson × Number_of_Territories",
         "example": {
           "calculation": "$1,125,000 × 100 = $112,500,000",
           "result": "$112,500,000"
         },
-        "logic": "Per-rep output scaled by number of parallel processors (territories)"
+        "logic": "Per-salesperson output scaled by number of parallel processors (territories)"
       },
       "step_5": {
-        "name": "Total Cost Per Rep",
-        "formula": "Cost_Per_Rep = Fully_Loaded_Salary + Travel_Costs + (Revenue_Per_Rep × Commission_Rate)",
+        "name": "Total Cost Per Salesperson",
+        "formula": "Cost_Per_Salesperson = Fully_Loaded_Salary + Travel_Costs + (Revenue_Per_Salesperson × Commission_Rate)",
         "example": {
           "calculation": "$87,750 + $47,500 + ($1,125,000 × 0.08) = $225,250",
           "result": "$225,250"
@@ -170,7 +170,7 @@
     "worksheet_1_data_entry": {
       "purpose": "Captures the baseline state of the sales organization. All values entered here flow through to subsequent worksheets as inputs for calculations.",
       "input_categories": {
-        "individual_sales_rep_data": {
+        "individual_sales_salesperson_data": {
           "number_of_territories": {
             "description": "Count of open territories (not headcount)",
             "default_value": 100,
@@ -202,8 +202,8 @@
             "example_calculation": "$95,000 × (1 + 0.23) = $116,850",
             "note": "Entered value (116,850) is NOT used downstream. Performance Breakdown hard-codes 87,750. See finding F1."
           },
-          "average_travel_costs_per_rep": {
-            "description": "Annual travel expense per rep",
+          "average_travel_costs_per_salesperson": {
+            "description": "Annual travel expense per salesperson",
             "default_value": 47500,
             "cell_reference": "E18",
             "unit": "dollars/year",
@@ -247,7 +247,7 @@
         },
         "sales_mechanics": {
           "manageable_opportunities": {
-            "description": "Cognitive load limit - number of opportunities a rep can effectively manage simultaneously",
+            "description": "Cognitive load limit - number of opportunities a salesperson can effectively manage simultaneously",
             "default_value": 30,
             "cell_reference": "E30",
             "unit": "count"
@@ -259,7 +259,7 @@
             "unit": "months"
           },
           "sales_ramp_up_time": {
-            "description": "Time for new rep to reach full productivity",
+            "description": "Time for new salesperson to reach full productivity",
             "default_value": 12,
             "cell_reference": "E34",
             "unit": "months",
@@ -403,7 +403,7 @@
           "baseline_result": 15,
           "close_rate_scenario_result": 16.5
         },
-        "revenue_per_rep": {
+        "revenue_per_salesperson": {
           "row": 22,
           "formula": "Deals_Closed × Avg_Deal_Size",
           "baseline_result": 1125000,
@@ -411,28 +411,28 @@
         },
         "commission": {
           "row": 12,
-          "formula": "Revenue_Per_Rep × Commission_Rate",
+          "formula": "Revenue_Per_Salesperson × Commission_Rate",
           "baseline_result": 90000,
           "note": "Variable cost - higher revenue scenarios automatically increase commission costs"
         },
-        "total_cost_per_rep": {
+        "total_cost_per_salesperson": {
           "row": 13,
           "formula": "Fully_Loaded_Salary + Travel_Costs + Commission",
           "baseline_result": 225250,
-          "note": "Uses hard-coded 87,750 salary, not the Data Entry 116,850 (F1)."
+          "note": "Uses the 87,750 salary typed into the engine, not the Data Entry 116,850. A deliberate test value in the original (docs/MODEL.md section 6)."
         },
         "total_revenue": {
           "row": 24,
-          "formula": "Revenue_Per_Rep × Number_of_Territories",
+          "formula": "Revenue_Per_Salesperson × Number_of_Territories",
           "baseline_result": 112500000,
           "scenario_variants": {
-            "hire": "=((12-Ramp)/12 * New_Territories * Rev_Per_Rep) + Baseline_Revenue  -> new reps produce 0 in year 1 at 12-month ramp",
-            "improve_all": "=(T_new * Rev_Per_Rep_new) - ((12-Ramp)/12 * New_Territories * Rev_Per_Rep_base)  -> subtracts 0 at 12-month ramp, so new reps get full-year credit (F3)"
+            "hire": "=((12-Ramp)/12 * New_Territories * Rev_Per_Salesperson) + Baseline_Revenue  -> new salespeople produce 0 in year 1 at 12-month ramp",
+            "improve_all": "=(T_new * Rev_Per_Salesperson_new) - ((12-Ramp)/12 * New_Territories * Rev_Per_Salesperson_base)  -> subtracts 0 at 12-month ramp, so new salespeople get full-year credit (F3)"
           }
         },
-        "total_sales_rep_costs": {
+        "total_sales_salesperson_costs": {
           "row": 25,
-          "formula": "Cost_Per_Rep × Number_of_Territories",
+          "formula": "Cost_Per_Salesperson × Number_of_Territories",
           "baseline_result": 22525000
         }
       }
@@ -458,12 +458,12 @@
         "costs": {
           "increase_in_sales_costs": {
             "row": 11,
-            "formula": "Scenario_Sales_Rep_Costs - Baseline_Sales_Rep_Costs",
+            "formula": "Scenario_Sales_Salesperson_Costs - Baseline_Sales_Salesperson_Costs",
             "note": "Quality-lever scenarios show smaller cost increases than quantity-lever scenarios"
           },
           "total_sales_costs": {
             "row": 12,
-            "formula": "Sales_Rep_Costs + Sales_Overhead_Costs",
+            "formula": "Sales_Salesperson_Costs + Sales_Overhead_Costs",
             "baseline": 33325000
           },
           "total_marketing_costs": {
@@ -684,7 +684,7 @@
         {
           "source": "E18",
           "target": "B11",
-          "description": "Travel costs per rep"
+          "description": "Travel costs per salesperson"
         },
         {
           "source": "E27",
@@ -716,7 +716,7 @@
         {
           "source": "Row 25",
           "target": "Row 12 calc",
-          "description": "Sales rep costs by scenario"
+          "description": "Sales salesperson costs by scenario"
         },
         {
           "source": "Row 8",
@@ -762,7 +762,7 @@
         },
         {
           "step": 5,
-          "calculation": "Revenue per rep",
+          "calculation": "Revenue per salesperson",
           "requires": [
             "deals",
             "deal size"
@@ -772,13 +772,13 @@
           "step": 6,
           "calculation": "Commission",
           "requires": [
-            "revenue per rep",
+            "revenue per salesperson",
             "commission rate"
           ]
         },
         {
           "step": 7,
-          "calculation": "Cost per rep",
+          "calculation": "Cost per salesperson",
           "requires": [
             "salary",
             "travel",
@@ -789,7 +789,7 @@
           "step": 8,
           "calculation": "Total revenue",
           "requires": [
-            "revenue per rep",
+            "revenue per salesperson",
             "territories"
           ]
         },
@@ -797,7 +797,7 @@
           "step": 9,
           "calculation": "Total costs",
           "requires": [
-            "cost per rep",
+            "cost per salesperson",
             "territories",
             "overhead"
           ]
@@ -840,7 +840,7 @@
         "unit": "percentage"
       },
       {
-        "variable": "Travel cost per rep",
+        "variable": "Travel cost per salesperson",
         "symbol": "V",
         "default": 47500,
         "unit": "dollars/year"
@@ -899,33 +899,33 @@
         "baseline_result": 15
       },
       {
-        "variable": "Revenue per rep",
-        "formula": "REV_rep = DEALS × D",
+        "variable": "Revenue per salesperson",
+        "formula": "REV_salesperson = DEALS × D",
         "baseline_result": 1125000
       },
       {
-        "variable": "Commission per rep",
-        "formula": "COMM = REV_rep × C",
+        "variable": "Commission per salesperson",
+        "formula": "COMM = REV_salesperson × C",
         "baseline_result": 90000
       },
       {
-        "variable": "Cost per rep",
-        "formula": "COST_rep = S + V + COMM",
+        "variable": "Cost per salesperson",
+        "formula": "COST_salesperson = S + V + COMM",
         "baseline_result": 225250
       },
       {
         "variable": "Total revenue",
-        "formula": "REV_total = REV_rep × T",
+        "formula": "REV_total = REV_salesperson × T",
         "baseline_result": 112500000
       },
       {
-        "variable": "Total rep costs",
-        "formula": "COST_reps = COST_rep × T",
+        "variable": "Total salesperson costs",
+        "formula": "COST_salespeople = COST_salesperson × T",
         "baseline_result": 22525000
       },
       {
         "variable": "Total sales costs",
-        "formula": "COST_sales = COST_reps + O_s",
+        "formula": "COST_sales = COST_salespeople + O_s",
         "baseline_result": 33325000
       },
       {
@@ -1078,7 +1078,7 @@
     "analytical_traditions": [
       {
         "tradition": "Queueing Theory",
-        "application": "Manageable opportunities as queue depth constraint; rep as processing node with finite concurrent capacity"
+        "application": "Manageable opportunities as queue depth constraint; salesperson as processing node with finite concurrent capacity"
       },
       {
         "tradition": "Little's Law (Operations Research)",
@@ -1123,7 +1123,7 @@
     "what_model_does_not_capture": "How to optimize it"
   },
   "workbook_reconciliation": {
-    "findings_file": "AUDIT_FINDINGS.md",
+    "findings_file": "docs/archive/AUDIT_FINDINGS_2026-10-24.md",
     "formula_export": "source/workbook_cells.csv",
     "recompute_script": "scm verify (src/sales_capacity_model/verify.py)"
   }

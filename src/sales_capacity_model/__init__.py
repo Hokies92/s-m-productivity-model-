@@ -1,4 +1,8 @@
-"""Sales Capacity Model: sales capacity as cognitive bandwidth constrained by time.
+"""Sales Capacity Model: the as-is oracle.
+
+This package reproduces the original 2000 workbook exactly, per territory, and is the
+reference every rebuild is tested against (tests/test_model.py, tests/test_workbook.py).
+The current model is stated in docs/MODEL.md and built by tools/build_workbook.py.
 
     from sales_capacity_model import ModelInputs, ModelOptions, run_scenarios
     results = run_scenarios(ModelInputs(close_rate=0.3))

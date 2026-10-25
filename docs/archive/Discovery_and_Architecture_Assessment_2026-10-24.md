@@ -1,3 +1,5 @@
+> **Archived 2026-10-25.** Superseded by [MODEL.md](../MODEL.md) and [FOUNDATION.md](../FOUNDATION.md). Its sensitivity and break-even arithmetic on the as-is sample stands; its framing of defects, of territory as a workload container, and of the per-territory unit does not.
+
 # Sales Capacity Model: Discovery and Architecture Assessment
 
 > **As-is assessment, kept unchanged (note added 2026-10-24).** Its formula audit, sensitivity and break-even figures stand. Its framing is partly superseded: territories are a design choice carrying expected yield, not headcount or demand; the data tab is an assumption ledger; the model is judged on whether its assumptions are explicit and testable. See [MODEL_UNDERSTANDING.md](MODEL_UNDERSTANDING.md).
@@ -15,9 +17,9 @@ The model is valid and worth rebuilding, but its headline conclusion is stronger
 | --- | --- | --- |
 | Core premise (capacity = cognitive load × time) | Valid | Same form as Little's Law: throughput = work in progress ÷ cycle time |
 | Arithmetic | Valid | Python engine reproduces all 48 workbook outputs exactly |
-| Workbook implementation | Invalid in 3 places | Hard-coded salary; two contradictory treatments of new-rep ramp |
+| Workbook implementation | Invalid in 3 places | Hard-coded salary; two contradictory treatments of new-salesperson ramp |
 | Conclusion: quality beats hiring | Valid, conditional | Holds under every option, but the size of the win depends on two assumptions |
-| Ontology: territory ≠ headcount ≠ capacity | Stated, not implemented | The math still costs one rep per territory |
+| Ontology: territory ≠ headcount ≠ capacity | Stated, not implemented | The math still costs one salesperson per territory |
 | Python package | Sound foundation | Pure functions, tested, workbook-faithful by default |
 | Fitness for rebuild | Ready, after 4 decisions | See Roadmap and decisions |
 
@@ -57,7 +59,7 @@ Seven artifacts make up the model today; only the workbook and the package compu
 | --- | --- | --- | --- |
 | Orientation | Narrative | text | Purpose and instructions |
 | 1) Data entry | Inputs | 31 entry cells (2 unused) | Territories, deal size, cost components, mechanics, overhead, marketing |
-| 2) Performance breakdown | Engine | 7 scenario columns | Capacity chain and per-rep economics |
+| 2) Performance breakdown | Engine | 7 scenario columns | Capacity chain and per-salesperson economics |
 | 3) Impact Analysis | Financial bridge | 7 scenario columns | Income statement, % net gain, S&M ROI |
 | 4) Scenario Diagnostic | Interpretation | 15 obstacles | Obstacles and root causes for 3 quality levers |
 
@@ -77,14 +79,14 @@ Because every lever enters as a multiplier, a 10% change in territories, close r
 
 | Assumption the math depends on | Valid? | What follows if it fails |
 | --- | --- | --- |
-| Each rep runs at full capacity (always holding M opportunities) | Valid for planning; optimistic in practice | Revenue overstated wherever pipeline is thin. The optional lead input now tests this |
+| Each salesperson runs at full capacity (always holding M opportunities) | Valid for planning; optimistic in practice | Revenue overstated wherever pipeline is thin. The optional lead input now tests this |
 | Close rate applies to every resolved opportunity, won or lost | Valid | None; it is the right base for Little's Law |
 | Cognitive load, cycle and close rate are independent | Invalid by the model's own theory | The theory says overload lowers close rate and lengthens cycle. The math has no such link, so it cannot show the cost of piling on leads |
 | Improving close rate, cycle or deal size costs nothing | Invalid as stated | Quality's advantage is overstated by whatever the improvement costs. This is the largest open assumption |
 | New territories need a full 12-month ramp | Plausible for year 1 only | Year-1 view makes hiring look loss-making; steady state narrows the gap to $1.35M |
-| One rep per territory | Contradicts the ontology | Territory ≠ headcount is asserted but not modeled |
+| One salesperson per territory | Contradicts the ontology | Territory ≠ headcount is asserted but not modeled |
 | COGS, R&D and G&A grow in proportion to revenue (38.81%) | Conservative | Penalizes every growth lever equally; real G&A is partly fixed, so all scenarios understate profit |
-| Commission is a flat 8% of revenue | Simplification | Accelerators or caps would change cost per rep at higher output |
+| Commission is a flat 8% of revenue | Simplification | Accelerators or caps would change cost per salesperson at higher output |
 
 The defensible form of the claim is: *quality levers produce the same revenue as hiring with no added fixed cost, so they win whenever the improvement costs less than the hire.* The model can quantify that threshold exactly.
 
@@ -109,7 +111,7 @@ The ramp assumption, not the capacity math, decides how large the quality advant
 | Shorten cycle | +6.65 | +6.65 |
 | Raise deal size | +5.98 | +5.98 |
 
-All three quality levers return the same amount in both views because they add no people. Hiring swings by $6.88M depending on whether new reps earn anything in their first year.
+All three quality levers return the same amount in both views because they add no people. Hiring swings by $6.88M depending on whether new salespeople earn anything in their first year.
 
 | Measure (steady state) | Add territories | Close rate, cycle or deal size |
 | --- | --- | --- |
@@ -117,7 +119,7 @@ All three quality levers return the same amount in both views because they add n
 | Operating income per 1% lever move | $0.43M | $0.60M |
 | Close-rate lift that equals a 10% territory increase | — | 7.7% |
 
-The 12-point flow-through gap is the fixed cost of a territory: $135,250 of salary and travel against $1.125M of revenue per rep. When revenue per rep is high relative to fixed rep cost, hiring closes the gap; when it is low, quality wins by more.
+The 12-point flow-through gap is the fixed cost of a territory: $135,250 of salary and travel against $1.125M of revenue per salesperson. When revenue per salesperson is high relative to fixed salesperson cost, hiring closes the gap; when it is low, quality wins by more.
 
 **Break-even quality budget**, the most a company can spend on a 10% improvement and still beat a 10% hire:
 
@@ -138,9 +140,9 @@ The workbook is a clear, auditable layout with three defects and no controls; th
 
 | Finding | Type | Effect at defaults |
 | --- | --- | --- |
-| Fully loaded salary hard-coded at $87,750; entered $116,850 never used (F1) | Defect | Rep costs understated $2.91M; baseline operating income $31.81M instead of $28.90M |
-| "Add territories" credits new reps with (12 − ramp) ÷ 12 of a year: zero at 12 months (F2) | Undisclosed modeling choice | Hiring shows −$2.25M operating income |
-| "Improve all" subtracts the ramped share, not the unramped share (F3) | Defect | New reps get full-year credit; column overstated by up to $15.13M |
+| Fully loaded salary hard-coded at $87,750; entered $116,850 never used (F1) | Defect | Salesperson costs understated $2.91M; baseline operating income $31.81M instead of $28.90M |
+| "Add territories" credits new salespeople with (12 − ramp) ÷ 12 of a year: zero at 12 months (F2) | Undisclosed modeling choice | Hiring shows −$2.25M operating income |
+| "Improve all" subtracts the ramped share, not the unramped share (F3) | Defect | New salespeople get full-year credit; column overstated by up to $15.13M |
 | % Net Gain = (Δrevenue − Δsales cost) ÷ baseline revenue | Undocumented definition | Ignores COGS, R&D, G&A growth; reads 9.2% where operating income rises 18.8% |
 | S&M ROI = (revenue − S&M) ÷ S&M | Undocumented definition | 2.04, easily misread as revenue ÷ cost (3.04) |
 | Contracts (755) and contract revenue ($25M) entered, never used | Dead inputs | Implied deal size $33,113 conflicts with the $75,000 used |
@@ -158,7 +160,7 @@ Strengths worth keeping: one sheet per layer, inputs separated from logic, every
 | Calculation style | Pure functions, no global state, no dependencies; easy to call from a spreadsheet generator, an API or an app |
 | Open decisions | Exposed as options (`use_entered_salary`, `ramp_rule`), not settled silently |
 | Inputs | Typed, validated, with derived totals computed from components as the workbook does |
-| Gaps | Single period; one rep per territory; scenario logic hard-wired to 7 named cases; no investment cost per lever; P&L mapping fixed as % of revenue |
+| Gaps | Single period; one salesperson per territory; scenario logic hard-wired to 7 named cases; no investment cost per lever; P&L mapping fixed as % of revenue |
 | Risk | `_revenue()` branches on scenario names to reproduce F2/F3. Correct today, but the first thing to replace once the ramp rule is decided |
 
 ## Architectural gaps
@@ -169,7 +171,7 @@ Six places where the theory says more than the code computes; closing the first 
 | --- | --- | --- | --- | --- |
 | G1 | Quality improvement takes effort and money | Treats every quality lever as free | An investment cost per lever, giving ROI and break-even budget per lever | Critical |
 | G2 | Overload degrades close rate and lengthens cycle | Load, close rate and cycle are independent | A load-to-quality curve: past capacity, extra leads lower R and raise Y. This is the mechanism behind "more is wrong" | Critical |
-| G3 | Territory ≠ headcount ≠ capacity | Cost = reps × territories, 1:1 | Separate counts for territories, people and coverage ratio; shared or split territories | High |
+| G3 | Territory ≠ headcount ≠ capacity | Cost = salespeople × territories, 1:1 | Separate counts for territories, people and coverage ratio; shared or split territories | High |
 | G4 | Capacity is set by cognition and time | Cognitive load M is a fixed input | Drivers of M: deal complexity, stakeholders per deal, admin and non-selling time. This is where the timely / relevant / in-context framework would enter | High |
 | G5 | Ramp, attrition and vacancy shape real capacity | One year; ramp only for added territories | Multi-period view: monthly capacity with ramp curves, attrition, backfill lag | Medium |
 | G6 | The income statement is the canonical measure | Non-sales costs fixed at 38.81% of revenue | Configurable P&L mapping: fixed vs variable lines, actual figures, multiple charts of accounts. This is the link to Hidden Commercial Costs | Medium |

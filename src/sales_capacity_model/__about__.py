@@ -34,7 +34,7 @@ WHAT IT IS
 
 WHY IT EXISTS
   Conventional sales planning assumes capacity = headcount = hours, so more
-  reps, leads, calls and meetings should mean proportionally more revenue.
+  salespeople, leads, calls and meetings should mean proportionally more revenue.
   That assumption fails in practice. This model was built to show, with the
   arithmetic, that "more" is usually the wrong answer and that the quality of
   how each opportunity is handled drives margin.
@@ -58,9 +58,12 @@ WHAT MAKES IT DIFFERENT
     ceiling, more leads are waste, worse close rates, or longer cycles.
 
 STATUS
-  The Python engine reproduces all 48 outputs of the original workbook
-  exactly (`scm verify`). Three defects found in the workbook and three open
-  decisions are documented in AUDIT_FINDINGS.md and exposed as options.
+  This package is the as-is oracle: it reproduces all 48 outputs of the
+  original workbook exactly (`scm verify`), per territory, as the original
+  computed them. The current model (per salesperson, with the register) is
+  stated in docs/MODEL.md and built by tools/build_workbook.py. The
+  original's deliberate test values are reproduced by default; options
+  expose the alternatives.
 
 Owner:   Growth Enablement. The model and its logic are proprietary.
 Author:  {__author__} <{__email__}>
@@ -89,8 +92,8 @@ WHAT GOES IN  (defaults are illustrative; replace with your actuals)
                or capacity-constrained)
 
 WHAT COMES OUT  (for each scenario)
-  Throughput   max opportunities / rep / year, deals / rep, revenue / rep
-  Cost         cost per rep, rep costs, sales and marketing cost
+  Throughput   max opportunities / salesperson / year, deals / salesperson, revenue / salesperson
+  Cost         cost per salesperson, salesperson costs, sales and marketing cost
   Profit       operating income, change vs baseline, % net gain, S&M ROI
   Guidance     the five common obstacles for each quality lever, and their
                root causes
@@ -119,9 +122,9 @@ HOW TO USE IT
     from sales_capacity_model import ModelInputs, run_scenarios
     results = run_scenarios(ModelInputs(territories=40, close_rate=0.3))
 
-OPTIONS FOR THE OPEN DECISIONS (see AUDIT_FINDINGS.md)
+OPTIONS (alternatives to the original's deliberate values; see docs/MODEL.md section 6)
   --use-entered-salary   use base salary x (1 + load rate) instead of the
-                         workbook's hard-coded 87,750
+                         87,750 the original types into its engine
   --ramp-rule            workbook (default, reproduces original),
                          year_one (new territories earn only post-ramp
                          revenue in every scenario), or steady_state
