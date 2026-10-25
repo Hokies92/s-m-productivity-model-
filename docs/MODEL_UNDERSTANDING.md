@@ -98,15 +98,9 @@ The territory contributes the **expected yield** (the design claim) and the **re
 
 A failed joint test shows that **at least one** assumption in the set is false, not which one. Locating it is the client's work: confronting ambiguity with targeted evidence. The module therefore presents the candidate set, not a verdict.
 
-**Scope matters.** The same value can be valid in one scope and contradicted in another. The as-is workbook's $75,000 deal size is a deliberate **reference value from another client**, chosen so the model works for companies of any size. As a reference for a general model it is sound; as a claim about a specific client whose actuals imply $33,113, it is contradicted. Every assumption declares its scope.
+**Scope matters.** The same value can hold in one scope and not in another. The as-is workbook's $75,000 deal size is a deliberate **reference value from another client**, chosen so the model works for companies of any size. Every assumption declares its scope.
 
-**Worked on the as-is sample data.** The data tab's assumptions jointly imply 1,500 contracts and $112.5M; the actuals are 755 contracts and $25.0M. Targeted evidence locates the gap:
-
-- If cycle and win rate hold, Little's Law says salespeople hold about 15 opportunities, not 30: 50% utilization. That explains 1,500 → 755 contracts.
-- The $75,000 reference value, applied to this client, is contradicted by $25M ÷ 755 = $33,113. That explains the rest of the revenue gap.
-- Residual: $0, provided cycle and win rate are confirmed.
-
-The result is a sharper question: is idle capacity a territory design problem or a salesperson problem?
+**How a company's figures are confronted.** The sample is illustrative and is never reconciled (MODEL.md §6). For a company's own figures, the procedure is: compute what the entries jointly imply (contracts, revenue), compare with what the company reported, and locate the gap with targeted evidence. Little's Law tests capacity against opportunities actually held; revenue ÷ contracts tests deal size; each test narrows the candidate set. The output is a sharper question for leadership, for example: is idle capacity a territory design problem or a salesperson problem?
 
 ## 6. Whole system and its parts: Meadows' leverage points
 
@@ -215,9 +209,9 @@ Earlier documents in this repo are preserved as written. These readings in them 
 | Earlier reading | Current understanding |
 |---|---|
 | A territory is a unit of demand | A territory is a design choice carrying an expected yield |
-| $75,000 vs $33,113 is a data error | $75,000 is a deliberate reference value; the ledger must declare it and its scope |
-| $112.5M vs $25M means the data contradicts itself | It is the gap between designed and actual yield, which the model exists to explain |
-| Engine salary and 12-month ramp are defects | Deliberate test values and declared assumptions (MODEL.md §6). Only the improve-all ramp contradiction is clearly a defect |
+| $75,000 vs $33,113 is a data error <!-- frame-check: allow (earlier reading) --> | $75,000 is a deliberate reference value; the ledger must declare it and its scope |
+| $112.5M vs $25M means the data contradicts itself <!-- frame-check: allow (earlier reading) --> | The sample is illustrative and deliberately does not agree; it is never reconciled |
+| Engine salary and 12-month ramp are defects <!-- frame-check: allow (earlier reading) --> | Deliberate paired values, including both ramp treatments (MODEL.md §6) |
 | Contracts and revenue inputs are dead | They are the actuals that test the assumptions |
 | Judge the model on whether the math is right | Judge it on whether every assumption is explicit and testable |
 | Per-salesperson output tables | Distributions and groups only; salespeople measured as agents |

@@ -60,11 +60,13 @@ In the as-is, throughput is computed per salesperson and scaled by territories, 
 
 ## 6. Values the original holds beside each other on purpose
 
+The sample values are illustrative and come from different sources, so they deliberately do not agree. The sample is never a company: it is not reconciled, calibrated or explained. Only a company's own figures are.
+
 Several inputs sit beside a second figure that should agree with them. Where they disagree, the reader learns something about the company. This is the model's validation layer, left implicit, and the only part the original did not complete.
 
 | Pair | What a disagreement means | How the blank workbook holds it |
 |---|---|---|
-| Deal size typed ($75,000) beside revenue ÷ contracts ($33,113) | The typed figure is a reference value with a scope; for this client the actuals contradict it | Deal size is an entry with two ways to fill it; the value used is shown |
+| Deal size typed ($75,000) beside revenue ÷ contracts ($33,113) | The typed figure is a reference value with a scope; where a company's own revenue ÷ contracts differs, the reference is outside its scope for that company | Deal size is an entry with two ways to fill it; the value used is shown |
 | Salary typed into the engine ($87,750) beside the entry sheet's calculation ($116,850) | An entry can be overridden; the engine reads the entry, not the calculation | Fully loaded salary is an entry with a direct figure or the calculation; the value used is shown |
 | Ramp credited (12 − ramp) ÷ 12 in "hire more" and deducted again in "improve all" | Ramp is an assumption to declare with one rule | Both formulas reproduced exactly; the rule stated in words beside them |
 

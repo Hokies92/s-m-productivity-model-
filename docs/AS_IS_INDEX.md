@@ -22,7 +22,7 @@ The Sales and Marketing Efficiency Modeling Tool: five worksheets (Orientation, 
 | `docs/archive/Sales_Capacity_Model_Technical_Specification_v2.0.docx` | First narrative description | Contains errors listed in `AUDIT_FINDINGS.md` |
 | `docs/archive/AUDIT_FINDINGS_2026-10-24.md` | First reading: findings F1–F3 (now understood as deliberate test values), spec errors F4–F8 | Findings stand as the as-is record; see the reframing note at its top |
 | `docs/archive/Discovery_and_Architecture_Assessment_2026-10-24.md` | Verdicts, sensitivity, break-even, six gaps, target architecture | As-is assessment; partly superseded |
-| `docs/Commercial_Effectiveness_Reassessment.md` | Governing product and architecture direction | Still governing for scenarios and architecture; extended by the new documents |
+| `docs/archive/Commercial_Effectiveness_Reassessment_2026-10-24.md` | Governing product and architecture direction | Still governing for scenarios and architecture; extended by the new documents |
 | `ABOUT.md`, `PRODUCT_OVERVIEW.md` | Project description and the v2.1 software overview | Describe the as-is software accurately |
 
 Working documents in Claude Docs (not copied into the repo): [Discovery and Architecture Assessment](https://claude.ai/artifact/U4pvy1F8aYHdJuVzPGE1Lh), [Consolidated Review of Five Assessments](https://claude.ai/artifact/WEPdCoP1jGQPCNRYFNJDwn), [Data Entry Model: Deep Dive](https://claude.ai/artifact/9EgvTQicadD59WZ8Qcx4Ez).

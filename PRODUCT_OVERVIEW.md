@@ -105,7 +105,7 @@ print(results["close_rate"].operating_income_change)
 | Option | Values | Default |
 |--------|--------|---------|
 | `use_entered_salary` / `--use-entered-salary` | Use base salary × (1 + load rate) instead of the 87,750 the original types into its engine (a deliberate test value; docs/MODEL.md §6) | off (workbook) |
-| `ramp_rule` / `--ramp-rule` | `workbook`: reproduces the original, including its inconsistency · `year_one`: new territories earn only post-ramp revenue everywhere · `steady_state`: full-year credit everywhere | `workbook` |
+| `ramp_rule` / `--ramp-rule` | `workbook`: reproduces the original, with both of its ramp treatments · `year_one`: new territories earn only post-ramp revenue everywhere · `steady_state`: full-year credit everywhere | `workbook` |
 | `adjustments` / `--adjust`, `--adjust-<lever>` | Size of each lever's change | 10% each |
 
 ## Limits

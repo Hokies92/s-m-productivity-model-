@@ -9,7 +9,7 @@
 
 ## Before every push
 
-Install the hook once: `git config core.hooksPath .githooks`. It runs the test suite and refuses the push on failure. CI (`.github/workflows/ci.yml`) runs the same tests plus the rubric on every push and attaches the score sheet.
+Install the hooks once: `git config core.hooksPath .githooks`. `pre-push` runs the test suite and refuses the push on failure; `commit-msg` refuses a message without the Invariant / Changed / Left lines. For Claude sessions, `CLAUDE.md` holds the working rules and `.claude/settings.json` runs `tools/frame_check.py` on every document Claude writes. CI (`.github/workflows/ci.yml`) runs the same tests plus the rubric on every push and attaches the score sheet.
 
 ## What is protected
 

@@ -1,9 +1,11 @@
+> **Archived 2026-10-25.** External review adopted on day 1 for product direction. Its body reads the original's deliberate paired values as errors and inconsistencies ("hardcoded", "confirmed inconsistency"); [MODEL.md](../MODEL.md) §6 states the current reading. Its architecture and roadmap ideas inform the `evolution` branch.
+
 # Commercial Effectiveness Model: Governing Reassessment
 
-> **Extended (note added 2026-10-24).** Still governing for scenarios and architecture. Extended by [MODEL_UNDERSTANDING.md](MODEL_UNDERSTANDING.md) (assumption ledger, territory design vs staffing, leverage points) and, on branch `evolution`, the data model requirements. [MODEL.md](MODEL.md) governs where any of them differ.
+> **Extended (note added 2026-10-24).** Still governing for scenarios and architecture. Extended by [MODEL_UNDERSTANDING.md](../MODEL_UNDERSTANDING.md) (assumption ledger, territory design vs staffing, leverage points) and, on branch `evolution`, the data model requirements. [MODEL.md](../MODEL.md) governs where any of them differ.
 
 
-Status: **adopted 2026-10-24 for product direction and architecture.** The current statement of the model is [MODEL.md](MODEL.md); where this document differs from it (defects vs deliberate values; scenarios held with assumptions), MODEL.md wins. Where earlier documents in this repo (the archived first audit findings and discovery assessment in docs/archive/) differ, this document wins, subject to the alignment notes below.
+Status: **adopted 2026-10-24 for product direction and architecture.** The current statement of the model is [MODEL.md](../MODEL.md); where this document differs from it (defects vs deliberate values; scenarios held with assumptions), MODEL.md wins. Where earlier documents in this repo (the archived first audit findings and discovery assessment in docs/archive/) differ, this document wins, subject to the alignment notes below.
 
 © 2000–2026 Growth Enablement. All rights reserved.
 
@@ -44,7 +46,7 @@ I now see six defining characteristics of your original design:
 6. The model supports strategic reasoning. Its real purpose is to compare possible choices—not automatically declare one sales strategy superior.
 These principles should become the foundation of the rebuilt product.
 
-> **Correction (2026-10-25, after rebuilding the original cell for cell; see [MODEL.md](MODEL.md) §1–§4).** Points 3 and 4 hold exactly. Point 1 overstates: scenario exploration is the mechanism, not the core function; the core function is one comparison, quality levers against quantity levers, settled at operating income. Point 6 understates: the model does declare a winner for the company whose numbers are entered; that is its purpose, and the Scenario Diagnostic hands the winner to the work. Point 5 is the evolution's concern more than the original's: the original holds levers independent on purpose so each column can be audited alone.
+> **Correction (2026-10-25, after rebuilding the original cell for cell; see [MODEL.md](../MODEL.md) §1–§4).** Points 3 and 4 hold exactly. Point 1 overstates: scenario exploration is the mechanism, not the core function; the core function is one comparison, quality levers against quantity levers, settled at operating income. Point 6 understates: the model does declare a winner for the company whose numbers are entered; that is its purpose, and the Scenario Diagnostic hands the winner to the work. Point 5 is the evolution's concern more than the original's: the original holds levers independent on purpose so each column can be audited alone.
 The most important change to my prior recommendation
 I previously proposed a Commercial Effectiveness Diagnostic and Improvement Intelligence Platform.
 

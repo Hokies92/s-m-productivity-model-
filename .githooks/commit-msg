@@ -1,0 +1,11 @@
+#!/bin/sh
+# Every commit names the invariant it serves, what it changed and what it deliberately left (CONTRIBUTING.md).
+msg="$1"
+missing=""
+grep -q '^Invariant:' "$msg" || missing="$missing Invariant:"
+grep -q '^Changed:' "$msg"   || missing="$missing Changed:"
+grep -q '^Left:' "$msg"      || missing="$missing Left:"
+if [ -n "$missing" ]; then
+  echo "commit-msg: missing$missing (see CONTRIBUTING.md, 'Every commit')" >&2
+  exit 1
+fi

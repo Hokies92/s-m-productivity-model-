@@ -23,7 +23,7 @@ As-is model:  Revenue = capacity × close rate × deal size × territories
 **Supporting (current, aligned to MODEL.md)**
 
 - [Model Understanding](docs/MODEL_UNDERSTANDING.md): the longer reasoning: territory design vs staffing, how assumptions are tested, Meadows leverage points, market comparison, language and lineage
-- [Reassessment](docs/Commercial_Effectiveness_Reassessment.md): product and architecture direction for the evolution (see its status note)
+- [Reassessment](docs/archive/Commercial_Effectiveness_Reassessment_2026-10-24.md): product and architecture direction for the evolution (see its status note)
 - On the `evolution` branch: the register/modeller workbook, its builder and tests, the register and modeller schemas, the data model requirements
 - [System Diagnostic](docs/SYSTEM_DIAGNOSTIC.md): what went wrong in the first two days of the rebuild, and the remedy
 
