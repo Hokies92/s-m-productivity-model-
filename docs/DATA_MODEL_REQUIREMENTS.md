@@ -168,7 +168,7 @@ A failed joint test shows at least one assumption in the set is false, not which
 - Derived values are recomputed, never stored as truth; cached scenario results carry the engine version.
 - Client data is isolated; benchmark consent is a separate opt-in; hypothetical values are tagged apart from observed values.
 - Salesperson data is pseudonymous; groups below the minimum size are not displayed.
-- V1: JSON or SQLite plus an evidence folder. Production: a database plus file storage. Excel import and export use stable field IDs.
+- V1: SQLite plus an evidence folder; schema in [DATABASE_SCHEMA.md](DATABASE_SCHEMA.md) and `src/sales_capacity_model/db/`. Production: PostgreSQL plus file storage. Excel import and export use stable field IDs.
 
 ## 10. Map from the as-is data entry sheet
 

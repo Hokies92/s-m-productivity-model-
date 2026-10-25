@@ -17,6 +17,7 @@ As-is model:  Revenue = capacity × close rate × deal size × territories
 
 - [Model Understanding](docs/MODEL_UNDERSTANDING.md): what the model is, territory design vs staffing, how assumptions are tested, Meadows leverage points, market comparison
 - [Data Model and Requirements](docs/DATA_MODEL_REQUIREMENTS.md): the assumption ledger, entities, record schema, tests, lifecycle, collection workflow, numbered requirements, map from the as-is sheet
+- [Database Schema](docs/DATABASE_SCHEMA.md): the assumption ledger as a relational schema (SQLite V1), with integrity rules and views
 - [Orientation (rewritten)](docs/ORIENTATION.md): proposed first tab of the rebuilt workbook
 - [Governing Reassessment](docs/Commercial_Effectiveness_Reassessment.md): product and architecture direction for scenarios
 

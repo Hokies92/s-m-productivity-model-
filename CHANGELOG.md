@@ -7,6 +7,7 @@
 - Added `docs/AS_IS_INDEX.md`: every as-is artifact, the original orientation verbatim, as-is logic and sample results, findings as recorded vs as now understood.
 - Dated status notes added to the top of as-is documents (About, Product Overview, Audit Findings, Discovery Assessment, Reassessment, JSON spec); their content is unchanged.
 - README rewritten as a map of current vs as-is documents.
+- Data module database schema (SQLite V1): `src/sales_capacity_model/db/schema.sql` (9 layers, append-only and frozen-baseline triggers, Finance-only validation, sealed leadership beliefs, perception gap, candidate set and confidence views), `seed.sql` (11 collection steps, field catalog with leverage points, structural assumptions S1–S9, 12 tests, 15 causal links), `docs/DATABASE_SCHEMA.md`; 8 schema tests on the as-is sample data.
 
 ## Package 2.1.0 — 2026-10-24
 - Installable Python package `sales-capacity-model` (src layout, no runtime dependencies, Python 3.9+).

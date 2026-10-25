@@ -35,6 +35,7 @@ where = ["src"]
 
 [tool.setuptools.package-data]
 "sales_capacity_model.data" = ["*.csv"]
+"sales_capacity_model.db" = ["*.sql"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
