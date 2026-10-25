@@ -12,6 +12,7 @@ Status: proposed text for the first tab of the rebuilt workbook and the start pa
 | Territories and headcount implicit | Territory design and hiring stated as two separate decisions | The core design point of the model |
 | Four sections listed by worksheet | Four steps listed by what the user does | Written for the people who will collect the data |
 | Recommends running per channel and product line | Kept, as scope | Still right |
+| Explains why “increase leads” is not a scenario | Kept, word for word | Still right |
 
 ---
 
@@ -59,5 +60,7 @@ Revenue happens where the two meet: salespeople assigned to territories, convert
 ### A few points
 
 This is a general model. For a sharper analysis, run it separately for each sales channel and product line, and separate new-customer revenue from revenue from existing customers. The model can be tailored to your business.
+
+“Increase leads” is not listed as a business scenario because we consider lead generation to be a more leveraged way to conduct sales prospecting. The number of leads, how to acquire them, and how much you can invest to acquire those leads are all handled in the tactical “drill down” spreadsheets that accompany this model.
 
 © 2000–2026 Growth Enablement. All rights reserved.

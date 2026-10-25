@@ -15,6 +15,7 @@ Design (tab 1):
 """
 from __future__ import annotations
 
+import csv
 import math
 import pathlib
 
@@ -27,6 +28,24 @@ from openpyxl.worksheet.datavalidation import DataValidation
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 OUT = ROOT / "workbook" / "Commercial_Effectiveness_Model.xlsx"
 DE = "1) Data Entry"
+
+# Original "Description" text from the as-is Data Entry sheet, restored word for word.
+WHY_CELLS = {"territory_count": ["C9"], "deal_size": ["C11"], "loaded_salary": ["C15"],
+             "travel_per_salesperson": ["C19"], "commission_rate": ["C28"], "opportunities_capacity": ["C31"],
+             "cycle_months": ["C33"], "ramp_months": ["C35"], "win_rate": ["C37"],
+             "sales_overhead": ["C39", "C41"], "marketing": ["C48"]}
+
+
+def load_why() -> dict:
+    cells = {}
+    with open(ROOT / "source" / "workbook_cells.csv", encoding="utf-8") as f:
+        for r in csv.DictReader(f):
+            if r["sheet"].strip() == "1) Data entry":
+                cells[r["cell"]] = " ".join(r["formula_or_input"].split())
+    return {k: "\n\n".join(cells[c] for c in v) for k, v in WHY_CELLS.items()}
+
+
+WHY = load_why()
 
 # ---------------------------------------------------------------- styles
 FONT = "Arial"
@@ -376,7 +395,9 @@ def build_orientation(ws):
     heading("How tab 1 works")
     para("Each row on tab 1 is one entry. Its “Value used” cell (blue, outlined) is the only cell the rest of the model "
          "reads, by name. The yellow cells to its right are the ways to fill it; “Input method” chooses which one is used. "
-         "Grey cells are calculated from other entries. Changing how an entry is filled never changes the model's logic.")
+         "Grey cells are calculated from other entries. Changing how an entry is filled never changes the model's logic. "
+         "“Why it matters” keeps the original explanation of each entry. Columns for ID, range, source, owner, where to "
+         "find it, what would prove it wrong and leverage point are grouped: use the + button above the columns to show them.")
     legend = [("Yellow", fill_input, "Enter or choose a value"), ("Grey", fill_calc, "Calculated from other entries"),
               ("Blue, outlined", fill_used, "Value used: the cell other tabs reference")]
     for label, fill, desc in legend:
@@ -418,15 +439,22 @@ def build_orientation(ws):
               "•  1) Data Entry: the assumption ledger, in collection order, with cross-checks and sign-off.",
               "•  Later tabs (to be rebuilt): performance breakdown, impact on the income statement, scenario diagnostics. They read only the Value used cells on tab 1."]:
         para(t)
-    para("For a sharper analysis, run the model separately for each sales channel and product line, and separate "
-         "new-customer revenue from revenue from existing customers.", f_note)
+    heading("A few points")
+    para("This is a general model. For a sharper analysis, run it separately for each sales channel and product line, "
+         "and separate new-customer revenue from revenue from existing customers. The model can be tailored to your business.")
+    para("“Increase leads” is not listed as a business scenario because we consider lead generation to be a more "
+         "leveraged way to conduct sales prospecting. The number of leads, how to acquire them, and how much you can "
+         "invest to acquire those leads are all handled in the tactical “drill down” spreadsheets that accompany this model.")
 
 
 # ---------------------------------------------------------------- Data Entry
-COLS = ["Step", "ID", "Entry", "What it means", "Unit", "Input method", "Value used", "Validated actual", "Calculated",
-        "Reference value", "Leadership belief (judgment)", "Low", "High", "Source or reference context", "Owner",
-        "Where to find it", "What would prove it wrong", "Belief vs value used", "Leverage point"]
-WIDTH = [6, 22, 36, 44, 9, 17, 15, 15, 15, 15, 16, 12, 12, 34, 18, 28, 36, 12, 9]
+COLS = ["Step", "ID", "Entry", "What it means", "Why it matters (original)", "Unit", "Input method", "Value used",
+        "Validated actual", "Calculated", "Reference value", "Leadership belief (judgment)", "Belief vs value used",
+        "Low", "High", "Source or reference context", "Owner", "Where to find it", "What would prove it wrong",
+        "Leverage point"]
+WIDTH = [6, 22, 34, 40, 60, 9, 17, 15, 15, 15, 15, 16, 22, 12, 12, 34, 18, 28, 36, 9]
+ADVANCED = ["ID", "Low", "High", "Source or reference context", "Owner", "Where to find it",
+            "What would prove it wrong", "Leverage point"]
 C = {name: i + 1 for i, name in enumerate(COLS)}
 
 
@@ -484,6 +512,7 @@ def build_data_entry(ws, wb):
         ws.cell(row, C["ID"], e["id"])
         ws.cell(row, C["Entry"], ("    " if e["kind"] == "component" else "") + e["name"])
         ws.cell(row, C["What it means"], e["definition"])
+        ws.cell(row, C["Why it matters (original)"], WHY.get(e["id"], ""))
         ws.cell(row, C["Unit"], e["unit"])
         ws.cell(row, C["Owner"], e["owner"])
         ws.cell(row, C["Where to find it"], e["where"])
@@ -541,7 +570,8 @@ def build_data_entry(ws, wb):
         used.number_format = fmt
         used.border = used_border
         wb.defined_names["v_" + e["id"]] = DefinedName("v_" + e["id"], attr_text=f"'{DE}'!${used.column_letter}${row}")
-        ws.row_dimensions[row].height = max(row_height(e["definition"], 42), row_height(e["test"], 34), row_height(e["context"], 32))
+        ws.row_dimensions[row].height = max(row_height(e["definition"], 38), row_height(WHY.get(e["id"], ""), 60),
+                                            row_height(e["context"], 32))
         if e["kind"] != "scope":
             entry_rows.append(row)
         r += 1
@@ -552,8 +582,8 @@ def build_data_entry(ws, wb):
     for col in range(1, len(COLS) + 1):
         ws.cell(r, col).fill = fill_step
     r += 1
-    chk_cols = ["", "Check ID", "Check", "What it compares", "", "Tolerance", "Status", "Implied by entries", "Observed",
-                "Gap", "Entries that could be wrong", "Resolution", "Category", "Note"]
+    chk_cols = ["", "Check ID", "Check", "What it compares", "Entries that could be wrong", "Tolerance", "Status",
+                "Implied by entries", "Observed", "Gap", "Resolution", "Category", "Note"]
     for i, h in enumerate(chk_cols, 1):
         if h:
             c = ws.cell(r, i, h)
@@ -566,7 +596,7 @@ def build_data_entry(ws, wb):
     ws.add_data_validation(dv_cat)
     first_chk = r
     for cid, name, compares, tol, implied, observed, cands in CHECKS:
-        vals = {2: cid, 3: name, 4: compares, 6: tol, 8: "=" + implied, 9: f'=IF({observed}="","",{observed})', 11: cands}
+        vals = {2: cid, 3: name, 4: compares, 6: tol, 8: "=" + implied, 9: f'=IF({observed}="","",{observed})', 5: cands}
         for col, v in vals.items():
             c = ws.cell(r, col, v)
             c.font, c.border, c.alignment = f_body, box, wrap
@@ -582,18 +612,18 @@ def build_data_entry(ws, wb):
         ws.cell(r, 10).fill, ws.cell(r, 10).border = fill_calc, box
         st = ws.cell(r, 7, f'=IF(OR(H{r}="",I{r}=""),"NEEDS DATA",IF(ABS(J{r})<=F{r},"PASS","REVIEW"))')
         st.font, st.border, st.alignment = f_bold, box, center
-        for col in (12, 13, 14):
+        for col in (11, 12, 13):
             c = ws.cell(r, col)
             c.fill, c.font, c.border = fill_input, f_input, box
-        dv_res.add(ws.cell(r, 12).coordinate)
-        dv_cat.add(ws.cell(r, 13).coordinate)
-        ws.row_dimensions[r].height = max(row_height(compares, 42), row_height(cands, 32))
+        dv_res.add(ws.cell(r, 11).coordinate)
+        dv_cat.add(ws.cell(r, 12).coordinate)
+        ws.row_dimensions[r].height = max(row_height(compares, 38), row_height(cands, 58))
         r += 1
     last_chk = r - 1
 
     # utilization is a bound, not a match: add it as its own row
     vals = {2: "utilization", 3: "Utilization", 4: "Opportunities held ÷ opportunities a salesperson can manage; cannot exceed 100%",
-            6: 1.0, 8: '=IFERROR(v_opportunities_load/v_opportunities_capacity,"")', 11: "Opportunities held, capacity"}
+            6: 1.0, 8: '=IFERROR(v_opportunities_load/v_opportunities_capacity,"")', 5: "Opportunities held, capacity"}
     for col, v in vals.items():
         c = ws.cell(r, col, v)
         c.font, c.border, c.alignment = f_body, box, wrap
@@ -606,11 +636,11 @@ def build_data_entry(ws, wb):
     ws.cell(r, 10).fill = fill_calc
     st = ws.cell(r, 7, f'=IF(H{r}="","NEEDS DATA",IF(H{r}<=F{r},"PASS","REVIEW"))')
     st.font, st.border, st.alignment = f_bold, box, center
-    for col in (12, 13, 14):
+    for col in (11, 12, 13):
         c = ws.cell(r, col)
         c.fill, c.font, c.border = fill_input, f_input, box
-    dv_res.add(ws.cell(r, 12).coordinate)
-    dv_cat.add(ws.cell(r, 13).coordinate)
+    dv_res.add(ws.cell(r, 11).coordinate)
+    dv_cat.add(ws.cell(r, 12).coordinate)
     ws.row_dimensions[r].height = 30
     last_chk = r
 
@@ -626,8 +656,8 @@ def build_data_entry(ws, wb):
     f_rng = ",".join(f"F{x}" for x in entry_rows)
     ws["C5"], ws["C6"] = "Values in use, by input method", "Cross-checks"
     ws["C5"].font = ws["C6"].font = f_bold
-    method_col = "F"
-    used_col = "G"
+    method_col = ws.cell(1, C["Input method"]).column_letter
+    used_col = ws.cell(1, C["Value used"]).column_letter
     rows_min, rows_max = min(entry_rows), max(entry_rows)
     for i, mname in enumerate(METHODS):
         col = 4 + i
@@ -644,6 +674,10 @@ def build_data_entry(ws, wb):
         ws.cell(6, 4 + i, f'=COUNTIF(G{first_chk}:G{last_chk},"{s}")&" {s.lower()}"').font = f_bold
         ws.cell(6, 4 + i).alignment = center
     ws.row_dimensions[7].height = 14
+    for name in ADVANCED:
+        dim = ws.column_dimensions[ws.cell(1, C[name]).column_letter]
+        dim.outlineLevel, dim.hidden = 1, True
+    ws.sheet_properties.outlinePr.summaryRight = False
     return entry_rows
 
 
