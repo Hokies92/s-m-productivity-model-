@@ -926,7 +926,7 @@ def build_whatif(ws, wb):
 
 
 # ---------------------------------------------------------------- main
-def main():
+def build() -> Workbook:
     wb = Workbook()
     ws_o = wb.active
     ws_o.title = "Orientation"
@@ -949,9 +949,15 @@ def main():
         ws.page_setup.orientation = "landscape" if landscape else "portrait"
     wb.properties.creator = "Growth Enablement"
     wb.properties.title = "Commercial Effectiveness Model"
-    OUT.parent.mkdir(parents=True, exist_ok=True)
-    wb.save(OUT)
-    print(OUT)
+    return wb
+
+
+def main(out: pathlib.Path = OUT) -> pathlib.Path:
+    wb = build()
+    out.parent.mkdir(parents=True, exist_ok=True)
+    wb.save(out)
+    print(out)
+    return out
 
 
 if __name__ == "__main__":
