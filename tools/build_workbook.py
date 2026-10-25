@@ -373,9 +373,10 @@ def build_orientation(ws):
          "compensation expense) and compares that with your actual results in the cross-checks at the end of tab 1. For "
          "each one that needs review, revise an assumption, explain the gap, or accept it as a known gap. When the list is "
          "resolved, Finance signs off the baseline.")
-    para("3.  Explore what-if scenarios (later tabs). Change assumptions one at a time or in combination: territory design, "
-         "hiring and fill speed, salesperson capacity, win rate, cycle, deal size, costs. Every change flows through to "
-         "operating income, with nothing unexplained.")
+    para("3.  Explore what-if scenarios (2) What-If Scenarios). Each column is a scenario you can rename and change: "
+         "territory design, filling open territories, fill speed, ramp, salesperson capacity, opportunities held, win rate, "
+         "cycle, deal size, costs and the cost of the improvement itself. Every change flows through to operating income, "
+         "and a true-up row confirms nothing is unexplained.")
     para("4.  Understand what stands in the way (later tabs). For each improvement, review the common obstacles and the "
          "conditions that would make it achievable.")
 
@@ -437,7 +438,8 @@ def build_orientation(ws):
     heading("Workbook map")
     for t in ["•  Orientation: this page.",
               "•  1) Data Entry: the assumption ledger, in collection order, with cross-checks and sign-off.",
-              "•  Later tabs (to be rebuilt): performance breakdown, impact on the income statement, scenario diagnostics. They read only the Value used cells on tab 1."]:
+              "•  2) What-If Scenarios: baseline plus nine editable scenarios, from territory design and staffing through salesperson throughput to operating income, with a true-up and a break-even budget for each.",
+              "•  Later tabs (to be rebuilt): detailed income statement and scenario diagnostics. Every tab reads only the Value used cells on tab 1."]:
         para(t)
     heading("A few points")
     para("This is a general model. For a sharper analysis, run it separately for each sales channel and product line, "
@@ -480,6 +482,7 @@ def build_data_entry(ws, wb):
     ws["F4"] = '=IF(D4="Signed by Finance","Signed baseline: validated by Finance","Working model: not validated by Finance")'
     ws["F4"].font, ws["F4"].fill = f_bold, fill_banner
     ws.merge_cells("F4:J4")
+    wb.defined_names["v_baseline_banner"] = DefinedName("v_baseline_banner", attr_text=f"'{DE}'!$F$4")
 
     header_row = 9
     for name, col in C.items():
@@ -681,6 +684,241 @@ def build_data_entry(ws, wb):
     return entry_rows
 
 
+# ---------------------------------------------------------------- What-If Scenarios
+WI = "2) What-If Scenarios"
+SCEN_COLS = list("DEFGHIJKLM")          # D = baseline, E..M = nine scenarios
+
+# (row id, label, unit/format, how it works, leverage point)
+CHANGES = [
+    ("ch_funded",     "Funded territories",                       "pct",   "Territory design: how many territories the company funds", 10),
+    ("ch_fill",       "Open territories filled",                  "count", "Staffing: open territories filled during the year (up to the number open)", 10),
+    ("ch_fillspeed",  "Days to fill a territory",                 "pct",   "Delay: approvals and recruiting", 9),
+    ("ch_ramp",       "Ramp time",                                "pct",   "Delay: months until a new salesperson is fully productive", 9),
+    ("ch_capacity",   "Opportunities a salesperson can manage",   "pct",   "Capacity: how many opportunities a salesperson can hold and advance well", 12),
+    ("ch_held",       "Opportunities each salesperson holds",     "pct",   "Pipeline: qualified opportunities reaching salespeople (needs pipeline data on tab 1)", 11),
+    ("ch_cycle",      "Sales cycle",                              "pct",   "Delay: time from qualified opportunity to signature", 9),
+    ("ch_win",        "Close rate",                               "pct",   "Conversion", 12),
+    ("ch_deal",       "Average revenue per contract",             "pct",   "Value per contract", 12),
+    ("ch_salary",     "Salesperson compensation (salary and load)", "pct", "Cost per salesperson", 12),
+    ("ch_commission", "Commission rate",                          "pct",   "Rule: compensation plan", 5),
+    ("ch_overhead",   "Sales overhead",                           "money", "Change in dollars", 12),
+    ("ch_marketing",  "Marketing",                                "money", "Change in dollars", 12),
+    ("ch_invest",     "Cost of making the change (one-time)",     "money", "Enablement, tools, hiring, consulting: what the improvement costs this year", 12),
+]
+
+SCENARIOS = [  # name, question, {change: value}
+    ("Add territories +10%", "What if we fund 10% more territories and hire into them?", {"ch_funded": 0.10}),
+    ("Fill open territories", "What if we fill every open territory this year?", {"ch_fill": "=N(v_open_territories)"}),
+    ("Close rate +10%", "What if we close 10% more of the opportunities we work?", {"ch_win": 0.10}),
+    ("Cycle −10%", "What if deals take 10% less time?", {"ch_cycle": -0.10}),
+    ("Deal size +10%", "What if each contract is worth 10% more?", {"ch_deal": 0.10}),
+    ("Opportunities held +10%", "What if 10% more qualified opportunities reach each salesperson?", {"ch_held": 0.10}),
+    ("Close, cycle and deal size", "What if all three quality levers improve 10%?", {"ch_win": 0.10, "ch_cycle": -0.10, "ch_deal": 0.10}),
+    ("All four with territories", "What if we add territories and improve all three quality levers?",
+     {"ch_funded": 0.10, "ch_win": 0.10, "ch_cycle": -0.10, "ch_deal": 0.10}),
+    ("Your scenario", "Describe the question this scenario answers", {}),
+]
+
+# (row id, label, format, formula template or None for a section header, how it is calculated)
+# {x} = this column's cell for row x;  {$x} = the baseline column's cell for row x
+CALC = [
+    ("§", "Territory design and staffing"),
+    ("t_funded", "Funded territories", "count1", "v_territory_count*(1+{ch_funded})", "Tab 1 funded territories × change"),
+    ("t_open_base", "Open territories at start", "count1", "N(v_open_territories)", "Tab 1 (0 if not provided)"),
+    ("t_existing", "Filled territories at start", "count1", "v_territory_count-{t_open_base}", "Funded − open"),
+    ("t_new", "New territories added", "count1", "{t_funded}-v_territory_count", "Design change"),
+    ("t_filled_open", "Open territories filled", "count1", "MIN(N({ch_fill}),{t_open_base})", "Up to the number open"),
+    ("t_still_open", "Territories still open", "count1", "{t_open_base}-{t_filled_open}", "Each one is expected yield not produced"),
+    ("fill_months", "Months to fill a territory", "months", "N(v_time_to_fill_days)/30.4*(1+{ch_fillspeed})", "Tab 1 days ÷ 30.4 × change"),
+    ("ramp", "Ramp time (months)", "months", "v_ramp_months*(1+{ch_ramp})", "Tab 1 × change"),
+    ("credit", "Share of year a newly staffed territory produces", "pct0",
+     'IF(wi_view="Steady state",1,MAX(0,12-{fill_months}-{ramp})/12)', "Year one: (12 − fill − ramp) ÷ 12; steady state: 1"),
+    ("paid_share", "Share of year a new salesperson is paid", "pct0",
+     'IF(wi_view="Steady state",1,MAX(0,12-{fill_months})/12)', "Year one: (12 − fill) ÷ 12; steady state: 1"),
+    ("existing_productive", "Productive salespeople in filled territories", "count1",
+     "IF(N(v_productive_salespeople)>0,MIN({t_existing},v_productive_salespeople),{t_existing})", "Tab 1 productive salespeople, if provided"),
+    ("productive_eq", "Productive territory-years", "count1",
+     "{existing_productive}+({t_filled_open}+{t_new})*{credit}", "What actually produces revenue this year"),
+    ("paid_eq", "Salesperson-years paid", "count1",
+     "{t_existing}+({t_filled_open}+{t_new})*{paid_share}", "What the company pays for this year"),
+    ("§", "Salesperson throughput"),
+    ("capacity", "Opportunities a salesperson can manage", "count1", "v_opportunities_capacity*(1+{ch_capacity})", "Tab 1 × change"),
+    ("held", "Opportunities each salesperson holds", "count1",
+     'IF(N(v_opportunities_load)=0,"",v_opportunities_load*(1+{ch_held}))', "Tab 1 pipeline data × change (blank if not provided)"),
+    ("worked", "Opportunities worked at once", "count1", 'IF({held}="",{capacity},MIN({held},{capacity}))',
+     "The lower of what they hold and what they can manage"),
+    ("utilization", "Utilization of capacity", "pct0", 'IF({held}="","",{held}/{capacity})', "Held ÷ can manage"),
+    ("cycle", "Sales cycle (months)", "months", "v_cycle_months*(1+{ch_cycle})", "Tab 1 × change"),
+    ("resolved", "Opportunities resolved per salesperson per year", "count1", "{worked}*12/{cycle}", "Little's Law: worked × 12 ÷ cycle"),
+    ("win", "Close rate", "pct1", "v_win_rate*(1+{ch_win})", "Tab 1 × change"),
+    ("deals_per", "Contracts per productive territory", "count1", "{resolved}*{win}", "Resolved × close rate"),
+    ("deal", "Average revenue per contract", "money", "v_deal_size*(1+{ch_deal})", "Tab 1 × change"),
+    ("rev_per", "Revenue per productive territory", "money", "{deals_per}*{deal}", "Contracts × revenue per contract"),
+    ("§", "Income statement"),
+    ("contracts", "Contracts", "count", "{deals_per}*{productive_eq}", "Per territory × productive territory-years"),
+    ("revenue", "Revenue", "money", "{rev_per}*{productive_eq}", "Per territory × productive territory-years"),
+    ("cogs", "Cost of revenue", "money", "{revenue}*v_cost_of_revenue_pct", "Revenue × tab 1 %"),
+    ("rnd", "Research and development", "money", "{revenue}*v_rnd_pct", "Revenue × tab 1 %"),
+    ("gna", "General and administrative", "money", "{revenue}*v_gna_pct", "Revenue × tab 1 %"),
+    ("rep_fixed", "Salesperson salaries, load and travel", "money",
+     "(v_loaded_salary*(1+{ch_salary})+v_travel_per_salesperson)*{paid_eq}", "(Loaded salary + travel) × salesperson-years paid"),
+    ("commission", "Commissions", "money", "v_commission_rate*(1+{ch_commission})*{revenue}", "Rate × revenue (only on revenue produced)"),
+    ("overhead", "Sales overhead", "money", "v_sales_overhead+{ch_overhead}", "Tab 1 + change"),
+    ("marketing", "Marketing", "money", "v_marketing+{ch_marketing}", "Tab 1 + change"),
+    ("invest", "Cost of making the change", "money", "{ch_invest}", "From the change rows"),
+    ("total_costs", "Total costs", "money", "{cogs}+{rnd}+{gna}+{rep_fixed}+{commission}+{overhead}+{marketing}+{invest}", "Sum of the lines above"),
+    ("oi", "Operating income", "money", "{revenue}-{total_costs}", "Revenue − total costs"),
+    ("margin", "Operating margin", "pct1", 'IFERROR({oi}/{revenue},"")', "Operating income ÷ revenue"),
+    ("§", "Change from baseline and true-up"),
+    ("d_revenue", "Change in revenue", "money", "{revenue}-{$revenue}", ""),
+    ("d_costs", "Change in total costs", "money", "{total_costs}-{$total_costs}", ""),
+    ("d_oi", "Change in operating income", "money", "{oi}-{$oi}", ""),
+    ("d_oi_pct", "Change in operating income, %", "spct", 'IFERROR({d_oi}/ABS({$oi}),"")', ""),
+    ("residual", "Unexplained difference (must be 0)", "money", "{d_revenue}-{d_costs}-{d_oi}", "Change in revenue − change in costs − change in operating income"),
+    ("trueup", "True-up", "text", 'IF(ABS({residual})<0.5,"Balanced","Check")', "Every change in profit is explained by a change in revenue or cost"),
+    ("§", "Decision measures"),
+    ("d_oi_pre", "Change in operating income before the cost of making the change", "money", "{d_oi}+{invest}", ""),
+    ("breakeven", "Most you could spend on this change and still match the comparison scenario", "money",
+     "{d_oi_pre}-INDEX($D$__d_oi_pre__:$M$__d_oi_pre__,MATCH(wi_compare,$D$__name__:$M$__name__,0))",
+     "This scenario's gain before its cost − the comparison scenario's gain"),
+    ("rev_per_paid", "Revenue per salesperson-year paid", "money", 'IFERROR({revenue}/{paid_eq},"")', ""),
+    ("flags", "Guardrails", "text",
+     'IF({win}>1,"Close rate above 100%: not possible",IF({cycle}<=0,"Cycle must be above zero",'
+     'IF(AND({held}<>"",{ch_held}<>0,{held}>{capacity}),"Salespeople would hold more than they can manage: the extra opportunities are not worked",'
+     'IF(AND({held}<>"",{ch_capacity}>0,{held}<=v_opportunities_capacity),"Capacity increase has no effect: salespeople already hold fewer opportunities than they can manage",'
+     'IF(AND({held}="",{ch_held}<>0),"No pipeline data on tab 1: this change has no effect until opportunities held is entered",'
+     'IF(AND({t_open_base}=0,OR({ch_fill}<>0,_xlfn.ISFORMULA({ch_fill}))),"No open territories entered on tab 1 yet: this change has no effect","OK"))))))',
+     "Flags results that leave known reality"),
+]
+
+WI_FMT = {"pct": '+0%;-0%;""', "count": "#,##0", "count1": "#,##0.0", "months": "0.0", "pct0": "0%", "pct1": "0.0%",
+          "spct": '+0.0%;-0.0%;0.0%', "money": '$#,##0;($#,##0);"-"', "text": "@"}
+
+
+def build_whatif(ws):
+    ws.sheet_view.showGridLines = False
+    for col, w in {"A": 46, "B": 44}.items():
+        ws.column_dimensions[col].width = w
+    ws.column_dimensions["C"].width = 3
+    for col in SCEN_COLS:
+        ws.column_dimensions[col].width = 17
+    ws["A1"] = "2) What-If Scenarios"
+    ws["A1"].font = f_title
+    ws["A2"] = ("Each column is a scenario built on the tab 1 baseline. Rename it, describe the question, and enter changes in "
+                "the yellow cells (blank means no change). Everything below is calculated from tab 1's Value used cells.")
+    ws["A2"].font = f_note
+    ws.merge_cells("A2:M2")
+    ws["A3"] = "=v_baseline_banner"
+    ws["A3"].font, ws["A3"].fill = f_bold, fill_banner
+    ws["A4"], ws["A5"] = "View", "Compare break-even against"
+    ws["A4"].font = ws["A5"].font = f_bold
+    ws["B4"], ws["B5"] = "Year one", SCENARIOS[0][0]
+    for ref in ("B4", "B5"):
+        ws[ref].fill, ws[ref].font, ws[ref].border = fill_input, f_input, box
+    dv_view = DataValidation(type="list", formula1='"Year one,Steady state"', allow_blank=False)
+    ws.add_data_validation(dv_view)
+    dv_view.add("B4")
+
+    name_row, q_row = 7, 8
+    ws.cell(name_row, 1, "Scenario").font = f_head
+    ws.cell(q_row, 1, "Question it answers").font = f_bold
+    ws.cell(name_row, 2, "How it works").font = f_head
+    for col in range(1, 14):
+        if col != 3:
+            ws.cell(name_row, col).fill = fill_head
+            ws.cell(name_row, col).border = box
+    ws.cell(name_row, 4, "Baseline").font = f_head
+    ws.cell(q_row, 4, "Tab 1, as entered").font = f_note
+    for i, (name, q, _) in enumerate(SCENARIOS):
+        col = 5 + i
+        c = ws.cell(name_row, col, name)
+        c.font, c.alignment = Font(name=FONT, size=10, bold=True, color="FFFFFF"), Alignment(wrap_text=True, vertical="center")
+        qc = ws.cell(q_row, col, q)
+        qc.fill, qc.font, qc.alignment, qc.border = fill_input, f_input, wrap, box
+    ws.row_dimensions[name_row].height = 30
+    ws.row_dimensions[q_row].height = 54
+    dv_cmp = DataValidation(type="list", formula1=f"$E${name_row}:$M${name_row}", allow_blank=False)
+    ws.add_data_validation(dv_cmp)
+    dv_cmp.add("B5")
+
+    r = q_row + 2
+    rows = {}
+
+    def section(title):
+        nonlocal r
+        ws.cell(r, 1, title).font = f_bold
+        for col in range(1, 14):
+            if col != 3:
+                ws.cell(r, col).fill = fill_step
+        r += 1
+
+    section("Changes from baseline (blank means no change)")
+    for rid, label, fmt, how, lev in CHANGES:
+        rows[rid] = r
+        ws.cell(r, 1, label).font = f_body
+        ws.cell(r, 2, f"{how} · leverage point {lev}").font = f_note
+        ws.cell(r, 2).alignment = wrap
+        base = ws.cell(r, 4)
+        base.fill, base.border = fill_calc, box
+        for i, (_, _, changes) in enumerate(SCENARIOS):
+            c = ws.cell(r, 5 + i, changes.get(rid))
+            c.fill, c.font, c.border = fill_input, f_input, box
+            c.number_format = WI_FMT[fmt]
+        r += 1
+    r += 1
+
+    pending = []
+    for item in CALC:
+        if item[0] == "§":
+            section(item[1])
+            continue
+        rid, label, fmt, tmpl, how = item
+        rows[rid] = r
+        pending.append((r, rid, label, fmt, tmpl, how))
+        r += 1
+
+    for r_, rid, label, fmt, tmpl, how in pending:
+        ws.cell(r_, 1, label).font = f_bold if rid in ("revenue", "oi", "d_oi", "trueup", "breakeven") else f_body
+        ws.cell(r_, 2, how).font = f_note
+        ws.cell(r_, 2).alignment = wrap
+        t = tmpl.replace("__d_oi_pre__", str(rows["d_oi_pre"])).replace("__name__", str(name_row))
+        for col in SCEN_COLS:
+            expr = t
+            for k in sorted(rows, key=len, reverse=True):
+                expr = expr.replace("{$" + k + "}", f"$D${rows[k]}").replace("{" + k + "}", f"{col}{rows[k]}")
+            assert "{" not in expr, expr
+            c = ws[f"{col}{r_}"]
+            c.value = "=" + expr
+            c.number_format = WI_FMT[fmt]
+            c.border = box
+            c.fill = fill_used if rid in ("revenue", "oi", "d_oi", "breakeven") else fill_calc
+            c.font = f_used if rid in ("revenue", "oi", "d_oi", "breakeven") else f_body
+            if fmt == "text":
+                c.alignment = Alignment(wrap_text=True, vertical="top")
+        if rid == "flags":
+            ws.row_dimensions[r_].height = 66
+        if rid in ("breakeven", "d_oi_pre"):
+            ws.row_dimensions[r_].height = 28
+            ws.cell(r_, 1).alignment = wrap
+        if rid in ("d_revenue", "d_costs", "d_oi", "d_oi_pct", "residual", "trueup", "d_oi_pre", "breakeven"):
+            ws[f"D{r_}"].value = None if rid not in ("residual", "trueup") else ws[f"D{r_}"].value
+
+    green = PatternFill("solid", start_color="C6EFCE")
+    amber = PatternFill("solid", start_color="FFEB9C")
+    ws.conditional_formatting.add(f"D{rows['trueup']}:M{rows['trueup']}",
+                                  CellIsRule(operator="equal", formula=['"Balanced"'], fill=green))
+    ws.conditional_formatting.add(f"D{rows['trueup']}:M{rows['trueup']}",
+                                  CellIsRule(operator="equal", formula=['"Check"'], fill=amber))
+    ws.conditional_formatting.add(f"D{rows['flags']}:M{rows['flags']}",
+                                  FormulaRule(formula=[f'D{rows["flags"]}<>"OK"'], fill=amber))
+    ws.freeze_panes = ws.cell(name_row + 2, 4)
+
+    wb_ = ws.parent
+    wb_.defined_names["wi_view"] = DefinedName("wi_view", attr_text=f"'{WI}'!$B$4")
+    wb_.defined_names["wi_compare"] = DefinedName("wi_compare", attr_text=f"'{WI}'!$B$5")
+    return rows
+
+
 def main():
     wb = Workbook()
     ws_o = wb.active
@@ -688,7 +926,9 @@ def main():
     build_orientation(ws_o)
     ws_d = wb.create_sheet(DE)
     build_data_entry(ws_d, wb)
-    for ws, landscape in ((ws_o, False), (ws_d, True)):
+    ws_w = wb.create_sheet(WI)
+    build_whatif(ws_w)
+    for ws, landscape in ((ws_o, False), (ws_d, True), (ws_w, True)):
         ws.sheet_properties.pageSetUpPr.fitToPage = True
         ws.page_setup.fitToWidth = 1
         ws.page_setup.fitToHeight = 0
