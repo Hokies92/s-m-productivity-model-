@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- As-is salary $87,750 confirmed as a deliberate test estimate placed in the engine; recorded in the As-Is Index. New requirement DM-08: no value enters a calculation outside the ledger.
 - Terminology rule: "salesperson", never "seller"; enforced by tests/test_terminology.py.
 - Snapshot of the as-is state preserved as branch `as-is-2026-10-24` (commit 1e1b03c).
 - Added current understanding and target design: `docs/MODEL_UNDERSTANDING.md` (language and lineage: what common sales words mean in this model, the analysis traditions it combines, the tab-to-tab logic; falsifiable system model, assumption ledger, territory design vs staffing, Little's Law at the salesperson level, Meadows leverage points, market comparison, corrections to earlier readings), `docs/DATA_MODEL_REQUIREMENTS.md` (entities, assumption record, structural assumptions S1–S9, test library, cross-checks, lifecycles, collection workflow, as-is field map, requirements DM-01 to DM-61), `docs/ORIENTATION.md` (rewritten orientation).

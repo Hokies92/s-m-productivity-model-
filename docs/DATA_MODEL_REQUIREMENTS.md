@@ -207,6 +207,7 @@ Every as-is field is kept. Cell references are the original's (see `source/workb
 - **DM-05** Calculated estimates record their inputs and inherit the lowest basis among them.
 - **DM-06** Structural assumptions S1–S9 are stored in the same ledger at model level.
 - **DM-07** Only a Finance user may assign the validated-actual basis (until named Finance users exist, an attestation is recorded and the baseline stays a working model).
+- **DM-08** No value enters a calculation unless it is an assumption in the ledger. The engine holds no inputs of its own. (As-is case: the $87,750 salary placed in the calculations while the data tab showed $116,850.)
 
 ### Entities
 - **DM-10** Territories and salespeople are separate entities; revenue attribution requires an assignment.
@@ -259,4 +260,4 @@ Every as-is field is kept. Cell references are the original's (see `source/workb
 | D2 | Tolerances and severities | Accept section 6 as a starting set |
 | D3 | Mandatory Finance review | Fixed list in section 7 for V1 |
 | D4 | Spot-check sample | 20% |
-| D5 | As-is salary $87,750 and 12-month step ramp | Confirm intent; record as declared assumptions |
+| D5 | As-is 12-month step ramp | Confirm intent; record as a declared assumption. (Salary resolved: $87,750 was a deliberate test estimate; see DM-08) |

@@ -70,7 +70,7 @@ Workbook definitions: % net gain = (Δrevenue − Δsales cost) ÷ baseline reve
 
 | Finding (AUDIT_FINDINGS.md) | Recorded as | Now understood as |
 |---|---|---|
-| F1 salary hard-coded at $87,750; entered $116,850 unused | Defect | Probably an undeclared assumption; confirm intent, then declare and test |
+| F1 salary hard-coded at $87,750; entered $116,850 unused | Defect | **Confirmed by Scott (2026-10-24):** an estimate placed in the engine deliberately, to test whether a reviewer understood how the model works. It shows why no value may enter a calculation outside the ledger (DM-08) |
 | F2 added territories earn zero in year one at 12-month ramp | Undisclosed modeling choice | A declared assumption (structural S2, S5) |
 | F3 improve-all credits added territories with a full year | Defect | Still a defect: contradicts F2 within the same model |
 | Contracts and revenue entered but unused | Dead inputs | The actuals that test the assumptions |
