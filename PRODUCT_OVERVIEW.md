@@ -1,6 +1,6 @@
 # Product Overview: Sales Capacity Model
 
-> **Describes the as-is software (package 2.1.0), which reproduces the original workbook.** The redesigned data module and model are specified in [docs/DATA_MODEL_REQUIREMENTS.md](docs/DATA_MODEL_REQUIREMENTS.md) and [docs/MODEL_UNDERSTANDING.md](docs/MODEL_UNDERSTANDING.md).
+> **Describes the as-is software (package 2.1.0), which reproduces the original workbook.** The model is stated in [docs/MODEL.md](docs/MODEL.md); the blank modern workbook is `workbook/Sales_Capacity_Model.xlsx`; the redesign proceeds on branch `evolution`.
 
 
 ## The decision it supports

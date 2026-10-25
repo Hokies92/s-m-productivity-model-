@@ -1,0 +1,32 @@
+name: tests and rubric gate
+
+on:
+  push:
+    branches: ["main", "evolution", "asis-*"]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install LibreOffice (recalculation)
+        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends libreoffice-calc
+      - name: Install package and test dependencies
+        run: pip install -e . pytest openpyxl
+      - name: Tests (as-is parity, blank-workbook gate, no-regression, terminology)
+        run: python -m pytest -q
+      - name: Rubric score sheet
+        run: |
+          python tools/build_asis_modern.py
+          python tools/rubric.py workbook/Sales_Capacity_Model.xlsx workbook/Sales_Capacity_Model.manifest.json --out score_sheet.md
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: score-sheet
+          path: |
+            score_sheet.md
+            score_sheet.json

@@ -60,7 +60,7 @@ import openpyxl
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 ORIGINAL_CSV = ROOT / "source" / "workbook_cells.csv"
-RECALC = pathlib.Path("/mnt/skills/public/xlsx/scripts/recalc.py")
+RECALC = ROOT / "tools" / "recalc.py"
 
 AUTO, HUMAN = "AUTO", "HUMAN"
 TOL = 0.005  # currency and ratio tolerance, absolute, after recalculation

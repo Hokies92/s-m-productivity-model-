@@ -1,5 +1,16 @@
 # Working rules
 
+## Branches and tags
+
+- `main` is the as-is: the frozen source, the Python oracle, the blank modern workbook with its rubric score. Only changes that keep every invariant in `docs/MODEL.md` land here.
+- `evolution` is where the rebuild proceeds (register, modeller, territory–salesperson separation). It is rebased on `main` after each accepted as-is version.
+- A tag marks each state Scott has accepted: `asis-v1.0`, `asis-v1.1`, ... A `-candidate` tag marks what is submitted for acceptance.
+- `as-is-2026-10-24` is the snapshot before any rebuild documents.
+
+## Before every push
+
+Install the hook once: `git config core.hooksPath .githooks`. It runs the test suite and refuses the push on failure. CI (`.github/workflows/ci.yml`) runs the same tests plus the rubric on every push and attaches the score sheet.
+
 ## What is protected
 
 Only these are "never rewrite":
@@ -12,7 +23,7 @@ Everything else dated 2026 is interpretation. When an interpretation is found wr
 
 ## One current statement
 
-`docs/MODEL.md` is the single statement of what the model is: definitions, units, the chain, the kinds of assumption and where each lives, the deliberate test values, the invariants. Any document that disagrees with it is wrong, and is corrected or archived.
+`docs/MODEL.md` is the single statement of what the model is (Part A), where it is going (Part B) and the invariants. Any document that disagrees with it is wrong, and is corrected or archived.
 
 ## Every commit
 
@@ -21,7 +32,7 @@ Tests pass before the commit, not after. Then the message states three things:
 ```
 <summary line>
 
-Invariant: <which invariant in docs/MODEL.md this serves, by number>
+Invariant: <which invariant in docs/MODEL.md this serves, by number; or 'evolution' on that branch>
 Changed:   <artifacts touched>
 Left:      <artifacts deliberately not touched, and why>
 ```

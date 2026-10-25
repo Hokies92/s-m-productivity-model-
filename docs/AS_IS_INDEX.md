@@ -1,6 +1,6 @@
 # As-Is Model: Index
 
-Status: **reference record of the as-is model, preserved unchanged.** Everything listed here describes the original workbook and its faithful reproduction. The current statement of the model is [MODEL.md](MODEL.md); supporting reasoning in [MODEL_UNDERSTANDING.md](MODEL_UNDERSTANDING.md) and [DATA_MODEL_REQUIREMENTS.md](DATA_MODEL_REQUIREMENTS.md).
+Status: **reference record of the as-is model, preserved unchanged.** Everything listed here describes the original workbook and its faithful reproduction. The current statement of the model is [MODEL.md](MODEL.md); supporting reasoning in [MODEL_UNDERSTANDING.md](MODEL_UNDERSTANDING.md); the redesign's data model requirements are on branch `evolution`.
 
 Snapshot: the branch `as-is-2026-10-24` on GitHub holds the repository exactly as it stood before the redesign documents were added (commit `1e1b03c`).
 

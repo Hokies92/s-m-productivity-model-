@@ -1,6 +1,6 @@
 # Commercial Effectiveness Model: Governing Reassessment
 
-> **Extended (note added 2026-10-24).** Still governing for scenarios and architecture. Extended by [MODEL_UNDERSTANDING.md](MODEL_UNDERSTANDING.md) (assumption ledger, territory design vs staffing, leverage points) and [DATA_MODEL_REQUIREMENTS.md](DATA_MODEL_REQUIREMENTS.md) (what is collected and why). Where they differ on the data module, the newer documents govern.
+> **Extended (note added 2026-10-24).** Still governing for scenarios and architecture. Extended by [MODEL_UNDERSTANDING.md](MODEL_UNDERSTANDING.md) (assumption ledger, territory design vs staffing, leverage points) and, on branch `evolution`, the data model requirements. [MODEL.md](MODEL.md) governs where any of them differ.
 
 
 Status: **adopted 2026-10-24 for product direction and architecture.** The current statement of the model is [MODEL.md](MODEL.md); where this document differs from it (defects vs deliberate values; scenarios held with assumptions), MODEL.md wins. Where earlier documents in this repo (the archived first audit findings and discovery assessment in docs/archive/) differ, this document wins, subject to the alignment notes below.
@@ -43,6 +43,8 @@ I now see six defining characteristics of your original design:
 5. The interaction among variables is critical. Improvements can compound, conflict, create bottlenecks, or produce unintended financial consequences.
 6. The model supports strategic reasoning. Its real purpose is to compare possible choices—not automatically declare one sales strategy superior.
 These principles should become the foundation of the rebuilt product.
+
+> **Correction (2026-10-25, after rebuilding the original cell for cell; see [MODEL.md](MODEL.md) §1–§4).** Points 3 and 4 hold exactly. Point 1 overstates: scenario exploration is the mechanism, not the core function; the core function is one comparison, quality levers against quantity levers, settled at operating income. Point 6 understates: the model does declare a winner for the company whose numbers are entered; that is its purpose, and the Scenario Diagnostic hands the winner to the work. Point 5 is the evolution's concern more than the original's: the original holds levers independent on purpose so each column can be audited alone.
 The most important change to my prior recommendation
 I previously proposed a Commercial Effectiveness Diagnostic and Improvement Intelligence Platform.
 

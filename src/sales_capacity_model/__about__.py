@@ -7,8 +7,8 @@ __email__ = "scott.santucci@growthenablement.com"
 __license__ = "Proprietary"
 __copyright__ = "Copyright (c) 2000-2026 Growth Enablement. All rights reserved."
 __summary__ = (
-    "A cognitive-temporal throughput model of sales capacity, "
-    "connected to the income statement."
+    "The as-is oracle of the Sales Capacity Model: a comparative economic argument, "
+    "in arithmetic, about where a company's next commercial dollar should go."
 )
 __url__ = "https://github.com/Hokies92/s-m-productivity-model-"
 
@@ -60,10 +60,10 @@ WHAT MAKES IT DIFFERENT
 STATUS
   This package is the as-is oracle: it reproduces all 48 outputs of the
   original workbook exactly (`scm verify`), per territory, as the original
-  computed them. The current model (per salesperson, with the register) is
-  stated in docs/MODEL.md and built by tools/build_workbook.py. The
-  original's deliberate test values are reproduced by default; options
-  expose the alternatives.
+  computed them. The model is stated in docs/MODEL.md; the blank modern
+  workbook is built by tools/build_asis_modern.py and proven against this
+  oracle by tools/rubric.py. The original's deliberate values are reproduced
+  by default; options expose the alternatives.
 
 Owner:   Growth Enablement. The model and its logic are proprietary.
 Author:  {__author__} <{__email__}>

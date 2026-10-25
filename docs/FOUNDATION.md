@@ -1,6 +1,6 @@
 # Foundation: what stands, what was learned, and why it makes a different model
 
-Date: 2026-10-25. Companion to [SYSTEM_DIAGNOSTIC.md](SYSTEM_DIAGNOSTIC.md), which records what went wrong. This records what held, and why those four things are enough to build on.
+Date: 2026-10-25. Companion to [SYSTEM_DIAGNOSTIC.md](SYSTEM_DIAGNOSTIC.md), which records what went wrong, and to [MODEL.md](MODEL.md), which states what the model is. This records what held, and why those four things are enough to build on. Of the four, the first is the as-is itself; the second, third and fourth are the evolution's foundations, and they are stated here as such.
 
 © 2000–2026 Growth Enablement. All rights reserved.
 
