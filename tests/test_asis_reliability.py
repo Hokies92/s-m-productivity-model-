@@ -9,6 +9,10 @@ What is tested, each after recalculation in LibreOffice:
   4. Total sales overhead and marketing (original F39) is a calculated total only: no entry cell, no "value used".
   5. Every editable cell is a listed input and drives at least one result in the mode it governs.
   6. Protection survives recalculation: sheets protected without password, inputs unlocked, formulas locked.
+  7. Bounds: a scenario that pushes a close rate above 100% or a cycle to zero shows Invalid through operating income,
+     and nothing else changes.
+  8. Model checks: deal size, transactions, revenue and salary are shown beside the company's own figures, with the
+     difference; they agree when the data agrees and change no result.
 
 © 2000–2026 Growth Enablement. All rights reserved.
 """
@@ -73,6 +77,10 @@ def run(tmp_path_factory):
         variants[f"missing:size:{c}"] = {(PB, c): None}
         variants[f"zero:size:{c}"] = {(PB, c): 0}
     variants["direct_overhead"] = {(DE, "E41"): 5_000_000}
+    variants["bound:close_rate"] = {(DE, "E37"): 0.95}                 # +10% scenario gives 104.5%
+    variants["bound:cycle"] = {(PB, "G7"): 1.0}                       # a 100% cycle reduction gives 0 months
+    variants["facts_only"] = {(DE, "E12"): 1500, (DE, "E13"): 112_500_000}
+    variants["consistent"] = {(DE, "E12"): 1500, (DE, "E13"): 112_500_000, (DE, "E15"): 116_850}   # data that agrees with itself
     editable = []                                                   # 5. every unlocked cell, in the mode it governs
     wb0 = openpyxl.load_workbook(blank)
     for ws in wb0.worksheets:
@@ -116,7 +124,7 @@ def run(tmp_path_factory):
 def results(wbv):
     out = {}
     for s in (PB, IA):
-        for r in range(8, 33):
+        for r in (range(8, 27) if s == PB else range(8, 33)):
             for col in COLS:
                 x = wbv[s][f"{col}{r}"].value
                 if x is not None:
@@ -237,3 +245,42 @@ def test_blank_workbook_shows_incomplete_not_zero(run):
     v = results(run["vals"]["blank"])
     assert v and all(x == "Incomplete" for x in v.values())
     assert "INCOMPLETE" in run["vals"]["blank"][DE]["B6"].value
+
+
+@pytest.mark.parametrize("name, invalid_cols, row", [("bound:close_rate", "FJK", 19), ("bound:cycle", "GJK", 17)])
+def test_bounds_mark_invalid_and_leave_the_rest(run, name, invalid_cols, row):
+    v, pb, ia = results(run["vals"][name]), run["vals"][name][PB], run["vals"][name][IA]
+    for col in invalid_cols:
+        assert pb[f"{col}{row}"].value == "Invalid" and ia[f"{col}23"].value == "Invalid", f"{name}: {col}"
+    for col in sorted(set("CEFGH") - set(invalid_cols)):
+        assert isinstance(ia[f"{col}23"].value, (int, float)), f"{name}: operating income {col}23 = {ia[f'{col}23'].value}"
+    assert not [k for k, x in v.items() if x == "Incomplete"]
+
+
+def test_model_checks_show_both_sides(run):
+    pb = run["vals"]["full"][PB]
+    want = {31: (75_000, 25_000_000 / 755), 32: (1_500, 755), 33: (112_500_000, 25_000_000), 34: (87_750, 116_850)}
+    for r, (model, fact) in want.items():
+        assert abs(pb[f"C{r}"].value - model) < 1e-6 and abs(pb[f"E{r}"].value - fact) < 1e-6, f"row {r}"
+        assert abs(pb[f"F{r}"].value - (model - fact)) < 1e-6 and pb[f"H{r}"].value == "Differs", f"row {r}"
+
+
+def test_model_checks_agree_when_data_agrees(run):
+    pb = run["vals"]["consistent"][PB]
+    assert [pb[f"H{r}"].value for r in range(31, 35)] == ["Agrees"] * 4
+
+
+def test_company_figures_change_no_result(run):
+    """Contracts and revenue are the fact side of the checks: changing them moves no result."""
+    assert results(run["vals"]["full"]) == results(run["vals"]["facts_only"])
+
+
+def test_labels_are_never_marked(run):
+    """Row labels are text taken from the entry sheet; they are never shown as Incomplete or Invalid."""
+    for name in ("blank", "full", "missing:marketing", "bound:close_rate"):
+        for s in (PB, IA):
+            ws = run["vals"][name][s]
+            bad = [f"{s}!B{r}" for r in range(7, 36) if ws[f"B{r}"].value in ("Incomplete", "Invalid", "n/a")]
+            assert not bad, f"{name}: {bad}"
+    pb = run["vals"]["full"][PB]
+    assert [pb[f"B{r}"].value for r in (9, 10, 11, 12)] == [run["vals"]["full"][DE][f"B{r}"].value for r in (9, 11, 15, 19)]

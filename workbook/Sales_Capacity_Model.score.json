@@ -237,7 +237,7 @@
     "statement": "Freeze panes on every sheet with a table; numeric formula cells carry a number format",
     "method": "AUTO",
     "score": 2,
-    "measured": "0 sheets without freeze panes; 0 of 19 formulas in General format",
+    "measured": "0 sheets without freeze panes; 0 of 31 formulas in General format",
     "evidence": []
   },
   {

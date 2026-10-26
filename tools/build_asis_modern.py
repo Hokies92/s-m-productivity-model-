@@ -75,6 +75,7 @@ fill_head = PatternFill("solid", start_color="1F3864")
 fill_section = PatternFill("solid", start_color="D9E1F2")
 fill_total = PatternFill("solid", start_color="E2EFDA")
 fill_incomplete = PatternFill("solid", start_color="F8CBAD", end_color="F8CBAD")
+fill_differs = PatternFill("solid", start_color="FFE699", end_color="FFE699")
 f_incomplete = Font(name=FONT, size=10, bold=True, color="9C0006")
 thin = Side(style="thin", color="BFBFBF")
 box = Border(left=thin, right=thin, top=thin, bottom=thin)
@@ -116,6 +117,7 @@ def protect(ws):
 def mark_incomplete(ws, rng, status_cell):
     """Shade cells showing "Incomplete", and the status line while it reports missing values."""
     ws.conditional_formatting.add(rng, CellIsRule(operator="equal", formula=['"Incomplete"'], fill=fill_incomplete, font=f_incomplete))
+    ws.conditional_formatting.add(rng, CellIsRule(operator="equal", formula=['"Invalid"'], fill=fill_incomplete, font=f_incomplete))
     ws.conditional_formatting.add(status_cell, FormulaRule(formula=[f'ISNUMBER(SEARCH("INCOMPLETE",{status_cell}))'], fill=fill_incomplete, font=f_incomplete))
 
 
@@ -131,21 +133,24 @@ DEFINED: set = set()
 
 def guard(formula: str) -> str:
     """Original formula -> the same arithmetic, calculated only when every value it reads is a number.
-    A value that is blank, or itself "Incomplete", makes this result "Incomplete"; nothing is read as zero."""
+    A value that is blank, or itself "Incomplete", makes this result "Incomplete"; nothing is read as zero.
+    A value that is "Invalid" (a scenario outside a mathematical bound) makes this result "Invalid"."""
     body = formula[1:]
-    conds = []
+    conds, invalid = [], []
     for m in _TOKEN.finditer(body):
         tok = m.group(0)
         if ":" in tok:
-            c = f"COUNT({tok})=ROWS({tok})*COLUMNS({tok})"
+            c, v = f"COUNT({tok})=ROWS({tok})*COLUMNS({tok})", f'COUNTIF({tok},"Invalid")>0'
         elif tok in DEFINED or re.fullmatch(r"(?:'[^']+'!)?\$?[A-Z]{1,3}\$?\d+", tok):
-            c = f"ISNUMBER({tok})"
+            c, v = f"ISNUMBER({tok})", f'{tok}="Invalid"'
         else:
             continue                                   # a function name
         if c not in conds:
             conds.append(c)
+            invalid.append(v)
     cond = conds[0] if len(conds) == 1 else "AND(" + ",".join(conds) + ")"
-    return f'=IF({cond},IFERROR({body},"n/a"),"Incomplete")'
+    inv = invalid[0] if len(invalid) == 1 else "OR(" + ",".join(invalid) + ")"
+    return f'=IF({cond},IFERROR({body},"n/a"),IF({inv},"Invalid","Incomplete"))'
 
 
 manifest = dict(sheet_order=[OR, DE, PB, IA, SD], entry_sheet=DE, inputs=[], cell_map=[], scenario_size_cells=[],
@@ -251,7 +256,9 @@ def build_entry(ws, wb, dvs):
     put(ws, "B5", "How to fill this in: yellow cells are yours to type; grey cells are calculated; the blue column is the value the "
                   "model uses. Where a line can be entered or calculated, a figure typed in the yellow cell is used; otherwise the "
                   "calculation from the lines beneath it is used. A blank is treated as missing, never as zero: enter 0 where an amount "
-                  "is truly zero. Results that depend on a missing value show Incomplete.", f_small, border=None)
+                  "is truly zero. Results that depend on a missing value show Incomplete; a scenario that pushes a close rate above 100% "
+                  "or a cycle to zero shows Invalid. Deal size, transactions, revenue and salary are checked against the company's own "
+                  "figures on 2) Performance breakdown (Model checks).", f_small, border=None)
     ws.row_dimensions[5].height = 38
     for col, h in zip("BCDEFGH", ["Data element", "Description", "Unit", "Entry", "Calculated", "Value used", "Where to find it"]):
         put(ws, f"{col}7", h, f_head, fill_head, align=center)
@@ -359,12 +366,26 @@ NAME_FOR_ORIG = {"F9": "Territories", "F11": "Deal_Size", "F15": "Loaded_Salary"
                  "F48": "Marketing", "$F$48": "Marketing"}
 
 
-def rewrite(formula: str) -> str:
-    """Original formula -> the same formula reading the entry sheet by name; then guarded (see guard())."""
+# Mathematical bounds (modern validation, not part of the original): a close rate above 100% or a cycle of zero
+# months or less has no meaning. The original arithmetic is unchanged; only the result is marked.
+BOUND = {17: "<=0", 19: ">1"}
+
+
+def names_only(formula: str) -> str:
+    """Original formula -> the same formula reading the entry sheet by name. Used for label cells (text), which are not guarded."""
+    f = re.sub(r"'1\) Data entry '!(\$?F\$?\d+)", lambda m: NAME_FOR_ORIG[m.group(1)], formula)
+    return f.replace("'1) Data entry '!", f"'{DE}'!").replace("'2) Performance breakdown'!", f"'{PB}'!").replace("'3) Impact Analysis'!", "")
+
+
+def rewrite(formula: str, row: int | None = None) -> str:
+    """Original formula -> the same formula reading the entry sheet by name, bounded where a bound applies, then guarded."""
     f = formula
     f = re.sub(r"'1\) Data entry '!(\$?F\$?\d+)", lambda m: NAME_FOR_ORIG[m.group(1)], f)
     f = f.replace("'1) Data entry '!", f"'{DE}'!")
     f = f.replace("'2) Performance breakdown'!", f"'{PB}'!").replace("'3) Impact Analysis'!", "")
+    if row in BOUND:
+        body = f[1:]
+        f = f'=IF(({body}){BOUND[row]},"Invalid",{body})'
     return guard(f)
 
 
@@ -412,7 +433,7 @@ def build_pb(ws, wb, dvs):
             ws.merge_cells(start_row=r, start_column=2, end_row=r, end_column=12)
             put(ws, f"B{r}", " ".join(raw.split()), f_bold, fill_section)
             continue
-        put(ws, f"B{r}", rewrite(raw) if raw.startswith("=") else " ".join(raw.split()), f_bold if r in (14, 25, 26) else f_body)
+        put(ws, f"B{r}", names_only(raw) if raw.startswith("=") else " ".join(raw.split()), f_bold if r in (14, 25, 26) else f_body)
         fmt = FMT["currency"] if r in (10, 11, 12, 13, 14, 23, 25, 26) else FMT["pct"] if r == 19 else FMT["count1"] if r in (21, 22) else FMT["months"] if r in (17, 18) else FMT["count"]
         for col in PB_COLS:
             key = (O_PB, f"{col}{r}")
@@ -423,7 +444,7 @@ def build_pb(ws, wb, dvs):
                 formula = guard("=Loaded_Salary" if col == "C" else "=C11" if col in ("E", "F", "G", "H", "J") else "=J11")
                 role = "formula" if col != "C" else None
             else:
-                formula = rewrite(raw_c)
+                formula = rewrite(raw_c, r)
                 role = "formula"
             fill = fill_used if r in (25, 26) else fill_calc
             put(ws, f"{col}{r}", formula, f_bold if r in (14, 25, 26) else f_body, fill, fmt, align=right,
@@ -433,9 +454,47 @@ def build_pb(ws, wb, dvs):
         put(ws, f"L{r}", PB_RULE[r], f_small)
         ws.row_dimensions[r].height = max(15, 12.5 * rows_for(PB_RULE[r], 70))
         manifest["chain_rows"].append(dict(sheet=PB, row=r, rule_cell=f"L{r}", columns=["E", "F", "G", "H", "J", "K"]))
+    build_checks(ws)
     status(ws, f"='{DE}'!B6&IF(COUNT(E7:H7)=COLUMNS(E7:H7),\"\",\"  Scenario sizes: INCOMPLETE (a size in row 7 is blank); those scenarios show Incomplete.\")")
     mark_incomplete(ws, "C8:K26", "B4")
     protect(ws)
+
+
+# The model asks for some quantities twice: once as an input to the mechanics, once as a fact the company knows.
+# The second is a constraint the first must satisfy (canonical/FOUNDATION.md section 3). Shown, never resolved; no result changes.
+CHECKS = [  # row, label, model side, fact side, unit, what a difference points to
+    (31, "Deal size", "=Deal_Size", f"'{DE}'!F11", "currency",
+     "Deal size used vs revenue ÷ contracts (entry sheet, rows 11–13). If they differ: the deal size entered, or the contracts and revenue figures."),
+    (32, "Transactions per year", "=C22*C9", f"'{DE}'!E12", "count1",
+     "Baseline transactions (row 22 × territories) vs contracts last year. If they differ: territories, opportunities manageable at once, cycle or close rate."),
+    (33, "Revenue", "=C25", f"'{DE}'!E13", "currency",
+     "Baseline revenue (row 25) vs revenue last year. If transactions agree and revenue does not: deal size."),
+    (34, "Fully loaded salary", "=Loaded_Salary", f"'{DE}'!F15", "currency",
+     "Salary used by the calculations vs base salary × (1 + load rate) (entry sheet, rows 15–17). If they differ: the salary entered, or its components."),
+]
+
+
+def build_checks(ws):
+    put(ws, "B30", "Model checks: does the baseline reproduce what the company knows about last year?", f_bold, fill_section)
+    for col, h in zip(["C", "E", "F", "G", "H", "L"], ["Model", "Company figure", "Difference", "Difference %", "Check", "What a difference points to"]):
+        put(ws, f"{col}30", h, f_bold, fill_section, align=center)
+    ws.row_dimensions[30].height = 28
+    for r, label, model, fact, unit, rule in CHECKS:
+        put(ws, f"B{r}", label)
+        put(ws, f"C{r}", guard(model), f_body, fill_calc, FMT[unit], align=right)
+        put(ws, f"E{r}", f'=IF(ISNUMBER({fact}),{fact},"")', f_body, fill_calc, FMT[unit], align=right)
+        put(ws, f"F{r}", f'=IF(AND(ISNUMBER(C{r}),ISNUMBER(E{r})),C{r}-E{r},"")', f_body, fill_calc, FMT[unit], align=right)
+        put(ws, f"G{r}", f'=IF(AND(ISNUMBER(C{r}),ISNUMBER(E{r})),IF(E{r}=0,"n/a",(C{r}-E{r})/E{r}),"")', f_body, fill_calc, FMT["pct"], align=right)
+        put(ws, f"H{r}", f'=IF(NOT(ISNUMBER(C{r})),C{r},IF(NOT(ISNUMBER(E{r})),"No figure",IF(ROUND(C{r},0)=ROUND(E{r},0),"Agrees","Differs")))',
+            f_bold, fill_calc, align=center)
+        put(ws, f"L{r}", rule, f_small)
+        ws.row_dimensions[r].height = max(15, 12.5 * rows_for(rule, 70))
+    ws.merge_cells("B35:L35")
+    put(ws, "B35", "These checks use figures the model already asks for. They change no result: a difference is a question about the data, "
+                   "and the equations show which assumption to question.", f_small, border=None)
+    ws.conditional_formatting.add("H31:H34", CellIsRule(operator="equal", formula=['"Differs"'], fill=fill_differs, font=f_bold))
+    ws.conditional_formatting.add("H31:H34", CellIsRule(operator="equal", formula=['"Agrees"'], fill=fill_total, font=f_bold))
+    mark_incomplete(ws, "C31:H34", "B4")
 
 
 # ---------------------------------------------------------------- 3) Impact Analysis
