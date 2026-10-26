@@ -2,7 +2,7 @@
 
 This package reproduces the original 2000 workbook exactly, per territory, and is the
 reference every rebuild is tested against (tests/test_model.py, tests/test_asis_workbook.py).
-The model is stated in docs/MODEL.md; the blank modern workbook is built by tools/build_asis_modern.py.
+The model is stated in canonical/FOUNDATION.md; the blank modern workbook is built by tools/build_asis_modern.py.
 
     from sales_capacity_model import ModelInputs, ModelOptions, run_scenarios
     results = run_scenarios(ModelInputs(close_rate=0.3))

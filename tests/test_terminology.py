@@ -1,4 +1,4 @@
-"""Project terminology rule (docs/MODEL.md, invariant 9).
+"""Project terminology rule (canonical/FOUNDATION.md; FILE_RULES.md).
 
 Salespeople are agents measured as a system, so the project says "salesperson" / "salespeople".
 Banned, as a class: the word "seller(s)" and the abbreviation "rep(s)".

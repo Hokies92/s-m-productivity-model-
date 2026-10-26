@@ -1,3 +1,5 @@
+> **Archived 2026-10-26.** Superseded by [canonical/FOUNDATION.md](../../canonical/FOUNDATION.md). Kept for the record; not current.
+
 # Commercial Effectiveness Model: Governing Reassessment
 
 > **Extended (note added 2026-10-24).** Still governing for scenarios and architecture. Extended by [MODEL_UNDERSTANDING.md](MODEL_UNDERSTANDING.md) (assumption ledger, territory design vs staffing, leverage points) and, on branch `evolution`, the data model requirements. [MODEL.md](MODEL.md) governs where any of them differ.

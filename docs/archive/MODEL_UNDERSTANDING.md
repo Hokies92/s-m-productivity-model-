@@ -1,3 +1,5 @@
+> **Archived 2026-10-26.** Superseded by [canonical/FOUNDATION.md](../../canonical/FOUNDATION.md). Kept for the record; not current.
+
 # Model Understanding (current)
 
 Status: **current understanding, 2026-10-24.** This is the to-be view. The as-is model (the original workbook, its audit, spec v2.1 and package 2.1.0) is unchanged and preserved; see [AS_IS_INDEX.md](AS_IS_INDEX.md) and the `as-is-2026-10-24` branch.

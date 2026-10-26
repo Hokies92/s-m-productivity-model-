@@ -1,3 +1,5 @@
+> **Archived 2026-10-26.** Superseded by [canonical/FOUNDATION.md](../../canonical/FOUNDATION.md). Kept for the record; not current.
+
 # The Model: current statement
 
 This is the current canonical interpretation of the Sales Capacity Model (2000; Sales and Marketing Efficiency Model, 2011 edition). The original workbook and its formula export are the evidence; this document is the interpretation built on them, and Scott reviews changes to it. Where another interpretation disagrees, this one governs; where the source or Scott's confirmed statements disagree with it, they govern and this document is corrected. Part A describes the model as it is; Part B describes where the rebuild is taking it; the closing section lists the requirements and how each is enforced. The evolution lives on the `evolution` branch.
