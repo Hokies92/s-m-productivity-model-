@@ -18,8 +18,8 @@
 | A3 | A. Layout | One titled section per sheet; nothing needed is below the fold without a visible pointer (1366x768) | HUMAN | — | UNSCORED (human) |
 | A4 | A. Layout | Ten sampled output cells each trace to an input in two clicks | HUMAN | — | UNSCORED (human) |
 | B1 | B. Collection | Every input unlocked and filled; every formula locked; sheet protection on without password | AUTO | 2 | 0 violations |
-| B2 | B. Collection | Every input has label, unit, definition, where-to-find and the original's explanation | AUTO | 2 | 39 of 39 inputs complete |
-| B3 | B. Collection | Every input cell has data validation | AUTO | 2 | 39 of 39 validated |
+| B2 | B. Collection | Every input has label, unit, definition, where-to-find and the original's explanation | AUTO | 2 | 38 of 38 inputs complete |
+| B3 | B. Collection | Every input cell has data validation | AUTO | 2 | 38 of 38 validated |
 | B4 | B. Collection | Blank workbook recalculates with zero error values | AUTO | 2 | 0 error cells |
 | B5 | B. Collection | Inputs that can be entered or calculated show both, say which is in use, never silently prefer one | HUMAN | — | UNSCORED (human) |
 | B6 | B. Collection | Detail rows are grouped under their totals (outline level set) | AUTO | 2 | 24 of 24 detail rows grouped |
@@ -34,7 +34,7 @@
 | E1 | E. Diagnostic | All original Scenario Diagnostic text present word for word | AUTO | 2 | 41 of 41 texts present |
 | E2 | E. Diagnostic | Diagnostic text cells wrap and their rows are taller than default | AUTO | 2 | 17 of 17 long texts wrapped |
 | F1 | F. Presentation | One typeface; at most four font sizes across the workbook | AUTO | 2 | 1 typefaces ['Arial'], 4 sizes [9.0, 10.0, 12.0, 16.0] |
-| F2 | F. Presentation | Freeze panes on every sheet with a table; numeric formula cells carry a number format | AUTO | 2 | 0 sheets without freeze panes; 0 of 224 formulas in General format |
+| F2 | F. Presentation | Freeze panes on every sheet with a table; numeric formula cells carry a number format | AUTO | 2 | 0 sheets without freeze panes; 0 of 19 formulas in General format |
 | F3 | F. Presentation | Every sheet set to fit one page wide | AUTO | 2 | 0 sheets not fit to width |
 | F4 | F. Presentation | Gridlines off on presentation sheets, on for the entry sheet | AUTO | 2 | 0 sheets wrong |
 | F5 | F. Presentation | No external links, no macros, blank file recalculates without error | AUTO | 2 | 0 problems |

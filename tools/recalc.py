@@ -77,6 +77,50 @@ def recalc(path: pathlib.Path, timeout: int = 120) -> dict:
     return {"status": "success" if n == 0 else "error", "total_errors": n, "total_formulas": total, "error_summary": summary}
 
 
+BATCH_MACRO = """<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE script:module PUBLIC "-//OpenOffice.org//DTD OfficeDocument 1.0//EN" "module.dtd">
+<script:module xmlns:script="http://openoffice.org/2000/script" script:name="Module1" script:language="StarBasic">
+    Sub RecalculateList()
+      Dim f As Integer, p As String
+      Dim args(0) As New com.sun.star.beans.PropertyValue
+      args(0).Name = "Hidden" : args(0).Value = True
+      f = FreeFile
+      Open "%LIST%" For Input As #f
+      Do While Not EOF(f)
+        Line Input #f, p
+        If Len(p) > 0 Then
+          doc = StarDesktop.loadComponentFromURL(ConvertToURL(p), "_blank", 0, args())
+          doc.calculateAll()
+          doc.store()
+          doc.close(True)
+        End If
+      Loop
+      Close #f
+    End Sub
+</script:module>"""
+
+
+def recalc_many(paths: list, timeout: int = 1800) -> bool:
+    """Recalculate and save many workbooks in one LibreOffice session (same engine as recalc()). Returns True on success."""
+    if shutil.which("soffice") is None:
+        return False
+    paths = [pathlib.Path(p).resolve() for p in paths]
+    with tempfile.TemporaryDirectory() as td:
+        profile = pathlib.Path(td) / "profile"
+        url = profile.as_uri()
+        env = dict(os.environ, HOME=td)
+        subprocess.run(["soffice", "--headless", "--terminate_after_init", f"-env:UserInstallation={url}"],
+                       capture_output=True, timeout=300, env=env)
+        lst = pathlib.Path(td) / "list.txt"
+        lst.write_text("\n".join(str(p) for p in paths) + "\n")
+        (profile / "user" / "basic" / "Standard" / "Module1.xba").write_text(BATCH_MACRO.replace("%LIST%", str(lst)))
+        before = {p: p.stat().st_mtime_ns for p in paths}
+        subprocess.run(["soffice", "--headless", "--norestore", f"-env:UserInstallation={url}",
+                        "vnd.sun.star.script:Standard.Module1.RecalculateList?language=Basic&location=application"],
+                       capture_output=True, timeout=timeout, env=env)
+        return all(p.stat().st_mtime_ns != before[p] for p in paths)
+
+
 if __name__ == "__main__":
     p = pathlib.Path(sys.argv[1])
     t = int(sys.argv[2]) if len(sys.argv) > 2 else 120
