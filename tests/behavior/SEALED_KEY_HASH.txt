@@ -1,0 +1,5 @@
+Sealed behavioral test, packet seed 579591, generated 2026-10-25.
+SHA-256 of answer_key_579591.json (held by Scott, not in this repository):
+dad0ea5411192f8bc929027a2edfc338d3a63c9cd8563577ec9e691190d8c2e1
+
+The generator, scorer and key are committed here only after the test has run, so a tested conversation cannot read them.
