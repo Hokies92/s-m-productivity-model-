@@ -1,5 +1,13 @@
-Sealed behavioral test, packet seed 579591, generated 2026-10-25.
-SHA-256 of answer_key_579591.json (held by Scott, not in this repository):
-dad0ea5411192f8bc929027a2edfc338d3a63c9cd8563577ec9e691190d8c2e1
+Sealed behavioral tests, generated 2026-10-25. Keys are held by Scott, not in this repository.
 
-The generator, scorer and key are committed here only after the test has run, so a tested conversation cannot read them.
+Reasoning test (packet seed 579591), revised before any run: three Track 2 entries replaced because Project
+Knowledge already analyzed them (item T5, claims C2 and C6), and the prompt rewritten without method cues.
+SHA-256 of answer_key_579591.json:
+2308cf2e738089033c4e50dedb5bee0d1cc962f26092febb6d066a5b24e1c9a0
+(superseded, never run: dad0ea5411192f8bc929027a2edfc338d3a63c9cd8563577ec9e691190d8c2e1)
+
+Persistence test (packet seed 235405, Track 1 only, to be run after the reasoning test in a separate conversation):
+SHA-256 of answer_key_235405.json:
+b4a30092eba3f2bd2ae8fa3a3ec8d5aeb2b2e188044b16674c905fbb4e2ecab0
+
+The generator, scorer and keys are committed here only after the tests have run, so a tested conversation cannot read them.
