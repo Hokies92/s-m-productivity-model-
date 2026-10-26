@@ -1,6 +1,6 @@
 # The Model: current statement
 
-This is the one current statement of what the Sales Capacity Model (2000; Sales and Marketing Efficiency Model, 2011 edition) is. Any document in this repository that disagrees with it is wrong and is corrected or archived. Part A describes the model as it is; Part B describes where the rebuild is taking it. The as-is is what `main` holds and what the tests enforce. The evolution lives on the `evolution` branch until an as-is version is accepted.
+This is the current canonical interpretation of the Sales Capacity Model (2000; Sales and Marketing Efficiency Model, 2011 edition). The original workbook and its formula export are the evidence; this document is the interpretation built on them, and Scott reviews changes to it. Where another document disagrees, this one governs until the evidence says otherwise. Part A describes the model as it is; Part B describes where the rebuild is taking it. The as-is is what `main` holds and what the tests enforce. The evolution lives on the `evolution` branch until an as-is version is accepted.
 
 © 2000–2026 Growth Enablement. All rights reserved. Author: Scott Santucci.
 
@@ -8,75 +8,78 @@ This is the one current statement of what the Sales Capacity Model (2000; Sales 
 
 # Part A. The model as it is
 
+Basis is marked where it matters to the conclusion: **source** (the original workbook or its formula export), **Scott** (confirmed intent), **math** (follows from the source), **interpretation** (a conclusion that reasonably follows but is not confirmed). Confirmed and open intent is tracked item by item in the project's intent ledger.
+
 ## 1. What it is
 
-A **comparative economic argument, made in arithmetic**, about where a company's next commercial dollar should go. Its type is closer to an investment comparison than to a capacity model, a forecast or a simulation. The throughput chain is the premise; the income statement is the conclusion; four fixed scenarios are the cases compared. It was built to settle one recurring decision, not to explore many.
+**Established.** A model for comparing commercial investment choices, chiefly adding selling resources versus improving the productivity of the resources a company already has, by carrying each choice through a pro forma income statement to operating income, and then naming the challenges to overcome for each. Source: Orientation B5 ("determine the impact of each of these investment decisions on your top line revenue and bottom line performance … identify the challenges you must overcome"); the structure Data entry → Performance breakdown → Impact Analysis → Scenario Diagnostic. Scott has confirmed this purpose.
 
-It is not a forecast, not a staffing plan, not an evaluation of individual salespeople, and not a benchmark.
+**Reasonably follows.** It is a comparative economic argument made in arithmetic: the throughput chain is the premise, the income statement is where the comparison is settled, and the fixed scenarios are the cases compared. Its type is closer to an investment comparison than to a forecast, a staffing plan or a simulation.
+
+It is not a forecast, not an evaluation of individual salespeople, and not a benchmark.
 
 ## 2. Core purpose
 
-To show, in a form a CFO can audit by hand, that improving how each opportunity is handled (close rate, cycle time, deal size) returns more operating income than adding more of what the company already does (territories and salespeople, and by extension leads). The Orientation sheet says this in its first paragraph. The Scenario Diagnostic sheet then names what stands between the company and each improvement: the handoff from the argument to the work.
+To show, in a form that can be audited cell by cell, how improving how opportunities are handled (close rate, cycle time, deal size) compares with adding selling resources (territories), measured at operating income. Scott's stated finding is that the quality levers consistently outperform the quantity levers on margin; the model is the arithmetic that shows it for the inputs entered. The Scenario Diagnostic then names what stands between a company and each quality improvement (source: three diagnosed scenarios; why "hire more" has no diagnostic section is not documented).
 
-## 3. Decisions it drives
+## 3. Decisions it informs
 
-One primary: hire more, or improve how the current team sells. Three subordinate: which quality lever to pursue first (the columns rank them for that company); how much an improvement is worth in operating income, and therefore what could be spent to get it; and which obstacles the chosen lever meets (Scenario Diagnostic).
+Primary: add selling resources, or improve how the current team sells. Subordinate: which quality lever to pursue first for the inputs entered; what an improvement is worth in operating income, and therefore what could be spent to achieve it (interpretation: the original reports the value, not a spending limit); which obstacles the chosen lever meets.
 
 ## 4. How it works
 
 ```
-Entry sheet      ~40 figures a company already has, in Finance's language
+Data entry           figures a company has or estimates (historical and assumptive data, Orientation B5)
       ↓
-Chain            opportunities per salesperson per year = opportunities managed at once × (12 ÷ cycle months)
-                 transactions per salesperson = × close rate
-                 revenue per salesperson      = × deal size
-                 revenue                      = × territories          (one filled, ramped salesperson per territory)
+Performance          opportunities per year   = opportunities manageable at once × (12 ÷ cycle months)   (row 21)
+breakdown            transactions per year    = × close rate                                              (row 22)
+                     revenue per territory    = × deal size                                               (row 23)
+                     revenue                  = × territories                                             (row 25)
+                     scenario columns E–H each change one input by the size in row 7 (default 10%);
+                     J takes the changed close rate, cycle and deal size from F–H; K adds E's territories to J
       ↓
-Scenarios        four columns, each moves ONE input by ONE chosen share (default 10%); two combined
-                 columns borrow the moved inputs from the single-lever columns; nothing else differs
+Impact Analysis      cost of revenue, R&D and G&A as % of revenue; salesperson costs (salary, travel, commission)
+                     × territories; sales overhead and marketing fixed → operating income, % net gain, S&M ROI
       ↓
-Income statement cost of revenue, R&D, salesperson pay, travel, commission, sales overhead, marketing, G&A
-                 → operating income, percentage net gain, sales and marketing ROI, for every column
-      ↓
-Diagnostic       five common obstacles per scenario
+Scenario Diagnostic  five common obstacles for each of close rate, cycle time and deal size
 ```
 
-The conclusion comes from the income statement, not the chain. The chain is linear in every lever, so each 10% change adds about the same revenue. A quality improvement costs commission on the new revenue; a new territory costs salary and travel before it earns, and earns (12 − ramp) ÷ 12 of a year. That asymmetry is the argument, and it is what the compared tools leave out.
+**Mechanism (math).** Revenue is a product of the inputs, so a 10% change in close rate or deal size adds 10% to revenue, and a 10% shorter cycle adds 11.1% (1 ÷ 0.9). On the cost side, a quality improvement adds commission and the revenue-proportional costs; adding territories adds salary and travel per territory and, at a 12-month ramp, no first-year revenue for the new territories (E25). That asymmetry is what separates the levers at operating income.
 
-## 5. Definitions and units
+## 5. Definitions, as the original states them
 
-| Term | Means | Unit |
+| Term | The original's description | Cell |
 |---|---|---|
-| Territory | A funded slot in the coverage design, filled or open; not a person | count |
-| Salesperson | A person in a quota-carrying role, measured as part of a system, never by name | count |
-| Opportunities manageable at once | The most qualified opportunities one salesperson can hold and advance well at the same time: cognitive capacity, not hours | per salesperson |
-| Cycle | Months from qualified opportunity to signature, won deals | months |
-| Close rate | Won ÷ (won + lost) qualified opportunities, by count | ratio |
-| Deal size | Average revenue per contract (revenue ÷ contracts when calculated) | currency per contract |
-| Ramp | Months until a new salesperson reaches average productivity | months |
-| Operating income | Revenue − cost of revenue − operating expenses, on the pro forma income statement | currency |
+| Sales territories | "the number of open sales territories you had last year. This is not based on individual people, so if someone has left the company, but the territory is still open, count that as a sales territory." Scott: a territory is a design choice carrying an expected yield. | Data entry C9 |
+| Opportunities manageable at one time | "the number of accounts any given sales person can effectively manage at the same time"; introduced through the share of non-selling time. Scott: capacity is cognitive bandwidth constrained by time, not labor hours. | C31 |
+| Sales cycle | "from when a qualified opportunity enters the pipeline to when it closes as a sale … for simplicity … from first meeting to the date the agreement is received by accounting"; estimate if not tracked. | C33 |
+| Ramp time | Time "to get a new sales person up to speed to where they are operating at maximum efficiency"; from a sales manager. | C35 |
+| Close rate | "the percentage of all of the pipeline opportunities that your organization has worked that have resulted in an executed agreement." | C37 |
+| Deal size | "the average deal size … you can get this figure by dividing your revenue by total number of contracts." | C11 |
 
-In the as-is, throughput is computed per salesperson and scaled by territories, which is the special case where every territory holds one filled, ramped salesperson.
+The evolution uses tighter, testable definitions for some of these (for example close rate as won ÷ won + lost); those belong to Part B, not to the original.
 
-## 6. Values the original holds beside each other on purpose
+## 6. Values held side by side in the original
 
-Several inputs sit beside a second figure that should agree with them. Where they disagree, the reader learns something about the company. This is the model's validation layer, left implicit, and the only part the original did not complete.
-
-| Pair | What a disagreement means | How the blank workbook holds it |
+| Element | Source | Intent |
 |---|---|---|
-| Deal size typed ($75,000) beside revenue ÷ contracts ($33,113) | The typed figure is a reference value with a scope; for this client the actuals contradict it | Deal size is an entry with two ways to fill it; the value used is shown |
-| Salary typed into the engine ($87,750) beside the entry sheet's calculation ($116,850) | An entry can be overridden; the engine reads the entry, not the calculation | Fully loaded salary is an entry with a direct figure or the calculation; the value used is shown |
-| Ramp credited (12 − ramp) ÷ 12 in "hire more" and deducted again in "improve all" | Ramp is an assumption to declare with one rule | Both formulas reproduced exactly; the rule stated in words beside them |
+| Engine salary $87,750 (Performance breakdown C11, F11:J11) beside the entry sheet's $116,850 (F15) | The calculations use $87,750; F15 is referenced by nothing in the calculations | **Confirmed (Scott):** a deliberate estimate placed to test whether a reader understands how the model works |
+| Deal size $75,000 (F11) beside contracts and revenue (E12, E13) | C11 says deal size can be obtained as revenue ÷ contracts; with the sample, that gives $33,113 | **Confirmed (Scott):** $75,000 is a reference value from a different client, so the model works for many companies. Whether contracts and revenue are also meant as a comparison is open |
+| Ramp credited in "hire more" (E25) and in "improve all" (K25) | E25 adds (12 − ramp) ÷ 12 of a year for new territories; K25 computes all territories at full value then subtracts the same credit | **Open.** Mechanics preserved exactly |
+| Commission on new territories in "hire more" (E13, E26) | Cost per territory, including commission at baseline revenue per territory, × 110 territories | **Open.** Mechanics preserved exactly |
+| Total sales overhead and marketing (F39) | `=F41+F48`; referenced by nothing | A calculated summary in the original. A reconciliation control would be a proposed enhancement |
 
-They are tests of method: compose the whole before judging a part. A reader who compares parts to parts finds defects; a reader who composes first finds entries with options, values with scope, and a rule to declare.
+The sample values are illustrative. They show and test the mechanics and are not a description of one company.
 
-## 7. How it is unique, as is
+## 7. How it compares (interpretation)
 
-Against sales capacity calculators, velocity simulators, quota planners and CRM forecasting, it is the only one that (a) carries a sales change to operating income rather than to revenue or headcount; (b) compares quantity and quality levers in one frame with one arithmetic; (c) can be audited cell by cell by someone who did not build it; (d) holds places where the company's own numbers can contradict each other. It has the first three fully and the fourth in embryo. What the early assessments read as gaps (fixed scenarios, one period, no demand constraint) are consequences of (c) or outside the decision it drives.
+Against sales capacity calculators, velocity simulators, quota planners and CRM forecasting as reviewed in October 2026, it is distinctive in (a) carrying a sales change to operating income rather than to revenue or headcount, (b) comparing quantity and quality levers in one frame with one arithmetic, and (c) being auditable cell by cell by someone who did not build it. Fixed scenarios and a one-period horizon follow from (c) and from the single decision it informs.
 
-## 8. The blank workbook (`workbook/Sales_Capacity_Model.xlsx`)
+## 8. The blank modern workbook (`workbook/Sales_Capacity_Model.xlsx`)
 
-The as-is, made general and modern without a change of logic: five sheets, every label and description word for word, every formula reproduced (200 of 200 numeric formula cells, `tools/rubric.py` gate), no company data, no typed constants in the engine, blank-safe, named inputs, validation, locked formulas, grouped detail, a rule in words beside every calculation. The three income statement ratios are entries. Impact Analysis `I9`, a stray fill-right formula in a spacer column, is excluded with the reason in the rubric code.
+**Verified:** with the original's inputs, it reproduces all 200 numeric formula cells of the original (`tools/rubric.py` G1–G4); labels and descriptions word for word; no typed constants in the calculations; a fully blank workbook shows no errors.
+
+**Known implementation problems (not problems with the original):** with partial inputs, missing costs can drop out of operating income (a blank marketing section removes all sales and marketing expense); the E39 entry cell and its "value used" display a figure that drives nothing. Formula protection on export and incomplete-input handling are not yet verified. The workbook is not approved.
 
 ---
 
@@ -108,6 +111,7 @@ Territory and hiring scenarios need the territory–salesperson assignment expli
 2. **Parity.** With the original's inputs, the blank workbook reproduces every original numeric formula cell (`tools/rubric.py` G1–G4; `tests/test_asis_workbook.py`).
 3. **No typed constants** in any engine or analysis formula (G3).
 4. **Blank-safe.** With no data entered, no cell shows an error and no engine or analysis cell shows a number (B4).
+4a. **Incomplete inputs are not reported as complete** (not yet met). A result whose required inputs are missing shows that it is incomplete instead of a number; an entered zero is distinguished from a blank.
 5. **Rule in words** beside every calculation row (C3).
 6. **Terminology.** Salesperson / salespeople; not the s-word, not the abbreviation of "representative". Outside `source/`, archived documents and manifests quoting the original.
 7. **Income statement in the loop.** Every scenario result is an operating income after all costs.
