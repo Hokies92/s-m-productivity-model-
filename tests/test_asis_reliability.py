@@ -11,6 +11,8 @@ What is tested, each after recalculation in LibreOffice:
   6. Protection survives recalculation: sheets protected without password, inputs unlocked, formulas locked.
   7. Bounds: a scenario that pushes a close rate above 100% or a cycle to zero shows Invalid through operating income,
      and nothing else changes.
+  9. Compare: the drivers each scenario changed beside a bridge of its effect on operating income that balances;
+     a saved run (pasted values) compared with the current one.
   8. Model checks: deal size, transactions, revenue and salary are shown beside the company's own figures, with the
      difference; they agree when the data agrees and change no result.
 
@@ -30,7 +32,7 @@ import pytest
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 pytestmark = pytest.mark.skipif(shutil.which("soffice") is None, reason="LibreOffice (soffice) not installed")
 
-DE, PB, IA = "1) Data entry", "2) Performance breakdown", "3) Impact Analysis"
+DE, PB, IA, CMP = "1) Data entry", "2) Performance breakdown", "3) Impact Analysis", "Compare"
 PLAIN = {"territories": "E9", "commission": "E28", "capacity": "E31", "cycle": "E33", "ramp": "E35", "close_rate": "E37",
          "cost_of_revenue_pct": "E59", "rnd_pct": "E60", "gna_pct": "E61"}
 LINES = {"deal_size": (11, range(12, 14)), "salary": (15, range(16, 18)), "travel": (19, range(20, 27)),
@@ -89,6 +91,8 @@ def run(tmp_path_factory):
                 if not c.protection.locked:
                     editable.append((ws.title, c.coordinate))
     for sheet, cell in editable:
+        if sheet == CMP:
+            continue                                                # saved-run cells: tested by test_saved_run_*
         changes = {}
         r = int(cell[1:])
         for k, (row, comps) in LINES.items():
@@ -118,13 +122,28 @@ def run(tmp_path_factory):
     shutil.copy(blank, paths["blank"])
     assert recalc.recalc_many(list(paths.values())), "LibreOffice did not recalculate every variant"
     vals = {n: openpyxl.load_workbook(p, data_only=True) for n, p in paths.items()}
+    # second pass: save the full run the way a user would (paste values of C30:C61 into E30:E61), then change an input
+    current = [vals["full"][CMP][f"C{r}"].value for r in range(30, 62)]
+    second = {}
+    for name, extra in [("saved_same", {}), ("saved_then_close_rate", {(DE, "E37"): 0.30})]:
+        wb = openpyxl.load_workbook(paths["full"])
+        for (s, c), v in extra.items():
+            wb[s][c].value = v
+        for r, v in zip(range(30, 62), current):
+            wb[CMP][f"E{r}"].value = v
+        p = tmp / f"{name}.xlsx"
+        wb.save(p)
+        second[name] = p
+    assert recalc.recalc_many(list(second.values()))
+    paths.update(second)
+    vals.update({n: openpyxl.load_workbook(p, data_only=True) for n, p in second.items()})
     return dict(vals=vals, paths=paths, manifest=manifest, editable=editable)
 
 
 def results(wbv):
     out = {}
-    for s in (PB, IA):
-        for r in (range(8, 27) if s == PB else range(8, 33)):
+    for s in (PB, IA, CMP):
+        for r in (range(8, 27) if s == PB else range(8, 33) if s == IA else [*range(8, 12), *range(15, 22), 23, 24]):
             for col in COLS:
                 x = wbv[s][f"{col}{r}"].value
                 if x is not None:
@@ -192,6 +211,8 @@ def test_validation_accepts_zero_except_divisors(run):
     """0 is accepted everywhere except the two inputs the original formulas divide by."""
     wb = openpyxl.load_workbook(run["paths"]["blank"])
     for sheet, cell in run["editable"]:
+        if sheet == CMP:
+            continue                       # saved-run cells take pasted values; no validation
         dv = next(d for d in wb[sheet].data_validations.dataValidation if cell in d.sqref)
         if sheet == DE and cell in DIVISORS.values():
             assert (dv.operator, dv.formula1) in (("greaterThan", "0"), ("greaterThanOrEqual", "1")), f"{cell} accepts 0"
@@ -217,10 +238,13 @@ def test_total_overhead_and_marketing_is_calculated_only(run):
 
 
 def test_every_editable_cell_is_an_input_that_drives_a_result(run):
-    declared = {(i["sheet"], i["cell"]) for i in run["manifest"]["inputs"]} | {(s["sheet"], s["cell"]) for s in run["manifest"]["scenario_size_cells"]}
+    declared = ({(i["sheet"], i["cell"]) for i in run["manifest"]["inputs"]} | {(s["sheet"], s["cell"]) for s in run["manifest"]["scenario_size_cells"]}
+                | {(s["sheet"], s["cell"]) for s in run["manifest"]["snapshot_cells"]})
     assert set(run["editable"]) == declared
     inert = []
     for sheet, cell in run["editable"]:
+        if sheet == CMP:
+            continue                       # saved-run cells drive the Change column (test_saved_run_shows_what_moved)
         base = results(run["vals"][f"perturb_base:{sheet}!{cell}"])
         moved = results(run["vals"][f"perturb:{sheet}!{cell}"])
         if base == moved:
@@ -284,3 +308,37 @@ def test_labels_are_never_marked(run):
             assert not bad, f"{name}: {bad}"
     pb = run["vals"]["full"][PB]
     assert [pb[f"B{r}"].value for r in (9, 10, 11, 12)] == [run["vals"]["full"][DE][f"B{r}"].value for r in (9, 11, 15, 19)]
+
+
+def test_compare_drivers_mirror_the_breakdown(run):
+    pb, cmp_ = run["vals"]["full"][PB], run["vals"]["full"][CMP]
+    for r, pb_row in zip(range(8, 12), (9, 19, 17, 10)):
+        for col in COLS:
+            assert cmp_[f"{col}{r}"].value == pb[f"{col}{pb_row}"].value, f"{col}{r}"
+
+
+@pytest.mark.parametrize("name", ["full", "zero:marketing", "consistent", "bound:close_rate"])
+def test_bridge_balances_and_equals_the_income_statement(run, name):
+    cmp_, ia = run["vals"][name][CMP], run["vals"][name][IA]
+    for col in "EFGHJK":
+        if ia[f"{col}23"].value == "Invalid":
+            assert cmp_[f"{col}21"].value == "Invalid" and cmp_[f"{col}22"].value == "Invalid"
+            continue
+        lines = [cmp_[f"{col}{r}"].value for r in range(15, 21)]
+        change = cmp_[f"{col}21"].value
+        assert abs(sum(lines) - change) < 1e-6 and cmp_[f"{col}22"].value == "Balances", f"{name} {col}"
+        assert abs(change - (ia[f"{col}23"].value - ia["C23"].value)) < 1e-6
+        assert abs(ia[f"{col}24"].value - change) < 1e-6           # Impact Analysis row 24 says the same
+        assert abs(cmp_[f"{col}19"].value) < 1e-6                  # sales overhead and marketing are fixed in the original
+
+
+def test_saved_run_shows_no_change_when_nothing_changed(run):
+    cmp_ = run["vals"]["saved_same"][CMP]
+    assert all(cmp_[f"F{r}"].value in (0, None, "") for r in range(30, 62))
+
+
+def test_saved_run_shows_what_moved(run):
+    cmp_ = run["vals"]["saved_then_close_rate"][CMP]
+    moved = {cmp_[f"B{r}"].value: cmp_[f"F{r}"].value for r in range(30, 62) if isinstance(cmp_[f"F{r}"].value, (int, float)) and cmp_[f"F{r}"].value != 0}
+    assert abs(moved.pop("Close rate") - 0.05) < 1e-9
+    assert moved and all(k.startswith(("Revenue:", "Operating income:")) for k in moved), moved
