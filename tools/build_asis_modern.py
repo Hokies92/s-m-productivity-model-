@@ -45,6 +45,7 @@ MANIFEST = OUT.with_suffix(".manifest.json")
 
 O_DE, O_PB, O_IA, O_SD, O_OR = "1) Data entry", "2) Performance breakdown", "3) Impact Analysis", "4) Scenario Diagnostic", "Orientation"
 DE, PB, IA, SD, OR = "1) Data entry", "2) Performance breakdown", "3) Impact Analysis", "4) Scenario Diagnostic", "Orientation"
+CMP = "Compare"   # modern addition: cause and effect on one page, and a saved run
 ATTRIB = "© 2000–2026 Growth Enablement. All rights reserved.  Sales Capacity Model: originated 2000, accuracy audit by Ernst & Young 2003, this edition 2026."
 
 # ---------------------------------------------------------------- original cells
@@ -153,7 +154,7 @@ def guard(formula: str) -> str:
     return f'=IF({cond},IFERROR({body},"n/a"),IF({inv},"Invalid","Incomplete"))'
 
 
-manifest = dict(sheet_order=[OR, DE, PB, IA, SD], entry_sheet=DE, inputs=[], cell_map=[], scenario_size_cells=[],
+manifest = dict(sheet_order=[OR, DE, PB, IA, CMP, SD], entry_sheet=DE, inputs=[], cell_map=[], scenario_size_cells=[], snapshot_cells=[],
                 chain_rows=[], detail_rows=[], diagnostic_sheet=SD, no_gridline_sheets=[OR, PB, IA, SD])
 
 
@@ -563,6 +564,11 @@ def build_ia(ws, wb):
             cmap(O_IA, f"{col}{r}", IA, f"{col}{r}", "formula")
         put(ws, f"L{r}", IA_RULE[r], f_small)
         manifest["chain_rows"].append(dict(sheet=IA, row=r, rule_cell=f"L{r}", columns=["E", "F", "G", "H", "J", "K"]))
+    # modern addition: the change in operating income, on the line below operating income
+    put(ws, "B24", "Change in operating income from baseline", f_bold)
+    for col in ["E", "F", "G", "H", "J", "K"]:
+        put(ws, f"{col}24", guard(f"={col}23-$C$23"), f_bold, fill_total, FMT["currency"], align=right)
+    put(ws, "L24", "Scenario operating income − baseline operating income. Drivers and the full bridge: sheet Compare", f_small)
     # assumptions block: now entered on the entry sheet, shown here
     ws.merge_cells("B29:L29")
     put(ws, "B29", otext(O_IA, "B29") + " — " + otext(O_IA, "E29") + " The three ratios are entered on 1) Data entry (rows 59–61) and shown here.", f_small, border=None)
@@ -572,6 +578,117 @@ def build_ia(ws, wb):
         put(ws, f"C{r}", guard(f"={nm}"), f_body, fill_calc, FMT["pct"], align=right)
     status(ws, f"='{PB}'!B4")
     mark_incomplete(ws, "C7:K32", "B4")
+    protect(ws)
+
+
+# ---------------------------------------------------------------- Compare (modern addition; no original cell)
+SCEN = ["C", "E", "F", "G", "H", "J", "K"]
+
+
+def scen_name(col):
+    return "Baseline" if col == "C" else otext(O_PB, f"{col}6")
+
+
+def build_cmp(ws):
+    ws.sheet_view.showGridLines = False
+    for col, w in {"A": 2, "B": 40, "C": 15, "D": 2, "E": 15, "F": 15, "G": 15, "H": 15, "I": 2, "J": 17, "K": 15, "L": 50}.items():
+        ws.column_dimensions[col].width = w
+    ws.merge_cells("B2:L2")
+    put(ws, "B2", "Compare: what each scenario changed, and what the change did", f_title, border=None)
+    ws.merge_cells("B3:L3")
+    put(ws, "B3", ATTRIB, f_small, border=None)
+    status(ws, f"='{IA}'!B4")
+    ws.freeze_panes = "C6"
+
+    def header(r, first, base, others):
+        put(ws, f"B{r}", first, f_head, fill_head)
+        put(ws, f"C{r}", base, f_head, fill_head, align=center)
+        for col in SCEN[1:]:
+            put(ws, f"{col}{r}", others(col), f_head, fill_head, align=center)
+        put(ws, f"L{r}", "How it is calculated", f_head, fill_head)
+        ws.row_dimensions[r].height = 42
+
+    def section(r, text):
+        ws.merge_cells(start_row=r, start_column=2, end_row=r, end_column=12)
+        put(ws, f"B{r}", text, f_h2, fill_section)
+
+    # 1. Cause: the drivers in each scenario
+    section(6, "1. What each scenario changed (shaded where it differs from the baseline)")
+    header(7, "Driver", "Baseline", scen_name)
+    for r, (label, pb_row, unit) in zip(range(8, 12), [("Territories", 9, "count"), ("Close rate", 19, "pct"),
+                                                         ("Sales cycle (months)", 17, "months"), ("Deal size", 10, "currency")]):
+        put(ws, f"B{r}", label)
+        for col in SCEN:
+            put(ws, f"{col}{r}", f"='{PB}'!{col}{pb_row}", f_body, fill_calc, FMT[unit], align=right)
+        put(ws, f"L{r}", f"From 2) Performance breakdown, row {pb_row}", f_small)
+    ws.conditional_formatting.add("E8:K11", FormulaRule(formula=["AND(ISNUMBER(E8),ISNUMBER($C8),E8<>$C8)"], fill=fill_used, font=f_bold))
+
+    # 2. Effect: operating income bridge
+    section(13, "2. What it did: each line's effect on operating income (a bridge from baseline to scenario)")
+    header(14, "Line", "Baseline amount", lambda col: scen_name(col) + ": effect")
+    BR = [  # row, label, baseline amount, scenario effect, rule
+        (15, "Revenue", f"='{IA}'!C8", "='{IA}'!{c}8-'{IA}'!$C$8", "+ change in revenue"),
+        (16, "Cost of revenue", f"='{IA}'!C18", "=-('{IA}'!{c}18-'{IA}'!$C$18)", "− change in cost of revenue"),
+        (17, "Research and development", f"='{IA}'!C19", "=-('{IA}'!{c}19-'{IA}'!$C$19)", "− change in R&D"),
+        (18, "Salesperson costs (salary, travel, commission)", f"='{PB}'!C26", "=-('{PB}'!{c}26-'{PB}'!$C$26)", "− change in salesperson costs"),
+        (19, "Sales overhead and marketing", f"='{IA}'!C20-'{PB}'!C26",
+         "=-(('{IA}'!{c}20-'{IA}'!$C$20)-('{PB}'!{c}26-'{PB}'!$C$26))", "− change in sales overhead and marketing (fixed in the original)"),
+        (20, "General and administrative", f"='{IA}'!C21", "=-('{IA}'!{c}21-'{IA}'!$C$21)", "− change in G&A"),
+    ]
+    for r, label, base, eff, rule in BR:
+        put(ws, f"B{r}", label)
+        put(ws, f"C{r}", guard(base), f_body, fill_calc, FMT["currency"], align=right)
+        for col in SCEN[1:]:
+            put(ws, f"{col}{r}", guard(eff.format(IA=IA, PB=PB, c=col)), f_body, fill_calc, FMT["currency"], align=right)
+        put(ws, f"L{r}", rule, f_small)
+    put(ws, "B21", "Change in operating income", f_bold)
+    put(ws, "C21", None, fill=fill_calc)
+    put(ws, "B22", "Bridge check", f_small)
+    put(ws, "C22", None, fill=fill_calc)
+    put(ws, "B23", "Operating income", f_bold)
+    put(ws, "C23", guard(f"='{IA}'!C23"), f_bold, fill_total, FMT["currency"], align=right, border=top_rule)
+    put(ws, "B24", "Change in operating income, %")
+    put(ws, "C24", None, fill=fill_calc)
+    for col in SCEN[1:]:
+        put(ws, f"{col}21", guard(f"='{IA}'!{col}23-'{IA}'!$C$23"), f_bold, fill_total, FMT["currency"], align=right, border=top_rule)
+        put(ws, f"{col}22", guard(f'=IF(ROUND(SUM({col}15:{col}20)-{col}21,0)=0,"Balances","Does not balance")'), f_small, fill_calc, align=center)
+        put(ws, f"{col}23", guard(f"='{IA}'!{col}23"), f_bold, fill_total, FMT["currency"], align=right, border=top_rule)
+        put(ws, f"{col}24", guard(f"={col}21/$C$23"), f_body, fill_calc, FMT["pct"], align=right)
+    put(ws, "L21", "Sum of the lines above = scenario operating income − baseline operating income", f_small)
+    put(ws, "L22", "The lines above add up to the change in operating income", f_small)
+    put(ws, "L23", "From 3) Impact Analysis, row 23", f_small)
+    put(ws, "L24", "Change in operating income ÷ baseline operating income", f_small)
+
+    # 3. A saved run, compared with the current one
+    section(26, "3. Compare with a saved run")
+    ws.merge_cells("B27:L27")
+    put(ws, "B27", "To save the current run: select C30:C61 and copy; click E30; paste values only (Home ▸ Paste ▸ Values). "
+                   "Then change any input or scenario size: the Change columns show what moved, input by input and result by result. "
+                   "Paste again to replace the saved run.", f_small, border=None)
+    ws.row_dimensions[27].height = 28
+    put(ws, "B28", "Name of the saved run (optional)", f_bold)
+    put(ws, "E28", None, f_input, fill_input, unlocked=True)
+    manifest["snapshot_cells"].append(dict(sheet=CMP, cell="E28"))
+    for col, h in zip(["B", "C", "E", "F", "G"], ["Item", "Current", "Saved", "Change", "Change %"]):
+        put(ws, f"{col}29", h, f_head, fill_head, align=center)
+    items = [(lab.capitalize(), f"IF(ISNUMBER({n}),{n},\"\")", next(ENTRY[r][1] for r in ENTRY if ENTRY[r][2] == n))
+             for n, lab in REQUIRED]
+    items += [(f"Size of improvement: {scen_name(c)}", f"IF(ISNUMBER('{PB}'!{c}7),'{PB}'!{c}7,\"\")", "pct") for c in "EFGH"]
+    items += [(f"Revenue: {scen_name(c)}", f"'{IA}'!{c}8", "currency") for c in SCEN]
+    items += [(f"Operating income: {scen_name(c)}", f"'{IA}'!{c}23", "currency") for c in SCEN]
+    for r, (label, ref, unit) in zip(range(30, 30 + len(items)), items):
+        fmt = FMT["months"] if unit == "months" else FMT[unit]
+        put(ws, f"B{r}", label)
+        put(ws, f"C{r}", f"={ref}", f_body, fill_calc, fmt, align=right)
+        put(ws, f"E{r}", None, f_input, fill_input, fmt, align=right, unlocked=True)
+        put(ws, f"F{r}", f'=IF(AND(ISNUMBER(C{r}),ISNUMBER(E{r})),C{r}-E{r},"")', f_body, fill_calc, fmt, align=right)
+        put(ws, f"G{r}", f'=IF(AND(ISNUMBER(C{r}),ISNUMBER(E{r})),IF(E{r}=0,"n/a",(C{r}-E{r})/E{r}),"")', f_body, fill_calc, FMT["pct"], align=right)
+        manifest["snapshot_cells"].append(dict(sheet=CMP, cell=f"E{r}"))
+    last = 29 + len(items)
+    assert last == 61, last   # the instruction above names C30:C61
+    ws.conditional_formatting.add(f"B30:G{last}", FormulaRule(formula=["AND(ISNUMBER($F30),$F30<>0)"], fill=fill_used, font=f_bold))
+    mark_incomplete(ws, f"C8:K24", "B4")
+    mark_incomplete(ws, f"C30:C{last}", "B4")
     protect(ws)
 
 
@@ -628,6 +745,8 @@ def build_or(ws):
         "Where a line can be entered or calculated, a figure in the yellow cell is used, otherwise the calculation from the lines beneath it.",
         "2)  Performance breakdown: the four scenario sizes are yellow cells at the top. Each scenario changes one input by its size and carries it through the same chain; the two combined columns reuse them.",
         "3)  Impact Analysis: the income statement for the baseline and each scenario, with the percentage net gain and sales and marketing ROI.",
+        "Compare: for each scenario, the drivers it changed beside what each change did to operating income (a bridge that balances), "
+        "and a saved run to compare with the next one, input by input and result by result.",
         "4)  Scenario Diagnostic: for each scenario, the common issues that stand between a company and the improvement.",
         "Formulas are locked; inputs are not. Protection has no password: Review > Unprotect Sheet removes it. Every calculated row states its rule in the last column.",
     ]:
@@ -649,6 +768,7 @@ def build():
     ws_de = wb.create_sheet(DE)
     ws_pb = wb.create_sheet(PB)
     ws_ia = wb.create_sheet(IA)
+    ws_cmp = wb.create_sheet(CMP)
     ws_sd = wb.create_sheet(SD)
 
     def dv_set(ws):
@@ -674,6 +794,7 @@ def build():
     build_entry(ws_de, wb, dv_set(ws_de))
     build_pb(ws_pb, wb, dv_set(ws_pb))
     build_ia(ws_ia, wb)
+    build_cmp(ws_cmp)
     build_sd(ws_sd)
     for ws in wb.worksheets:
         ws.sheet_properties.pageSetUpPr.fitToPage = True

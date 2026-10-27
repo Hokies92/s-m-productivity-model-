@@ -4,6 +4,7 @@
   "1) Data entry",
   "2) Performance breakdown",
   "3) Impact Analysis",
+  "Compare",
   "4) Scenario Diagnostic"
  ],
  "entry_sheet": "1) Data entry",
@@ -2108,6 +2109,140 @@
   {
    "sheet": "2) Performance breakdown",
    "cell": "H7"
+  }
+ ],
+ "snapshot_cells": [
+  {
+   "sheet": "Compare",
+   "cell": "E28"
+  },
+  {
+   "sheet": "Compare",
+   "cell": "E30"
+  },
+  {
+   "sheet": "Compare",
+   "cell": "E31"
+  },
+  {
+   "sheet": "Compare",
+   "cell": "E32"
+  },
+  {
+   "sheet": "Compare",
+   "cell": "E33"
+  },
+  {
+   "sheet": "Compare",
+   "cell": "E34"
+  },
+  {
+   "sheet": "Compare",
+   "cell": "E35"
+  },
+  {
+   "sheet": "Compare",
+   "cell": "E36"
+  },
+  {
+   "sheet": "Compare",
+   "cell": "E37"
+  },
+  {
+   "sheet": "Compare",
+   "cell": "E38"
+  },
+  {
+   "sheet": "Compare",
+   "cell": "E39"
+  },
+  {
+   "sheet": "Compare",
+   "cell": "E40"
+  },
+  {
+   "sheet": "Compare",
+   "cell": "E41"
+  },
+  {
+   "sheet": "Compare",
+   "cell": "E42"
+  },
+  {
+   "sheet": "Compare",
+   "cell": "E43"
+  },
+  {
+   "sheet": "Compare",
+   "cell": "E44"
+  },
+  {
+   "sheet": "Compare",
+   "cell": "E45"
+  },
+  {
+   "sheet": "Compare",
+   "cell": "E46"
+  },
+  {
+   "sheet": "Compare",
+   "cell": "E47"
+  },
+  {
+   "sheet": "Compare",
+   "cell": "E48"
+  },
+  {
+   "sheet": "Compare",
+   "cell": "E49"
+  },
+  {
+   "sheet": "Compare",
+   "cell": "E50"
+  },
+  {
+   "sheet": "Compare",
+   "cell": "E51"
+  },
+  {
+   "sheet": "Compare",
+   "cell": "E52"
+  },
+  {
+   "sheet": "Compare",
+   "cell": "E53"
+  },
+  {
+   "sheet": "Compare",
+   "cell": "E54"
+  },
+  {
+   "sheet": "Compare",
+   "cell": "E55"
+  },
+  {
+   "sheet": "Compare",
+   "cell": "E56"
+  },
+  {
+   "sheet": "Compare",
+   "cell": "E57"
+  },
+  {
+   "sheet": "Compare",
+   "cell": "E58"
+  },
+  {
+   "sheet": "Compare",
+   "cell": "E59"
+  },
+  {
+   "sheet": "Compare",
+   "cell": "E60"
+  },
+  {
+   "sheet": "Compare",
+   "cell": "E61"
   }
  ],
  "chain_rows": [
