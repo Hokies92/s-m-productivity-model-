@@ -43,7 +43,9 @@ Status: current, 2026-10-26. What is confirmed about the original model's design
 
 | Item | Status |
 |---|---|
-| Missing inputs | Corrected on `candidate/asis-v1.1` (2026-10-26): a missing input shows Incomplete through operating income, unrelated lines stay calculated, an entered zero is a value; 200/200 parity and 48/48 oracle outputs preserved. Not accepted. |
-| E39 entry cell and "Value used" for F39 | Removed on `candidate/asis-v1.1`; F39 is the calculated total. |
-| "Value used" for deal size, salary, travel, overhead and marketing | To be replaced: choosing one of two figures hides the constraint. Gate 1 requirement 1.2 (FOUNDATION §7): show both sides and the difference. |
+| Missing inputs | In `main` (merged by Scott 2026-10-27, PR #4): a missing input shows Incomplete through operating income, unrelated lines stay calculated, an entered zero is a value; 200/200 parity and 48/48 oracle outputs preserved. Verified in LibreOffice; not yet in Excel. Gate 1 not accepted. |
+| E39 entry cell and "Value used" for F39 | Removed (in `main`); F39 is the calculated total. |
+| Constraints shown (FOUNDATION §7, 1.2) | In `main` (PR #3): Performance breakdown rows 30–35 show deal size, transactions, revenue and salary beside the company's figures with the difference; they change no result. Open: travel, sales overhead and marketing still use a direct entry over its components without showing both. |
+| Mathematical bounds (1.4) | In `main` (PR #3): close rate above 100% or cycle of zero or less shows Invalid through operating income. |
+| Scenario comparison (1.8) | In `main` (PR #4): sheet Compare (drivers per scenario, operating income bridge that balances, saved run by paste-values); Impact Analysis row 24. A one-click save needs a macro companion (not built). |
 | Independent ChatGPT candidate (reviewed 2026-10-26) | 200/200 parity; withholds whole sheets when any input is missing or invalid; checks mathematical bounds; worksheet protection off and inputs locked. Not approved. |
