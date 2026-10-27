@@ -86,7 +86,7 @@
     "statement": "Every input has label, unit, definition, where-to-find and the original's explanation",
     "method": "AUTO",
     "score": 2,
-    "measured": "39 of 39 inputs complete",
+    "measured": "38 of 38 inputs complete",
     "evidence": []
   },
   {
@@ -95,7 +95,7 @@
     "statement": "Every input cell has data validation",
     "method": "AUTO",
     "score": 2,
-    "measured": "39 of 39 validated",
+    "measured": "38 of 38 validated",
     "evidence": []
   },
   {
@@ -237,7 +237,7 @@
     "statement": "Freeze panes on every sheet with a table; numeric formula cells carry a number format",
     "method": "AUTO",
     "score": 2,
-    "measured": "0 sheets without freeze panes; 0 of 224 formulas in General format",
+    "measured": "0 sheets without freeze panes; 0 of 31 formulas in General format",
     "evidence": []
   },
   {

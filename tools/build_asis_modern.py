@@ -5,9 +5,13 @@ Score: python tools/rubric.py workbook/Sales_Capacity_Model.xlsx workbook/Sales_
 
 What is kept from the original (source/workbook_cells.csv), cell for cell:
   * the five sheets, their rows and columns, every label and description word for word;
-  * every formula, rewritten only so that it reads the entry sheet by name and survives blank cells
-    (wrapped in IFERROR(...,"")), so the blank workbook shows no errors and the filled workbook
+  * every formula's arithmetic, unchanged except that it reads the entry sheet by name; the filled workbook
     reproduces the original's values exactly (tools/rubric.py, gate G1–G4).
+Input validation (modern, not part of the original): each engine and analysis formula is wrapped in one guard,
+    =IF(<every value it reads is a number>, IFERROR(<original arithmetic>,"n/a"), "Incomplete").
+    A missing value is never treated as zero: whatever depends on it shows "Incomplete" all the way to
+    operating income, while results that do not depend on it are still calculated. An entered 0 is a value.
+    A status line on each sheet names the missing inputs.
 What is general:
   * no company data anywhere; every input is blank; the scenario sizes default to the original's 10%;
   * values the original typed into the engine (fully loaded salary) or onto the entry sheet beside a
@@ -33,6 +37,7 @@ from openpyxl.styles import Alignment, Border, Font, PatternFill, Protection, Si
 from openpyxl.workbook.defined_name import DefinedName
 from openpyxl.worksheet.datavalidation import DataValidation
 from openpyxl.worksheet.protection import SheetProtection
+from openpyxl.formatting.rule import CellIsRule, FormulaRule
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 OUT = ROOT / "workbook" / "Sales_Capacity_Model.xlsx"
@@ -69,6 +74,9 @@ fill_used = PatternFill("solid", start_color="DDEBF7")
 fill_head = PatternFill("solid", start_color="1F3864")
 fill_section = PatternFill("solid", start_color="D9E1F2")
 fill_total = PatternFill("solid", start_color="E2EFDA")
+fill_incomplete = PatternFill("solid", start_color="F8CBAD", end_color="F8CBAD")
+fill_differs = PatternFill("solid", start_color="FFE699", end_color="FFE699")
+f_incomplete = Font(name=FONT, size=10, bold=True, color="9C0006")
 thin = Side(style="thin", color="BFBFBF")
 box = Border(left=thin, right=thin, top=thin, bottom=thin)
 top_rule = Border(top=Side(style="thin", color="000000"), left=thin, right=thin, bottom=thin)
@@ -106,6 +114,45 @@ def protect(ws):
                                     selectLockedCells=False, selectUnlockedCells=False)
 
 
+def mark_incomplete(ws, rng, status_cell):
+    """Shade cells showing "Incomplete", and the status line while it reports missing values."""
+    ws.conditional_formatting.add(rng, CellIsRule(operator="equal", formula=['"Incomplete"'], fill=fill_incomplete, font=f_incomplete))
+    ws.conditional_formatting.add(rng, CellIsRule(operator="equal", formula=['"Invalid"'], fill=fill_incomplete, font=f_incomplete))
+    ws.conditional_formatting.add(status_cell, FormulaRule(formula=[f'ISNUMBER(SEARCH("INCOMPLETE",{status_cell}))'], fill=fill_incomplete, font=f_incomplete))
+
+
+def status(ws, formula):
+    ws.merge_cells("B4:L4")
+    put(ws, "B4", formula, f_bold, border=None, align=Alignment(wrap_text=True, vertical="center"))
+    ws.row_dimensions[4].height = 28
+
+
+_TOKEN = re.compile(r"(?:'[^']+'!)?\$?[A-Z]{1,3}\$?\d+(?::\$?[A-Z]{1,3}\$?\d+)?(?![A-Za-z_(])|[A-Za-z_][A-Za-z0-9_]*")
+DEFINED: set = set()
+
+
+def guard(formula: str) -> str:
+    """Original formula -> the same arithmetic, calculated only when every value it reads is a number.
+    A value that is blank, or itself "Incomplete", makes this result "Incomplete"; nothing is read as zero.
+    A value that is "Invalid" (a scenario outside a mathematical bound) makes this result "Invalid"."""
+    body = formula[1:]
+    conds, invalid = [], []
+    for m in _TOKEN.finditer(body):
+        tok = m.group(0)
+        if ":" in tok:
+            c, v = f"COUNT({tok})=ROWS({tok})*COLUMNS({tok})", f'COUNTIF({tok},"Invalid")>0'
+        elif tok in DEFINED or re.fullmatch(r"(?:'[^']+'!)?\$?[A-Z]{1,3}\$?\d+", tok):
+            c, v = f"ISNUMBER({tok})", f'{tok}="Invalid"'
+        else:
+            continue                                   # a function name
+        if c not in conds:
+            conds.append(c)
+            invalid.append(v)
+    cond = conds[0] if len(conds) == 1 else "AND(" + ",".join(conds) + ")"
+    inv = invalid[0] if len(invalid) == 1 else "OR(" + ",".join(invalid) + ")"
+    return f'=IF({cond},IFERROR({body},"n/a"),IF({inv},"Invalid","Incomplete"))'
+
+
 manifest = dict(sheet_order=[OR, DE, PB, IA, SD], entry_sheet=DE, inputs=[], cell_map=[], scenario_size_cells=[],
                 chain_rows=[], detail_rows=[], diagnostic_sheet=SD, no_gridline_sheets=[OR, PB, IA, SD])
 
@@ -118,6 +165,7 @@ def name(wb, nm, sheet, ref):
     col = "".join(ch for ch in ref if ch.isalpha())
     row = "".join(ch for ch in ref if ch.isdigit())
     wb.defined_names[nm] = DefinedName(nm, attr_text=f"'{sheet}'!${col}${row}")
+    DEFINED.add(nm)
 
 
 # ---------------------------------------------------------------- 1) Data entry
@@ -127,7 +175,7 @@ def name(wb, nm, sheet, ref):
 ENTRY = {
     9:  ("input", "count", "Territories", "Sales territories funded last year, filled or open; a territory is a slot in your coverage design, not a person.", "Territory plan or sales operations", "count"),
     11: ("calc", "currency", "Deal_Size", "Average revenue per closed contract. Enter it directly, or leave blank and the model divides revenue by contracts (lines below).", "Finance: revenue ÷ contracts, or CRM closed-won report", "currency"),
-    12: ("component", "count", None, "Contracts closed in the year.", "Billing or contract system", "count"),
+    12: ("component", "count", None, "Contracts closed in the year.", "Billing or contract system", "divisor"),
     13: ("component", "currency", None, "Revenue recognized from those contracts.", "Income statement", "currency"),
     15: ("calc", "currency", "Loaded_Salary", "Fully loaded cost of one salesperson per year. Enter it directly, or leave blank and the model computes salary × (1 + load rate).", "Payroll and benefits ledger, quota-carrying roles only", "currency"),
     16: ("component", "currency", None, "Average base salary of a quota-carrying salesperson.", "Payroll register", "currency"),
@@ -143,9 +191,9 @@ ENTRY = {
     28: ("input", "pct", "Commission_Rate", "Commission as a share of revenue, e.g. 0.08.", "Compensation plan, or commissions paid ÷ revenue", "pct"),
     31: ("input", "count", "Opportunities_Capacity", "The most qualified opportunities one salesperson can hold and advance well at the same time.", "Sales leadership; test against CRM load per salesperson", "count"),
     33: ("input", "months", "Cycle_Months", "Months from qualified opportunity to signature, won deals.", "CRM closed-won report (median)", "months"),
-    35: ("input", "months", "Ramp_Months", "Months until a new salesperson reaches average productivity.", "Sales management; productivity by tenure", "months"),
+    35: ("input", "months", "Ramp_Months", "Months until a new salesperson reaches average productivity.", "Sales management; productivity by tenure", "months0"),
     37: ("input", "pct", "Close_Rate", "Won ÷ (won + lost) qualified opportunities, e.g. 0.25.", "CRM closed-opportunity report", "pct"),
-    39: ("calc", "currency", "Sales_Overhead_And_Marketing", "Total of the two sections below. Enter directly only if you cannot split it.", "General ledger", "currency"),
+    39: ("summary", "currency", None, "Total of the two sections below (calculated; not an entry).", "Calculated", None),
     41: ("calc", "currency", "Sales_Overhead", "Non-variable cost of running the sales organization. Enter directly, or leave blank and the model sums the lines below.", "General ledger: sales cost centers", "currency"),
     42: ("component", "currency", None, "Salaries of sales managers who carry no quota.", "Payroll", "currency"),
     43: ("component", "currency", None, "Sales engineers and other non-quota support.", "Payroll", "currency"),
@@ -165,14 +213,28 @@ ENTRY = {
     60: ("ratio", "pct", "RnD_Pct", "Research and development as a share of revenue.", "Income statement: R&D ÷ revenue", "pct"),
     61: ("ratio", "pct", "GnA_Pct", "General and administrative as a share of revenue.", "Income statement: G&A ÷ revenue", "pct"),
 }
-CALC_FORMULA = {   # the original's calculation, kept; blanks give "" instead of errors
-    11: '=IFERROR(E13/E12,"")',
-    15: '=IF(COUNT(E16:E17)<2,"",E16+(E16*E17))',
-    19: '=IF(COUNT(E20:E26)<7,"",(($E$20+$E$21+$E$25)+($E$24*($E$22+$E$23)))*$E$26)',
-    39: '=IF(AND(G41="",G48=""),"",N(G41)+N(G48))',
-    41: '=IF(COUNT(E42:E46)=0,"",E42+E43+E44+E45+E46)' .replace("E42+E43+E44+E45+E46", "SUM(E42:E46)"),
-    48: '=IF(COUNT(E49:E56)=0,"",SUM(E49:E56))',
+def _components(rng: str, body: str) -> str:
+    """The original calculation from component lines: blank if no line is entered, "Incomplete" if some are
+    (a blank line is missing, not zero), otherwise the original arithmetic."""
+    return f'=IF(COUNT({rng})=0,"",IF(COUNT({rng})<ROWS({rng}),"Incomplete",IFERROR({body},"n/a")))'
+
+
+CALC_FORMULA = {   # the original's calculation, kept; the guard is the modern input validation
+    11: _components("E12:E13", "E13/E12"),                                      # original typed deal size; this is its stated derivation
+    15: _components("E16:E17", "E16+(E16*E17)"),
+    19: _components("E20:E26", "(($E$20+$E$21+$E$25)+($E$24*($E$22+$E$23)))*$E$26"),
+    39: '=IF(AND(ISNUMBER(G41),ISNUMBER(G48)),G41+G48,"Incomplete")',          # original F39 = F41+F48, a calculated total
+    41: _components("E42:E46", "E42+E43+E44+E45+E46"),
+    48: _components("E49:E56", "E49+E50+E51+E54+E55+E56+E52+E53"),
 }
+REQUIRED = [  # (name, label) every value the engine reads from this sheet; used for the status line
+    ("Territories", "number of sales territories"), ("Deal_Size", "average revenue per sales transaction"),
+    ("Loaded_Salary", "average fully loaded salary"), ("Travel_Per_Salesperson", "average travel costs per salesperson"),
+    ("Commission_Rate", "commission"), ("Opportunities_Capacity", "opportunities manageable at one time"),
+    ("Cycle_Months", "length of sales cycle"), ("Ramp_Months", "sales ramp up time"), ("Close_Rate", "close rate"),
+    ("Sales_Overhead", "sales overhead costs"), ("Marketing", "marketing costs"),
+    ("Cost_Of_Revenue_Pct", "cost of revenue ratio"), ("RnD_Pct", "R&D ratio"), ("GnA_Pct", "G&A ratio"),
+]
 ORIG_INPUT_COL = {9: "F", 11: "F", 28: "F", 31: "F", 33: "F", 35: "F", 37: "F"}   # original typed these in F
 DETAIL_GROUPS = [(12, 13), (16, 17), (20, 26), (42, 46), (49, 56)]
 UNIT_LABEL = {"currency": "$", "pct": "%", "count": "count", "months": "months"}
@@ -193,7 +255,10 @@ def build_entry(ws, wb, dvs):
     ws.merge_cells("B5:H5")
     put(ws, "B5", "How to fill this in: yellow cells are yours to type; grey cells are calculated; the blue column is the value the "
                   "model uses. Where a line can be entered or calculated, a figure typed in the yellow cell is used; otherwise the "
-                  "calculation from the lines beneath it is used. Leave anything you do not have blank.", f_small, border=None)
+                  "calculation from the lines beneath it is used. A blank is treated as missing, never as zero: enter 0 where an amount "
+                  "is truly zero. Results that depend on a missing value show Incomplete; a scenario that pushes a close rate above 100% "
+                  "or a cycle to zero shows Invalid. Deal size, transactions, revenue and salary are checked against the company's own "
+                  "figures on 2) Performance breakdown (Model checks).", f_small, border=None)
     ws.row_dimensions[5].height = 38
     for col, h in zip("BCDEFGH", ["Data element", "Description", "Unit", "Entry", "Calculated", "Value used", "Where to find it"]):
         put(ws, f"{col}7", h, f_head, fill_head, align=center)
@@ -206,6 +271,16 @@ def build_entry(ws, wb, dvs):
         put(ws, f"B{r}", text, f_bold, fill_section)
 
     for r, (kind, unit, nm, definition, where, vkind) in ENTRY.items():
+        if kind == "summary":                 # original F39: calculated total, nothing to enter
+            put(ws, f"B{r}", otext(O_DE, f"B{r}"), f_bold)
+            put(ws, f"C{r}", definition, f_small)
+            put(ws, f"D{r}", UNIT_LABEL[unit], align=center)
+            put(ws, f"E{r}", None)
+            put(ws, f"F{r}", CALC_FORMULA[r], f_bold, fill_calc, FMT[unit], align=right)
+            put(ws, f"G{r}", None)
+            put(ws, f"H{r}", where, f_small)
+            cmap(O_DE, f"F{r}", DE, f"F{r}", "formula")
+            continue
         if kind == "ratio":
             label, osheet, ocell = ENTRY_RATIO_LABEL[r]
             desc = otext(O_IA, {"C30": "B30", "C31": "B31", "C32": "B32"}[ocell]) + ". " + definition
@@ -248,6 +323,14 @@ def build_entry(ws, wb, dvs):
         manifest["inputs"].append(dict(sheet=DE, cell=f"E{r}", id=(nm or f"entry_{r}").lower(),
                                        label=(label or desc), unit=unit, definition=definition, where=where,
                                        original_text=desc or label))
+    ws.merge_cells("B6:H6")
+    missing = "&".join(f'IF(ISNUMBER({n}),"","; {lab}")' for n, lab in REQUIRED)
+    names = ",".join(n for n, _ in REQUIRED)
+    put(ws, "B6", f'=IF(COUNT({names})={len(REQUIRED)},"Status: complete. Every value the model reads has been entered.",'
+                  f'"Status: INCOMPLETE. No value for: "&MID({missing},3,2000)&". Results that depend on these show Incomplete.")',
+        f_bold, border=None)
+    ws.row_dimensions[6].height = 28
+    mark_incomplete(ws, "F8:G61", "B6")
     # the original typed the engine salary into the engine (Performance breakdown C11); here it is the direct entry
     cmap(O_PB, "C11", DE, "E15", "input")
     for a, b in DETAIL_GROUPS:
@@ -283,19 +366,27 @@ NAME_FOR_ORIG = {"F9": "Territories", "F11": "Deal_Size", "F15": "Loaded_Salary"
                  "F48": "Marketing", "$F$48": "Marketing"}
 
 
-def rewrite(formula: str) -> str:
-    """Original formula -> same formula reading the entry sheet by name, wrapped so blanks give ''."""
+# Mathematical bounds (modern validation, not part of the original): a close rate above 100% or a cycle of zero
+# months or less has no meaning. The original arithmetic is unchanged; only the result is marked.
+BOUND = {17: "<=0", 19: ">1"}
+
+
+def names_only(formula: str) -> str:
+    """Original formula -> the same formula reading the entry sheet by name. Used for label cells (text), which are not guarded."""
+    f = re.sub(r"'1\) Data entry '!(\$?F\$?\d+)", lambda m: NAME_FOR_ORIG[m.group(1)], formula)
+    return f.replace("'1) Data entry '!", f"'{DE}'!").replace("'2) Performance breakdown'!", f"'{PB}'!").replace("'3) Impact Analysis'!", "")
+
+
+def rewrite(formula: str, row: int | None = None) -> str:
+    """Original formula -> the same formula reading the entry sheet by name, bounded where a bound applies, then guarded."""
     f = formula
     f = re.sub(r"'1\) Data entry '!(\$?F\$?\d+)", lambda m: NAME_FOR_ORIG[m.group(1)], f)
     f = f.replace("'1) Data entry '!", f"'{DE}'!")
     f = f.replace("'2) Performance breakdown'!", f"'{PB}'!").replace("'3) Impact Analysis'!", "")
-    body = f[1:]
-    m = re.fullmatch(r"SUM\(([A-Z]+\d+:[A-Z]+\d+)\)", body)
-    if m:                                      # a sum of blanks stays blank, not zero
-        return f'=IF(COUNT({m.group(1)})=0,"",SUM({m.group(1)}))'
-    if re.fullmatch(r"[A-Za-z_]+", body) or re.fullmatch(r"[A-Z]+\d+", body) or re.fullmatch(r"'[^']+'![A-Z]+\d+", body):
-        return "=" + body                      # a plain reference needs no guard
-    return f'=IFERROR({body},"")'
+    if row in BOUND:
+        body = f[1:]
+        f = f'=IF(({body}){BOUND[row]},"Invalid",{body})'
+    return guard(f)
 
 
 def build_pb(ws, wb, dvs):
@@ -342,7 +433,7 @@ def build_pb(ws, wb, dvs):
             ws.merge_cells(start_row=r, start_column=2, end_row=r, end_column=12)
             put(ws, f"B{r}", " ".join(raw.split()), f_bold, fill_section)
             continue
-        put(ws, f"B{r}", rewrite(raw) if raw.startswith("=") else " ".join(raw.split()), f_bold if r in (14, 25, 26) else f_body)
+        put(ws, f"B{r}", names_only(raw) if raw.startswith("=") else " ".join(raw.split()), f_bold if r in (14, 25, 26) else f_body)
         fmt = FMT["currency"] if r in (10, 11, 12, 13, 14, 23, 25, 26) else FMT["pct"] if r == 19 else FMT["count1"] if r in (21, 22) else FMT["months"] if r in (17, 18) else FMT["count"]
         for col in PB_COLS:
             key = (O_PB, f"{col}{r}")
@@ -350,10 +441,10 @@ def build_pb(ws, wb, dvs):
                 continue
             raw_c = ORIG[key]["raw"]
             if r == 11:
-                formula = "=Loaded_Salary" if col == "C" else "=C11" if col in ("E", "F", "G", "H", "J") else "=J11"
+                formula = guard("=Loaded_Salary" if col == "C" else "=C11" if col in ("E", "F", "G", "H", "J") else "=J11")
                 role = "formula" if col != "C" else None
             else:
-                formula = rewrite(raw_c)
+                formula = rewrite(raw_c, r)
                 role = "formula"
             fill = fill_used if r in (25, 26) else fill_calc
             put(ws, f"{col}{r}", formula, f_bold if r in (14, 25, 26) else f_body, fill, fmt, align=right,
@@ -363,7 +454,47 @@ def build_pb(ws, wb, dvs):
         put(ws, f"L{r}", PB_RULE[r], f_small)
         ws.row_dimensions[r].height = max(15, 12.5 * rows_for(PB_RULE[r], 70))
         manifest["chain_rows"].append(dict(sheet=PB, row=r, rule_cell=f"L{r}", columns=["E", "F", "G", "H", "J", "K"]))
+    build_checks(ws)
+    status(ws, f"='{DE}'!B6&IF(COUNT(E7:H7)=COLUMNS(E7:H7),\"\",\"  Scenario sizes: INCOMPLETE (a size in row 7 is blank); those scenarios show Incomplete.\")")
+    mark_incomplete(ws, "C8:K26", "B4")
     protect(ws)
+
+
+# The model asks for some quantities twice: once as an input to the mechanics, once as a fact the company knows.
+# The second is a constraint the first must satisfy (canonical/FOUNDATION.md section 3). Shown, never resolved; no result changes.
+CHECKS = [  # row, label, model side, fact side, unit, what a difference points to
+    (31, "Deal size", "=Deal_Size", f"'{DE}'!F11", "currency",
+     "Deal size used vs revenue ÷ contracts (entry sheet, rows 11–13). If they differ: the deal size entered, or the contracts and revenue figures."),
+    (32, "Transactions per year", "=C22*C9", f"'{DE}'!E12", "count1",
+     "Baseline transactions (row 22 × territories) vs contracts last year. If they differ: territories, opportunities manageable at once, cycle or close rate."),
+    (33, "Revenue", "=C25", f"'{DE}'!E13", "currency",
+     "Baseline revenue (row 25) vs revenue last year. If transactions agree and revenue does not: deal size."),
+    (34, "Fully loaded salary", "=Loaded_Salary", f"'{DE}'!F15", "currency",
+     "Salary used by the calculations vs base salary × (1 + load rate) (entry sheet, rows 15–17). If they differ: the salary entered, or its components."),
+]
+
+
+def build_checks(ws):
+    put(ws, "B30", "Model checks: does the baseline reproduce what the company knows about last year?", f_bold, fill_section)
+    for col, h in zip(["C", "E", "F", "G", "H", "L"], ["Model", "Company figure", "Difference", "Difference %", "Check", "What a difference points to"]):
+        put(ws, f"{col}30", h, f_bold, fill_section, align=center)
+    ws.row_dimensions[30].height = 28
+    for r, label, model, fact, unit, rule in CHECKS:
+        put(ws, f"B{r}", label)
+        put(ws, f"C{r}", guard(model), f_body, fill_calc, FMT[unit], align=right)
+        put(ws, f"E{r}", f'=IF(ISNUMBER({fact}),{fact},"")', f_body, fill_calc, FMT[unit], align=right)
+        put(ws, f"F{r}", f'=IF(AND(ISNUMBER(C{r}),ISNUMBER(E{r})),C{r}-E{r},"")', f_body, fill_calc, FMT[unit], align=right)
+        put(ws, f"G{r}", f'=IF(AND(ISNUMBER(C{r}),ISNUMBER(E{r})),IF(E{r}=0,"n/a",(C{r}-E{r})/E{r}),"")', f_body, fill_calc, FMT["pct"], align=right)
+        put(ws, f"H{r}", f'=IF(NOT(ISNUMBER(C{r})),C{r},IF(NOT(ISNUMBER(E{r})),"No figure",IF(ROUND(C{r},0)=ROUND(E{r},0),"Agrees","Differs")))',
+            f_bold, fill_calc, align=center)
+        put(ws, f"L{r}", rule, f_small)
+        ws.row_dimensions[r].height = max(15, 12.5 * rows_for(rule, 70))
+    ws.merge_cells("B35:L35")
+    put(ws, "B35", "These checks use figures the model already asks for. They change no result: a difference is a question about the data, "
+                   "and the equations show which assumption to question.", f_small, border=None)
+    ws.conditional_formatting.add("H31:H34", CellIsRule(operator="equal", formula=['"Differs"'], fill=fill_differs, font=f_bold))
+    ws.conditional_formatting.add("H31:H34", CellIsRule(operator="equal", formula=['"Agrees"'], fill=fill_total, font=f_bold))
+    mark_incomplete(ws, "C31:H34", "B4")
 
 
 # ---------------------------------------------------------------- 3) Impact Analysis
@@ -438,7 +569,9 @@ def build_ia(ws, wb):
     ws.row_dimensions[29].height = 14 * rows_for(otext(O_IA, "E29"), 190)
     for r, nm in [(30, "Cost_Of_Revenue_Pct"), (31, "RnD_Pct"), (32, "GnA_Pct")]:
         put(ws, f"B{r}", otext(O_IA, f"B{r}"))
-        put(ws, f"C{r}", f"={nm}", f_body, fill_calc, FMT["pct"], align=right)
+        put(ws, f"C{r}", guard(f"={nm}"), f_body, fill_calc, FMT["pct"], align=right)
+    status(ws, f"='{PB}'!B4")
+    mark_incomplete(ws, "C7:K32", "B4")
     protect(ws)
 
 
@@ -528,6 +661,10 @@ def build():
                                        error="Enter an amount in your reporting currency.", errorTitle="Amount"),
             "months": DataValidation(type="decimal", operator="greaterThan", formula1="0", allow_blank=True,
                                      error="Enter months, greater than zero.", errorTitle="Months"),
+            "months0": DataValidation(type="decimal", operator="greaterThanOrEqual", formula1="0", allow_blank=True,
+                                      error="Enter months, zero or more.", errorTitle="Months"),
+            "divisor": DataValidation(type="whole", operator="greaterThanOrEqual", formula1="1", allow_blank=True,
+                                      error="Enter a whole number of at least 1 (deal size divides revenue by it).", errorTitle="Count"),
         }
         for v in d.values():
             ws.add_data_validation(v)

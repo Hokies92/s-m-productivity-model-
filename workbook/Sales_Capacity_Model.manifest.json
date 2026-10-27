@@ -210,16 +210,6 @@
   },
   {
    "sheet": "1) Data entry",
-   "cell": "E39",
-   "id": "sales_overhead_and_marketing",
-   "label": "Total Sales Overhead and Marketing Costs",
-   "unit": "currency",
-   "definition": "Total of the two sections below. Enter directly only if you cannot split it.",
-   "where": "General ledger",
-   "original_text": "Our goal with this exercise is to assess how well your company is is utilizing its sales and marketing assets. To do this, we have to examine all of the associated costs that are related to sales and marketing performance. This will help you put these investments in the right context and determine the effectiveness of these investments."
-  },
-  {
-   "sheet": "1) Data entry",
    "cell": "E41",
    "id": "sales_overhead",
    "label": "Sales Overhead Costs",
