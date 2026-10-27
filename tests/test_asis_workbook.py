@@ -1,4 +1,4 @@
-"""The blank as-is workbook passes the rubric gate (docs/MODEL.md, invariants 1, 2 and 11).
+"""The blank as-is workbook passes the rubric gate (canonical/FOUNDATION.md section 7, requirement 1.1).
 
 Builds the workbook from tools/build_asis_modern.py into a temp directory and runs the gate
 criteria of tools/rubric.py against it. Skipped when LibreOffice is not installed.

@@ -60,7 +60,7 @@ WHAT MAKES IT DIFFERENT
 STATUS
   This package is the as-is oracle: it reproduces all 48 outputs of the
   original workbook exactly (`scm verify`), per territory, as the original
-  computed them. The model is stated in docs/MODEL.md; the blank modern
+  computed them. The model is stated in canonical/FOUNDATION.md; the blank modern
   workbook is built by tools/build_asis_modern.py and proven against this
   oracle by tools/rubric.py. The original's deliberate values are reproduced
   by default; options expose the alternatives.
@@ -122,7 +122,7 @@ HOW TO USE IT
     from sales_capacity_model import ModelInputs, run_scenarios
     results = run_scenarios(ModelInputs(territories=40, close_rate=0.3))
 
-OPTIONS (alternatives to the original's deliberate values; see docs/MODEL.md section 6)
+OPTIONS (alternatives to the original's deliberate values; see canonical/FOUNDATION.md sections 3 and 4)
   --use-entered-salary   use base salary x (1 + load rate) instead of the
                          87,750 the original types into its engine
   --ramp-rule            workbook (default, reproduces original),

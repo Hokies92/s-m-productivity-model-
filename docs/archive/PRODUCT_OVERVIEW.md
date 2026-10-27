@@ -1,3 +1,5 @@
+> **Archived 2026-10-26.** Superseded by [canonical/FOUNDATION.md](../../canonical/FOUNDATION.md). Kept for the record; not current.
+
 # Product Overview: Sales Capacity Model
 
 > **Describes the as-is software (package 2.1.0), which reproduces the original workbook.** The model is stated in [docs/MODEL.md](docs/MODEL.md); the blank modern workbook is `workbook/Sales_Capacity_Model.xlsx`; the redesign proceeds on branch `evolution`.

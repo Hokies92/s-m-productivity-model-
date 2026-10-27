@@ -106,7 +106,7 @@ def _revenue(scenario: str, T: float, T0: float, rev_salesperson: float,
     # rule == "workbook": reproduce the original, including its inconsistency
     if scenario == "territories":                       # workbook E25 ((12 - ramp)/12 credit)
         return ramp_factor * new_T * rev_salesperson + T0 * rev_salesperson
-    if scenario == "all":                               # workbook K25 (ramp credited a second way; MODEL.md section 6)
+    if scenario == "all":                               # workbook K25 (ramp credited a second way; canonical/FOUNDATION.md section 4)
         return T * rev_salesperson - ramp_factor * new_T * base_rev_salesperson
     return T * rev_salesperson
 

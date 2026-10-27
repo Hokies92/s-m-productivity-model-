@@ -9,7 +9,7 @@ from __future__ import annotations
 from dataclasses import asdict, dataclass, field, fields
 from typing import Optional
 
-WORKBOOK_ENGINE_SALARY = 87_750.0   # deliberate test value typed into the original's engine (docs/MODEL.md section 6)
+WORKBOOK_ENGINE_SALARY = 87_750.0   # deliberate test value typed into the original's engine (canonical/FOUNDATION.md sections 3 and 4)
 RAMP_RULES = ("workbook", "year_one", "steady_state")
 
 
@@ -128,7 +128,7 @@ class Adjustments:
 
 @dataclass
 class ModelOptions:
-    """Alternatives to the original's deliberate values (docs/MODEL.md section 6).
+    """Alternatives to the original's deliberate values (canonical/FOUNDATION.md sections 3 and 4).
 
     Defaults reproduce the original workbook exactly.
     """

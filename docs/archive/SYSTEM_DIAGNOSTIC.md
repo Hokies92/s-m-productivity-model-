@@ -1,3 +1,5 @@
+> **Archived 2026-10-26.** Superseded by [canonical/FOUNDATION.md](../../canonical/FOUNDATION.md). Kept for the record; not current.
+
 # System Diagnostic: original, repository, and the logic that produced it
 
 Date: 2026-10-25. Requested by Scott Santucci after two days of rebuild work (16 commits).

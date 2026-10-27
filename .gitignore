@@ -8,3 +8,8 @@ build/
 dist/
 .venv/
 .pytest_cache/
+
+# Client data never enters the repository (FILE_RULES.md section 3)
+clients/
+private/
+*.client.*
