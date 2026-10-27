@@ -8,6 +8,7 @@ Selected repository: `Hokies92/s-m-productivity-model-`, explicitly chosen by Sc
 2. [Project charter](PROJECT_CHARTER.md): Gate 1 scope, contributor instructions, file rules, acceptance evidence, and proposed GitHub controls.
 3. [Assisted data entry and state](design/assisted-data-entry-and-state.md): design learning, corrections, proposals, and storage contract.
 4. [Working rules](../CONTRIBUTING.md) and [agent instructions](../AGENTS.md).
+5. [Workstream map and plans](workstreams/README.md): scope, handoffs, first milestone and the five workstream plans.
 
 ## Current priority
 
