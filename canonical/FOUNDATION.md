@@ -46,8 +46,8 @@ The data entry sheet asks for some quantities twice: once as an input to the mec
 | Constraint | Model side | Fact side | Sample (illustrative) | Basis |
 |---|---|---|---|---|
 | Deal size | Entered deal size (Data entry F11) | Revenue ÷ contracts (E13 ÷ E12); C11: "you can get this figure by dividing your revenue by total number of contracts" | $75,000 vs $33,113 | source |
-| Transactions | Transactions per territory × territories (Performance breakdown C22 × C9) | Contracts last year (E12) | 1,500 vs 755 | math |
-| Revenue | Baseline revenue (C25) | Revenue last year (E13) | $112.5M vs $25.0M | math |
+| Transactions | Transactions per territory × territories (Performance breakdown C22 × C9) | Contracts in the period, same channel (E12) | 1,500 vs 755 | math |
+| Revenue | Baseline revenue (C25) | Revenue in the period, same channel (E13) | $112.5M vs $25.0M | math |
 | Salesperson cost | Salary used by the calculations (C11, typed $87,750) | Base × (1 + load) (F15) | $87,750 vs $116,850 | source; the $87,750 is a deliberate test value (Scott) |
 | Sales and marketing total | Overhead + marketing (F39 = F41 + F48) | — (a calculated summary; the original holds no Finance total to compare) | $14.5M | source |
 
@@ -55,7 +55,9 @@ The data entry sheet asks for some quantities twice: once as an input to the mec
 
 **In the sample nothing agrees**, consistent with values placed to see whether the reader understands the whole (Scott, for $87,750 and $75,000).
 
-**Open (Q1).** That the baseline rebuilt from the mechanics is meant to reproduce last year's actual contracts and revenue is the reading that follows from Scott's statement and the math; Scott has not yet confirmed this specific reading.
+**Confirmed (Scott, 2026-10-27).** The baseline rebuilt from the mechanics must reproduce the company's actual contracts and revenue **for whatever period is provided**: one year, or three years if three years of data are supplied. The original's wording ("last year") is one case of this. **The company figures must cover the same scope as the inputs:** when one sales channel is analyzed, contracts and revenue come only from that channel's territories, and contracts from other channels are excluded.
+
+**Consequences (math and implementation).** The mechanics produce annual figures (12 ÷ cycle months), so a multi-year period is compared after putting both sides on the same period (company figures ÷ years, or model figures × years); deal size (revenue ÷ contracts) needs no adjustment. The modern workbook's checks currently assume a one-year period and do not yet record the period or the channel; adding both is Gate 1 component C3. Scope rules for channels, territories and shared costs (nesting and cross-checks in data entry) are expected to grow; how companies define territories and deploy resources is itself a finding the model will surface (Scott, 2026-10-27).
 
 ## 4. Scenarios
 
@@ -114,9 +116,9 @@ The workbook and the Python engine must return identical outputs for every test 
 
 ## 8. Confirmed and open
 
-Confirmed (Scott): the purpose (§1); capacity as cognitive bandwidth; territory as a design choice; salespeople measured as agents; leads not a scenario; $87,750 a deliberate test value; $75,000 a reference value from a different client; sample data illustrative; redundant constraints exist to make sure data is true.
+Confirmed (Scott): the purpose (§1); the baseline must reproduce the company's actual contracts and revenue for the period provided, within the same channel (§3, 2026-10-27); capacity as cognitive bandwidth; territory as a design choice; salespeople measured as agents; leads not a scenario; $87,750 a deliberate test value; $75,000 a reference value from a different client; sample data illustrative; redundant constraints exist to make sure data is true.
 
-Open, mechanics preserved exactly: Q1 (§3, the baseline-to-actuals reading); the two ramp treatments; commission on new territories in "hire more"; whether to add a Finance total to compare with F39 (an extension, not in the original); Impact Analysis I9 (a stray formula that affects nothing).
+Open, mechanics preserved exactly: the two ramp treatments; commission on new territories in "hire more"; whether to add a Finance total to compare with F39 (an extension, not in the original); Impact Analysis I9 (a stray formula that affects nothing).
 
 ## 9. After Gate 1 (the evolution, not built yet)
 

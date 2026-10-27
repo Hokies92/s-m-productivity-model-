@@ -127,7 +127,7 @@ Current remote branches and the proposed disposition:
 |---|---|
 | `main` | Keep |
 | `evolution` | Keep, parked |
-| `candidate/asis-v1.1` | Reopen as `fix/incomplete-inputs` pull request once FOUNDATION §3 and §7 are accepted (its "value used" design must change to show constraint pairs; see 1.2) |
+| `candidate/asis-v1.1`, `docs/foundation`, `feat/model-checks`, `feat/compare` | Merged into `main` (PRs #2–#4); delete |
 | `as-is-2026-10-24` | Contained in `main`. Keep it as a tag (a tag of the same name exists in Claude's local copy; confirm it is on GitHub), then delete the branch |
 | `candidate/asis-v1.0`, `asis-modern` | Contained in `main`; delete |
 | `candidate/model-provenance` | Its MODEL.md is identical to `main`'s; delete |
